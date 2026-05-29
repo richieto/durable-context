@@ -39,7 +39,8 @@ List the checks that must pass before release.
 
 - `npm test` passes.
 - `npm pack --dry-run` includes `AGENTS.md`, `.agents/`, `context/`,
-  optional `docs/`, and `bin/`.
+  `docs/`, and `bin/`.
+- `npm pack --dry-run` excludes companion `writing/` files.
 
 ## Known Gaps
 

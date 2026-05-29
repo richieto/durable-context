@@ -10,10 +10,6 @@ implementation plans, and release-documentation notes. Do not use
 
 ## Start Here
 
-- `code-anchored-context.html` is a human-friendly visual brief for this
-  opinionated context practice.
-- `giving-ai-agents-context-around-code.md` is an article-form explanation of
-  Code-Anchored Context for human-agent collaboration.
 - `terminology.md` defines the shared vocabulary.
 - `current.md` points to the active release context.
 - `programs/` contains durable multi-release working context.

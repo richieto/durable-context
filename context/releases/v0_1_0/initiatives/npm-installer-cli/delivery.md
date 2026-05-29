@@ -12,7 +12,7 @@ No dedicated pipeline exists yet. A future pipeline should run `npm test` and
 | Gate | Applies to | Notes |
 | --- | --- | --- |
 | `npm test` | Merge and publish | Runs CLI smoke tests. |
-| `npm pack --dry-run` | Publish | Verifies package contents before registry upload. |
+| `npm pack --dry-run` | Publish | Verifies package contents before registry upload, including that companion `writing/` files are excluded. |
 
 ## Deployment Flow
 
@@ -42,6 +42,9 @@ No runtime feature flags or release toggles are required.
 
 - `npm test`
 - `npx code-anchored-context init` after publish
+
+Companion writing and presentation drafts live under `writing/` in this
+repository only. They are intentionally outside the npm `files` list.
 
 ## Rollout Notes
 

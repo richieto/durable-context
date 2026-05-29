@@ -22,6 +22,8 @@
 | Done | Preserve existing agent guidance files | CLI | Existing `AGENTS.md` files are appended, and common case variants such as `Agents.md` are reused instead of creating duplicates. |
 | Done | Guard case-variant generated paths | CLI | Existing `docs` variants are skipped, and `.agents/skills/README.md` variants are reused for skill index updates. |
 | Done | Rename template folders | Template | The template now installs `context/`, `docs/`, and `.agents/skills/code-anchored-context/`. |
+| Done | Separate companion writing | Packaging | Article and presentation drafts live under `writing/` and are excluded from the npm package. |
+| Done | Bump publish version | Delivery | `package.json` is now `0.2.1` because `0.2.0` already exists on npm. |
 
 ## Deferred
 

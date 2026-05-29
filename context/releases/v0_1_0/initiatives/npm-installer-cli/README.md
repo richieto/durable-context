@@ -22,6 +22,7 @@ context, and optional `docs/` starter files into the target repo.
 - `docs/_authoring/areas/_template.md`
 - `docs/_templates/area/README.md`
 - `docs/_templates/area/features/feature-template.md`
+- `writing/README.md`
 - `context/current.md`
 - `context/releases/v0_1_0/backlog.md`
 
@@ -53,6 +54,9 @@ Infrastructure and operations notes are not applicable for this initiative.
 - Installer command added.
 - Smoke tests added.
 - Template folders renamed to `context/` and `docs/`.
+- Companion article and presentation drafts moved under `writing/` and
+  excluded from the npm package.
+- Package version bumped to `0.2.1` because `0.2.0` is already published.
 - README adoption and publishing flow updated.
 - Docs authoring guidance now defaults to product-readable,
   technically anchored prose.

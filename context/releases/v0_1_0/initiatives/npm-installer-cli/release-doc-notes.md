@@ -21,6 +21,8 @@ explicitly asks for a documentation refresh or a specific documentation fix.
 - Existing generated path variants are handled conservatively: `docs`
   variants are skipped unless replaced with `--force`, and
   `.agents/skills/README.md` variants are reused for the skill index.
+- Companion article and presentation drafts are kept under `writing/` in this
+  repository and are not installed into consumer projects.
 - Starter documentation guidance now tells agents to write from behavior
   outward: product-readable first, technically anchored where details affect
   shipped behavior, operations, support, or auditability.
