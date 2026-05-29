@@ -1,0 +1,45 @@
+{
+  "name": "code-anchored-context",
+  "version": "0.1.0",
+  "description": "Install repo-local agent context, development initiatives, and release-anchored documentation scaffolding into an existing project.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "code-anchored-context": "./bin/code-anchored-context.js"
+  },
+  "files": [
+    "AGENTS.md",
+    ".agents/",
+    "Development/AGENTS.md",
+    "Development/README.md",
+    "Development/_templates/",
+    "Development/backlog/",
+    "Development/code-anchored-context-structure.md",
+    "Development/code-anchored-context-why.md",
+    "Development/code-anchored-context.html",
+    "Development/current.md",
+    "Development/giving-ai-agents-context-around-code.md",
+    "Development/programs/",
+    "Development/releases/v0_1_0/README.md",
+    "Development/releases/v0_1_0/backlog.md",
+    "Development/releases/v0_1_0/initiatives/.gitkeep",
+    "Development/terminology.md",
+    "Documentation/",
+    "bin/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "agents",
+    "codex",
+    "ai",
+    "documentation",
+    "development-context"
+  ]
+}

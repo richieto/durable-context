@@ -23,7 +23,8 @@ Active programs:
 
 Registered initiatives:
 
-- None yet.
+- `releases/v0_1_0/initiatives/npm-installer-cli/` - npm initializer for
+  installing this context template into existing projects.
 
 To start an initiative, copy `Development/_templates/initiative/` into
 `Development/releases/v0_1_0/initiatives/<initiative-slug>/`, then update the

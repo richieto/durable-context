@@ -10,4 +10,6 @@ No backlog items recorded yet.
 
 ## Initiative Summary
 
-No initiatives registered yet.
+| Initiative | Status | Summary |
+| --- | --- | --- |
+| `initiatives/npm-installer-cli/` | Ready for publish | Adds a zero-dependency npm initializer that installs the template into existing repositories. |

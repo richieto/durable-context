@@ -27,6 +27,29 @@ notes.
 
 ## Adopting This In A Project
 
+The quickest path is the npm initializer:
+
+```bash
+npx code-anchored-context init \
+  --project-name "My Project" \
+  --release v0_1_0
+```
+
+Useful options:
+
+```bash
+npx code-anchored-context init --dry-run
+npx code-anchored-context init --no-documentation
+npx code-anchored-context init --target ../existing-project
+```
+
+The initializer copies the repo-local agent context into the target project,
+adds or updates guidance in `AGENTS.md`, installs the
+`development-initiative-context` skill under `.agents/skills/`, and replaces
+basic placeholders such as `PROJECT_NAME` and the initial release slug.
+
+Manual adoption still works:
+
 1. Copy the files into a repository root.
 2. Replace `PROJECT_NAME` placeholders with the project name.
 3. Set the first active release in `Development/current.md`.
@@ -35,6 +58,23 @@ notes.
 5. Create `Documentation/_authoring/areas/<area>.md` for each documented
    product or code area.
 6. Keep product or domain-specific documentation out of this template repo.
+
+## Publishing The Package
+
+From this repository:
+
+```bash
+npm test
+npm pack --dry-run
+npm publish --access public
+```
+
+If the unscoped package name is unavailable, rename the package in
+`package.json`, for example to `@your-scope/code-anchored-context`, then use:
+
+```bash
+npx @your-scope/code-anchored-context init
+```
 
 ## Working Rule
 
