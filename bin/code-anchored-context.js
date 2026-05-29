@@ -212,6 +212,7 @@ class Installer {
     this.force = force;
     this.dryRun = dryRun;
     this.actions = [];
+    this.agentsFilePath = path.join(targetRoot, 'AGENTS.md');
   }
 
   async init({ includeDocumentation }) {
@@ -232,10 +233,13 @@ class Installer {
   }
 
   async installAgentsFile() {
-    const targetFile = path.join(this.targetRoot, 'AGENTS.md');
+    const targetFile = await this.findAgentsFile();
+    const targetDisplay = path.basename(targetFile);
+    this.agentsFilePath = targetFile;
 
     if (!await exists(targetFile)) {
       await this.copyTemplatePath('AGENTS.md', 'AGENTS.md');
+      this.agentsFilePath = path.join(this.targetRoot, 'AGENTS.md');
       return;
     }
 
@@ -249,16 +253,16 @@ class Installer {
       );
 
       if (updated === current) {
-        this.note('AGENTS.md already has Code-Anchored Context guidance');
+        this.note(`${targetDisplay} already has Code-Anchored Context guidance`);
         return;
       }
 
-      await this.writeFile(targetFile, updated, 'update AGENTS.md Code-Anchored Context section');
+      await this.writeFile(targetFile, updated, `update ${targetDisplay} Code-Anchored Context section`);
       return;
     }
 
     if (current.includes('.agents/skills/development-initiative-context/SKILL.md')) {
-      this.note('AGENTS.md already points to the development initiative skill');
+      this.note(`${targetDisplay} already points to the development initiative skill`);
       return;
     }
 
@@ -266,8 +270,31 @@ class Installer {
     await this.writeFile(
       targetFile,
       `${current}${separator}${section}\n`,
-      'append Code-Anchored Context guidance to AGENTS.md'
+      `append Code-Anchored Context guidance to ${targetDisplay}`
     );
+  }
+
+  async findAgentsFile() {
+    const canonicalPath = path.join(this.targetRoot, 'AGENTS.md');
+
+    let entries;
+
+    try {
+      entries = await readdir(this.targetRoot, { withFileTypes: true });
+    } catch {
+      return canonicalPath;
+    }
+
+    if (entries.some((entry) => entry.isFile() && entry.name === 'AGENTS.md')) {
+      return canonicalPath;
+    }
+
+    const match = entries
+      .filter((entry) => entry.isFile() && entry.name.toLowerCase() === 'agents.md')
+      .map((entry) => entry.name)
+      .sort((left, right) => left.localeCompare(right))[0];
+
+    return match ? path.join(this.targetRoot, match) : canonicalPath;
   }
 
   renderAgentSection() {
@@ -291,7 +318,13 @@ ${agentSectionEnd}`;
       `.agents/skills/${skillName}`
     );
 
-    const readmePath = path.join(this.targetRoot, '.agents/skills/README.md');
+    const readmeTarget = await this.findExistingTargetPath('.agents/skills/README.md');
+    const readmePath = readmeTarget.exists
+      ? readmeTarget.path
+      : path.join(this.targetRoot, '.agents/skills/README.md');
+    const readmeDisplay = readmeTarget.exists
+      ? readmeTarget.display
+      : '.agents/skills/README.md';
 
     if (!await exists(readmePath)) {
       await this.copyTemplatePath('.agents/skills/README.md', '.agents/skills/README.md');
@@ -301,7 +334,7 @@ ${agentSectionEnd}`;
     const current = await readFile(readmePath, 'utf8');
 
     if (current.includes(skillName)) {
-      this.note('.agents/skills/README.md already lists the development initiative skill');
+      this.note(`${readmeDisplay} already lists the development initiative skill`);
       return;
     }
 
@@ -316,24 +349,73 @@ ${agentSectionEnd}`;
     await this.writeFile(
       readmePath,
       `${current.trimEnd()}\n${entry}`,
-      'append development initiative skill to .agents/skills/README.md'
+      `append development initiative skill to ${readmeDisplay}`
     );
   }
 
   async copyTemplatePath(sourceRelative, targetRelative) {
     const sourcePath = path.join(packageRoot, sourceRelative);
+    const targetInfo = await this.findExistingTargetPath(targetRelative);
     const targetPath = path.join(this.targetRoot, targetRelative);
 
-    if (await exists(targetPath)) {
+    if (targetInfo.exists) {
+      const variantNote = targetInfo.caseVariant ? ` at ${targetInfo.display}` : '';
+
       if (!this.force) {
-        this.note(`skip ${targetRelative} (already exists; use --force to replace)`);
+        this.note(`skip ${targetRelative} (already exists${variantNote}; use --force to replace)`);
         return;
       }
 
-      await this.removePath(targetPath, `replace ${targetRelative}`);
+      await this.removePath(targetInfo.path, `replace ${targetInfo.display}`);
     }
 
     await this.copyRecursive(sourcePath, targetPath, targetRelative);
+  }
+
+  async findExistingTargetPath(targetRelative) {
+    const parts = targetRelative.split('/').filter(Boolean);
+    let currentPath = this.targetRoot;
+    const displayParts = [];
+
+    for (const part of parts) {
+      let entries;
+
+      try {
+        entries = await readdir(currentPath, { withFileTypes: true });
+      } catch {
+        return this.missingTargetPath(targetRelative);
+      }
+
+      const exactMatch = entries.find((entry) => entry.name === part);
+      const caseMatch = exactMatch ?? entries.find(
+        (entry) => entry.name.toLowerCase() === part.toLowerCase()
+      );
+
+      if (!caseMatch) {
+        return this.missingTargetPath(targetRelative);
+      }
+
+      currentPath = path.join(currentPath, caseMatch.name);
+      displayParts.push(caseMatch.name);
+    }
+
+    const display = displayParts.join('/');
+
+    return {
+      caseVariant: display !== targetRelative,
+      display,
+      exists: true,
+      path: currentPath
+    };
+  }
+
+  missingTargetPath(targetRelative) {
+    return {
+      caseVariant: false,
+      display: targetRelative,
+      exists: false,
+      path: path.join(this.targetRoot, targetRelative)
+    };
   }
 
   async copyRecursive(sourcePath, targetPath, displayPath) {
@@ -533,7 +615,7 @@ No initiatives registered yet.
     console.log(`${prefix}Code-Anchored Context ready for ${this.projectName}.`);
 
     if (!this.dryRun) {
-      console.log(`Next: ask your agent to read ${path.join(this.targetRoot, 'AGENTS.md')}.`);
+      console.log(`Next: ask your agent to read ${this.agentsFilePath}.`);
     }
   }
 }

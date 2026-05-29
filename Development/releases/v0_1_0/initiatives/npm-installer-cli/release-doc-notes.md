@@ -13,6 +13,12 @@ explicitly asks for a documentation refresh or a specific documentation fix.
   instead of manual copying.
 - `--no-documentation`, `--dry-run`, `--force`, `--target`,
   `--project-name`, and `--release` control installation behavior.
+- Existing `AGENTS.md` files are preserved and receive a bounded
+  Code-Anchored Context section. Common case variants such as `Agents.md` are
+  reused rather than duplicated.
+- Existing generated path variants are handled conservatively: `Documentation`
+  variants are skipped unless replaced with `--force`, and
+  `.agents/skills/README.md` variants are reused for the skill index.
 - Starter documentation guidance now tells agents to write from behavior
   outward: product-readable first, technically anchored where details affect
   shipped behavior, operations, support, or auditability.

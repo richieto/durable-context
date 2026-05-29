@@ -19,6 +19,8 @@
 | Done | Confirm npm package name | Delivery | `code-anchored-context` is published on npm at `0.1.0`. |
 | Done | Verify package contents | Delivery | `npm pack --dry-run --cache /private/tmp/code-anchored-context-npm-cache` succeeds and excludes the internal initiative from package contents. |
 | Done | Refine documentation authoring voice | Documentation | Docs now default to product-readable, technically anchored prose with progressive depth. |
+| Done | Preserve existing agent guidance files | CLI | Existing `AGENTS.md` files are appended, and common case variants such as `Agents.md` are reused instead of creating duplicates. |
+| Done | Guard case-variant generated paths | CLI | Existing `Documentation` variants are skipped, and `.agents/skills/README.md` variants are reused for skill index updates. |
 
 ## Deferred
 
