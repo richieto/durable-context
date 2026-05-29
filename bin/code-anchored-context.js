@@ -18,7 +18,7 @@ import { fileURLToPath } from 'node:url';
 const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const defaultRelease = 'v0_1_0';
 const defaultReleaseLabel = 'v0.1.0';
-const skillName = 'development-initiative-context';
+const skillName = 'code-anchored-context';
 const agentSectionStart = '<!-- code-anchored-context:start -->';
 const agentSectionEnd = '<!-- code-anchored-context:end -->';
 
@@ -54,7 +54,7 @@ async function main() {
     dryRun: args.dryRun
   });
 
-  await installer.init({ includeDocumentation: args.documentation });
+  await installer.init({ includeDocs: args.docs });
 }
 
 function parseArgs(argv) {
@@ -65,7 +65,7 @@ function parseArgs(argv) {
     release: defaultRelease,
     force: false,
     dryRun: false,
-    documentation: true,
+    docs: true,
     help: false,
     version: false
   };
@@ -95,8 +95,8 @@ function parseArgs(argv) {
       continue;
     }
 
-    if (arg === '--no-documentation') {
-      options.documentation = false;
+    if (arg === '--no-docs') {
+      options.docs = false;
       continue;
     }
 
@@ -170,7 +170,7 @@ Options:
   --target <path>          Project root to install into. Defaults to cwd.
   --project-name <name>   Name used to replace PROJECT_NAME placeholders.
   --release <slug>        Initial release slug. Defaults to ${defaultRelease}.
-  --no-documentation      Skip the Documentation/ starter files.
+  --no-docs               Skip the docs/ starter files.
   --force                 Replace existing generated directories.
   --dry-run               Show planned changes without writing files.
   -h, --help              Show help.
@@ -178,7 +178,7 @@ Options:
 
 Examples:
   npx code-anchored-context init --project-name "My App"
-  npx code-anchored-context init --release v1_0_0 --no-documentation
+  npx code-anchored-context init --release v1_0_0 --no-docs
 `);
 }
 
@@ -215,18 +215,18 @@ class Installer {
     this.agentsFilePath = path.join(targetRoot, 'AGENTS.md');
   }
 
-  async init({ includeDocumentation }) {
+  async init({ includeDocs }) {
     await this.ensureDirectory(this.targetRoot);
 
     await this.installAgentsFile();
     await this.installSkill();
-    await this.copyTemplatePath('Development', 'Development');
+    await this.copyTemplatePath('context', 'context');
     await this.renameReleasePaths();
 
-    if (includeDocumentation) {
-      await this.copyTemplatePath('Documentation', 'Documentation');
+    if (includeDocs) {
+      await this.copyTemplatePath('docs', 'docs');
     } else {
-      this.note('skip Documentation/ (--no-documentation)');
+      this.note('skip docs/ (--no-docs)');
     }
 
     this.printSummary();
@@ -261,8 +261,8 @@ class Installer {
       return;
     }
 
-    if (current.includes('.agents/skills/development-initiative-context/SKILL.md')) {
-      this.note(`${targetDisplay} already points to the development initiative skill`);
+    if (current.includes(`.agents/skills/${skillName}/SKILL.md`)) {
+      this.note(`${targetDisplay} already points to the Code-Anchored Context skill`);
       return;
     }
 
@@ -302,12 +302,12 @@ class Installer {
 ## Code-Anchored Context
 
 In-progress specs, plans, ADRs, backlog, implementation context, and
-release-documentation notes live under [\`Development/\`](Development/).
-Start with [\`Development/current.md\`](Development/current.md).
+release-documentation notes live under [\`context/\`](context/).
+Start with [\`context/current.md\`](context/current.md).
 
 For behavior-changing work, use the repo-wide skill at
-[\`.agents/skills/development-initiative-context/SKILL.md\`](.agents/skills/development-initiative-context/SKILL.md).
-Keep initiative knowledge centralized under \`Development/\`; area
+[\`.agents/skills/${skillName}/SKILL.md\`](.agents/skills/${skillName}/SKILL.md).
+Keep initiative knowledge centralized under \`context/\`; area
 \`AGENTS.md\` files should point there rather than copying active plans.
 ${agentSectionEnd}`;
   }
@@ -334,7 +334,7 @@ ${agentSectionEnd}`;
     const current = await readFile(readmePath, 'utf8');
 
     if (current.includes(skillName)) {
-      this.note(`${readmeDisplay} already lists the development initiative skill`);
+      this.note(`${readmeDisplay} already lists the Code-Anchored Context skill`);
       return;
     }
 
@@ -342,14 +342,14 @@ ${agentSectionEnd}`;
       '',
       '## Code-Anchored Context',
       '',
-      `- \`${skillName}\` - use central \`Development/\` initiatives for planning, implementation context, programs, planned initiatives, ADRs, backlog, and release-documentation notes.`,
+      `- \`${skillName}\` - use central \`context/\` initiatives for planning, implementation context, programs, planned initiatives, ADRs, backlog, and release-documentation notes.`,
       ''
     ].join('\n');
 
     await this.writeFile(
       readmePath,
       `${current.trimEnd()}\n${entry}`,
-      `append development initiative skill to ${readmeDisplay}`
+      `append Code-Anchored Context skill to ${readmeDisplay}`
     );
   }
 
@@ -451,7 +451,7 @@ ${agentSectionEnd}`;
   }
 
   shouldSkipTemplatePath(displayPath) {
-    const initiativePrefix = `Development/releases/${defaultRelease}/initiatives/`;
+    const initiativePrefix = `context/releases/${defaultRelease}/initiatives/`;
 
     return (
       displayPath.startsWith(initiativePrefix) &&
@@ -460,11 +460,11 @@ ${agentSectionEnd}`;
   }
 
   transformText(contents, displayPath) {
-    if (displayPath === 'Development/current.md') {
+    if (displayPath === 'context/current.md') {
       return this.renderStarterCurrent();
     }
 
-    if (displayPath === `Development/releases/${defaultRelease}/backlog.md`) {
+    if (displayPath === `context/releases/${defaultRelease}/backlog.md`) {
       return this.renderStarterReleaseBacklog();
     }
 
@@ -476,7 +476,7 @@ ${agentSectionEnd}`;
   }
 
   renderStarterCurrent() {
-    return `# Current Development Context
+    return `# Current Context
 
 Current release: \`${this.release}\`
 
@@ -503,8 +503,8 @@ Registered initiatives:
 
 - None yet.
 
-To start an initiative, copy \`Development/_templates/initiative/\` into
-\`Development/releases/${this.release}/initiatives/<initiative-slug>/\`, then update the
+To start an initiative, copy \`context/_templates/initiative/\` into
+\`context/releases/${this.release}/initiatives/<initiative-slug>/\`, then update the
 copied \`README.md\` first so agents have a clear entry point before editing the
 supporting files.
 `;
@@ -513,7 +513,7 @@ supporting files.
   renderStarterReleaseBacklog() {
     return `# ${this.releaseLabel()} Backlog
 
-This file tracks release-level development context that is not yet captured
+This file tracks release-level working context that is not yet captured
 by an initiative, plus a short summary of initiative progress once
 initiatives exist.
 
@@ -537,15 +537,15 @@ No initiatives registered yet.
     }
 
     await this.renamePath(
-      path.join(this.targetRoot, 'Development/releases', defaultRelease),
-      path.join(this.targetRoot, 'Development/releases', this.release),
-      `rename Development/releases/${defaultRelease} to Development/releases/${this.release}`
+      path.join(this.targetRoot, 'context/releases', defaultRelease),
+      path.join(this.targetRoot, 'context/releases', this.release),
+      `rename context/releases/${defaultRelease} to context/releases/${this.release}`
     );
 
     await this.renamePath(
-      path.join(this.targetRoot, 'Development/_templates/program/releases', `${defaultRelease}.md`),
-      path.join(this.targetRoot, 'Development/_templates/program/releases', `${this.release}.md`),
-      `rename Development/_templates/program/releases/${defaultRelease}.md to ${this.release}.md`
+      path.join(this.targetRoot, 'context/_templates/program/releases', `${defaultRelease}.md`),
+      path.join(this.targetRoot, 'context/_templates/program/releases', `${this.release}.md`),
+      `rename context/_templates/program/releases/${defaultRelease}.md to ${this.release}.md`
     );
   }
 

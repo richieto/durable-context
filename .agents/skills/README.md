@@ -8,6 +8,6 @@ project.
 
 ## Repository-Wide Skills
 
-- `development-initiative-context` - use central `Development/` initiatives
+- `code-anchored-context` - use central `context/` initiatives
   for planning, implementation context, programs, planned initiatives, ADRs,
   backlog, and release-documentation notes.

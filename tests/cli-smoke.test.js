@@ -23,27 +23,27 @@ test('init installs agent context into an empty project', async () => {
     'Smoke App',
     '--release',
     'v1_2_3',
-    '--no-documentation'
+    '--no-docs'
   ]);
 
   assert.match(stdout, /Code-Anchored Context ready for Smoke App/);
-  assert.equal(await exists(path.join(target, 'Documentation')), false);
-  assert.equal(await exists(path.join(target, 'Development/releases/v1_2_3')), true);
-  assert.equal(await exists(path.join(target, 'Development/releases/v0_1_0')), false);
+  assert.equal(await exists(path.join(target, 'docs')), false);
+  assert.equal(await exists(path.join(target, 'context/releases/v1_2_3')), true);
+  assert.equal(await exists(path.join(target, 'context/releases/v0_1_0')), false);
   assert.equal(
-    await exists(path.join(target, 'Development/releases/v1_2_3/initiatives/npm-installer-cli')),
+    await exists(path.join(target, 'context/releases/v1_2_3/initiatives/npm-installer-cli')),
     false
   );
 
   const agents = await readFile(path.join(target, 'AGENTS.md'), 'utf8');
   assert.match(agents, /# Agent Guidance - Smoke App/);
-  assert.match(agents, /\.agents\/skills\/development-initiative-context\/SKILL\.md/);
+  assert.match(agents, /\.agents\/skills\/code-anchored-context\/SKILL\.md/);
 
-  const current = await readFile(path.join(target, 'Development/current.md'), 'utf8');
+  const current = await readFile(path.join(target, 'context/current.md'), 'utf8');
   assert.match(current, /Current release: `v1_2_3`/);
   assert.doesNotMatch(current, /npm-installer-cli/);
 
-  const backlog = await readFile(path.join(target, 'Development/releases/v1_2_3/backlog.md'), 'utf8');
+  const backlog = await readFile(path.join(target, 'context/releases/v1_2_3/backlog.md'), 'utf8');
   assert.match(backlog, /# v1\.2\.3 Backlog/);
   assert.match(backlog, /No initiatives registered yet/);
 });
@@ -62,13 +62,13 @@ test('init appends guidance to an existing AGENTS file', async () => {
     target,
     '--project-name',
     'Existing Agents App',
-    '--no-documentation'
+    '--no-docs'
   ]);
 
   const firstAgents = await readFile(path.join(target, 'AGENTS.md'), 'utf8');
   assert.match(firstAgents, /# Existing Agent Rules/);
   assert.match(firstAgents, /<!-- code-anchored-context:start -->/);
-  assert.match(firstAgents, /\.agents\/skills\/development-initiative-context\/SKILL\.md/);
+  assert.match(firstAgents, /\.agents\/skills\/code-anchored-context\/SKILL\.md/);
 
   const { stdout } = await execFileAsync(process.execPath, [
     cliPath,
@@ -77,12 +77,12 @@ test('init appends guidance to an existing AGENTS file', async () => {
     target,
     '--project-name',
     'Existing Agents App',
-    '--no-documentation',
+    '--no-docs',
     '--dry-run'
   ]);
 
   assert.match(stdout, /AGENTS\.md already has Code-Anchored Context guidance/);
-  assert.match(stdout, /skip Development/);
+  assert.match(stdout, /skip context/);
 });
 
 test('init reuses an existing Agents.md case variant', async () => {
@@ -99,7 +99,7 @@ test('init reuses an existing Agents.md case variant', async () => {
     target,
     '--project-name',
     'Mixed Case Agents App',
-    '--no-documentation'
+    '--no-docs'
   ]);
 
   assert.match(stdout, /append Code-Anchored Context guidance to Agents\.md/);
@@ -117,9 +117,9 @@ test('init reuses an existing Agents.md case variant', async () => {
   assert.match(agents, /<!-- code-anchored-context:start -->/);
 });
 
-test('init skips existing Documentation case variants', async () => {
+test('init skips existing docs case variants', async () => {
   const target = await mkdtemp(path.join(tmpdir(), 'cac-docs-case-'));
-  await mkdir(path.join(target, 'documentation'));
+  await mkdir(path.join(target, 'Docs'));
 
   const { stdout } = await execFileAsync(process.execPath, [
     cliPath,
@@ -132,13 +132,13 @@ test('init skips existing Documentation case variants', async () => {
 
   assert.match(
     stdout,
-    /skip Documentation \(already exists at documentation; use --force to replace\)/
+    /skip docs \(already exists at Docs; use --force to replace\)/
   );
 
   const rootEntries = await readdir(target);
-  assert.equal(rootEntries.includes('documentation'), true);
+  assert.equal(rootEntries.includes('Docs'), true);
   assert.equal(
-    rootEntries.filter((entry) => entry.toLowerCase() === 'documentation').length,
+    rootEntries.filter((entry) => entry.toLowerCase() === 'docs').length,
     1
   );
 });
@@ -158,10 +158,10 @@ test('init appends to existing skill README case variants', async () => {
     target,
     '--project-name',
     'Skill README Case App',
-    '--no-documentation'
+    '--no-docs'
   ]);
 
-  assert.match(stdout, /append development initiative skill to \.agents\/skills\/readme\.md/);
+  assert.match(stdout, /append Code-Anchored Context skill to \.agents\/skills\/readme\.md/);
 
   const skillEntries = await readdir(path.join(target, '.agents/skills'));
   assert.equal(skillEntries.includes('readme.md'), true);
@@ -172,7 +172,7 @@ test('init appends to existing skill README case variants', async () => {
 
   const readme = await readFile(path.join(target, '.agents/skills/readme.md'), 'utf8');
   assert.match(readme, /existing-skill/);
-  assert.match(readme, /development-initiative-context/);
+  assert.match(readme, /code-anchored-context/);
 });
 
 async function exists(filePath) {
