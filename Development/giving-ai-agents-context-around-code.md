@@ -43,7 +43,10 @@ structured enough that both humans and agents can find it.
 
 It is opinionated on purpose: prefer repository-local context, explicit
 lifetimes, and navigable structure over scattered notes that only make sense to
-the people who were in the room.
+the people who were in the room. Repository-local context beats private notes
+because it scales beyond one person. Shared `.mcp` registrations, machine-independent
+continuity, and persisted context snapshots carry decisions forward without
+re-compressing them every session, cutting noise while preserving intent.
 
 One practical benefit is that the reasoning travels with the work.
 
@@ -51,7 +54,9 @@ When context is materialized in the repository, it stops being tied to one
 chat transcript, IDE, agent, or session. A team can switch tools without
 losing the trail of why the system is shaped the way it is. The next human or
 agent can open the repo, read the development context, and continue from the
-same accumulated understanding instead of reconstructing it from memory.
+same accumulated understanding instead of reconstructing it from memory. That
+continuity keeps hours of planning from being lost and makes handoffs between
+models and team members materially better.
 
 ```mermaid
 flowchart LR
