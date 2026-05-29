@@ -14,11 +14,15 @@ and what outcome it should produce.
 
 ## Touched Areas
 
-- `src/<area>/...`
-- `deploy/...`
-- `automation/...`
+- Product or runtime code: `path/to/...`
+- Interfaces, APIs, or contracts: `path/to/...`
+- Tests or verification: `path/to/...`
+- Delivery, CI/CD, build, or artifacts: `path/to/...`
+- Infrastructure, IaC, or environment config: `path/to/...`
+- Documentation or release notes: `path/to/...`
 
-Remove entries that do not apply and add the real paths.
+Remove entries that do not apply and add the real paths. Prefer naming the
+delivery concern over assuming a specific folder layout.
 
 ## Current Source Of Truth
 

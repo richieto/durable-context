@@ -6,9 +6,10 @@ context is laid out so both humans and agents can navigate it.
 
 ## Denormalize Navigation, Not Knowledge
 
-Agents and IDEs do not always open from the repo root — they may start in
-`src/`, `deploy/`, or a nested app. If all guidance lives at the top, it gets
-missed. If each area keeps its own plans, cross-project work fragments.
+Agents and IDEs do not always open from the repo root. They may start in
+product code, CI/CD config, infrastructure code, generated artifacts, or a
+nested app. If all guidance lives at the top, it gets missed. If each area
+keeps its own plans, cross-project work fragments.
 
 > Denormalize navigation, not knowledge.
 

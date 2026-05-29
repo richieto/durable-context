@@ -2,11 +2,19 @@
 
 ## Scope
 
-- Code root: `path/to/code`
+- Source orientation: `path/to/runtime-or-product-code`, `path/to/contracts`,
+  `path/to/tests`, `path/to/ci-or-delivery`, `path/to/infra-or-config`
 - Documentation root: `Documentation/<Area>/`
 - Owner or reviewer: TBD
 
 Describe what this area owns and what it intentionally does not own.
+
+## Audience And Depth
+
+State any area-specific audience or depth rules. By default, write for
+Product Owners, QA, support, operators, customer engineers, and technical
+readers who need behavior, rules, data effects, permissions, errors, and
+operational expectations without private implementation detail.
 
 ## Feature Inventory
 
@@ -40,6 +48,12 @@ Ignore changes that do not alter released behavior:
 
 List the files, folders, entry points, or search terms that help an agent map a
 release diff to documentation pages.
+
+## Baseline Discovery Notes
+
+Use this section when creating first-pass documentation for an existing
+project. List stable workflows, important entry points, source references,
+known gaps, and questions that should not yet appear in product-facing docs.
 
 ## Terminology
 

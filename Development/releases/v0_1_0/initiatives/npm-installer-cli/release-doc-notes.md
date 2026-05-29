@@ -13,10 +13,15 @@ explicitly asks for a documentation refresh or a specific documentation fix.
   instead of manual copying.
 - `--no-documentation`, `--dry-run`, `--force`, `--target`,
   `--project-name`, and `--release` control installation behavior.
+- Starter documentation guidance now tells agents to write from behavior
+  outward: product-readable first, technically anchored where details affect
+  shipped behavior, operations, support, or auditability.
 
 ## Candidate Documentation Areas
 
 - Root `README.md` adoption and publishing sections.
+- `Documentation/_authoring/workflow.md` writing focus and documentation
+  modes.
 - Future release documentation only if this template repo begins documenting
   its own shipped CLI as product behavior.
 

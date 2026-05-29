@@ -74,8 +74,8 @@ flowchart LR
 ## The Navigation Problem
 
 In large repositories, agents and IDEs do not always open the workspace from
-the root. They may start in `src/`, `deploy/`, a specific application, or a
-nested project folder.
+the root. They may start in product code, CI/CD config, infrastructure code,
+generated artifacts, a specific application, or a nested project folder.
 
 If all guidance lives at the top, it may be missed. But if each area keeps its
 own plans, cross-project work becomes fragmented.
@@ -91,9 +91,9 @@ infrastructure context should live centrally under `Development/`.
 ```mermaid
 flowchart TD
   Root["Repository root"]
-  AreaA["src/AGENTS.md<br/>local signpost"]
-  AreaB["deploy/AGENTS.md<br/>local signpost"]
-  AreaC["apps/*/AGENTS.md<br/>local signpost"]
+  AreaA["product area AGENTS.md<br/>local signpost"]
+  AreaB["delivery area AGENTS.md<br/>local signpost"]
+  AreaC["nested project AGENTS.md<br/>local signpost"]
   Dev["Development/<br/>central working context"]
   Initiative["Release initiative<br/>single delivery story"]
 

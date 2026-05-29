@@ -35,8 +35,13 @@ Every documented area should have:
 ## Contributing
 
 - Refresh docs only when explicitly asked.
+- For existing projects with no docs, create baseline documentation only when
+  explicitly asked; otherwise document touched behavior during future release
+  refreshes.
 - Write for non-developer technical readers unless the project states
   otherwise.
+- Write from behavior outward: product-readable first, technically anchored
+  where details affect shipped behavior, operations, or support.
 - Describe behavior, inputs, outputs, permissions, errors, business rules, and
   operational expectations in domain language.
 - Prefer Mermaid diagrams for flows, architecture, and relationships.

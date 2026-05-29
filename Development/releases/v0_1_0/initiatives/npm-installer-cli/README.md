@@ -19,6 +19,10 @@ target repo.
 - `bin/code-anchored-context.js`
 - `tests/cli-smoke.test.js`
 - `README.md`
+- `Documentation/_authoring/workflow.md`
+- `Documentation/_authoring/areas/_template.md`
+- `Documentation/_templates/area/README.md`
+- `Documentation/_templates/area/features/feature-template.md`
 - `Development/current.md`
 - `Development/releases/v0_1_0/backlog.md`
 
@@ -50,6 +54,8 @@ Infrastructure and operations notes are not applicable for this initiative.
 - Installer command added.
 - Smoke tests added.
 - README adoption and publishing flow updated.
+- Documentation authoring guidance now defaults to product-readable,
+  technically anchored prose.
 - `npm test`, `npm pack --dry-run`, dry-run install, and force install checks
   pass locally.
 

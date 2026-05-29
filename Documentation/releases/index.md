@@ -11,6 +11,8 @@ Docs at a given tag describe the behavior of that release.
 
 ## Notes For Future Release Rows
 
+- For an explicit baseline documentation pass, the tag may be a commit,
+  branch, date, or human-named baseline label when no release tag exists yet.
 - The first row may be a bootstrap refresh. Subsequent rows should describe
   incremental refreshes from `<previous-tag>..HEAD`.
 - "Areas refreshed" lists only areas with material behavior changes.

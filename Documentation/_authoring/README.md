@@ -23,7 +23,8 @@ Documentation/_authoring/areas/<area-slug>.md
 
 Each area guide should identify:
 
-- the code folder or folders that own the behavior
+- the source locations that own the behavior, such as product code,
+  interfaces, tests, CI/CD, generated artifacts, infrastructure, or config
 - the documentation root under `Documentation/`
 - feature pages that should exist
 - behavior that matters at release time

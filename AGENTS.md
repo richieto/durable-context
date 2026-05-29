@@ -27,6 +27,8 @@ Touch `Documentation/` only when:
 
 - A human explicitly asks you to refresh the docs for a release, typically
   after a release tag is cut and QA has signed off.
+- A human explicitly asks you to create or refresh baseline documentation for
+  an existing project.
 - A human explicitly asks you to update a specific page.
 - A human asks you to fix a demonstrable error in an existing page, such as a
   broken link or factual inaccuracy.
