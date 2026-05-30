@@ -10,7 +10,7 @@ Program: None
 Make this repository installable through a small npm CLI so a human can add
 the Code-Anchored Context structure to an existing project with one command.
 The initializer should copy the agent guidance, repo-wide skill, working
-context, and optional `product-docs/` starter files into the target repo.
+context, and optional `reference/` starter files into the target repo.
 
 ## Touched Areas
 
@@ -18,10 +18,10 @@ context, and optional `product-docs/` starter files into the target repo.
 - `bin/code-anchored-context.js`
 - `tests/cli-smoke.test.js`
 - `README.md`
-- `product-docs/_authoring/workflow.md`
-- `product-docs/_authoring/areas/_template.md`
-- `product-docs/_templates/area/README.md`
-- `product-docs/_templates/area/features/feature-template.md`
+- `reference/_authoring/workflow.md`
+- `reference/_authoring/areas/_template.md`
+- `reference/_templates/area/README.md`
+- `reference/_templates/area/features/feature-template.md`
 - `writing/README.md`
 - `context/current.md`
 - `context/releases/v0_1_0/backlog.md`
@@ -53,17 +53,16 @@ Infrastructure and operations notes are not applicable for this initiative.
 - CLI package metadata added.
 - Installer command added.
 - Smoke tests added.
-- Template folders renamed to `context/` and `product-docs/`.
-- Existing consumer `docs/` folders are now preserved because the product docs
-  scaffold installs under `product-docs/`.
+- Template folders renamed to `context/` and `reference/`.
+- Existing consumer `docs/` folders are preserved because the reference
+  scaffold installs separately under `reference/`.
 - Azure wiki-specific starter files `.order` and `Welcome.md` were replaced
-  with a portable `product-docs/README.md`.
+  with a portable `reference/README.md`.
 - Companion article and presentation drafts moved under `writing/` and
   excluded from the npm package.
-- Package version bumped to `0.2.2` because `0.2.1` was published before the
-  `product-docs/` collision fix.
+- Package version bumped to `0.2.3` for the `reference/` rename.
 - README adoption and publishing flow updated.
-- Product docs authoring guidance now defaults to product-readable,
+- Reference authoring guidance now defaults to product-readable,
   technically anchored prose.
 - `npm test`, `npm pack --dry-run`, dry-run install, and force install checks
   pass locally.
@@ -75,5 +74,5 @@ Infrastructure and operations notes are not applicable for this initiative.
   Promote settled conclusions into the stable initiative files.
 - Update `release-doc-notes.md` when shipped behavior or product-facing
   behavior changes.
-- Do not update `product-docs/` from this initiative unless a human
-  explicitly asks for release documentation work.
+- Do not update `reference/` from this initiative unless a human
+  explicitly asks for release reference work.

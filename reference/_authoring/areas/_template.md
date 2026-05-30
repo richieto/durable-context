@@ -4,7 +4,7 @@
 
 - Source orientation: `path/to/runtime-or-product-code`, `path/to/contracts`,
   `path/to/tests`, `path/to/ci-or-delivery`, `path/to/infra-or-config`
-- Product docs root: `product-docs/<Area>/`
+- Reference root: `reference/<Area>/`
 - Owner or reviewer: TBD
 
 Describe what this area owns and what it intentionally does not own.
@@ -18,9 +18,9 @@ operational expectations without private implementation detail.
 
 ## Feature Inventory
 
-| Feature | Product docs page | Notes |
+| Feature | Reference page | Notes |
 | --- | --- | --- |
-| TBD | `product-docs/<Area>/features/<feature>.md` | TBD |
+| TBD | `reference/<Area>/features/<feature>.md` | TBD |
 
 ## What Matters At Release Time
 
@@ -57,9 +57,9 @@ known gaps, and questions that should not yet appear in product-facing docs.
 
 ## Terminology
 
-List area-specific terms or link to `product-docs/_authoring/terminology.md`.
+List area-specific terms or link to `reference/_authoring/terminology.md`.
 
 ## Cross-Links
 
-List related areas and when product docs should cross-link instead of duplicating
+List related areas and when reference should cross-link instead of duplicating
 behavior.

@@ -1,7 +1,7 @@
 {
   "name": "code-anchored-context",
-  "version": "0.2.2",
-  "description": "Install repo-local agent context, release initiatives, and release-anchored product-docs scaffolding into an existing project.",
+  "version": "0.2.3",
+  "description": "Install repo-local agent context, release initiatives, and release-anchored reference scaffolding into an existing project.",
   "license": "MIT",
   "type": "module",
   "bin": {
@@ -20,7 +20,7 @@
     "context/releases/v0_1_0/backlog.md",
     "context/releases/v0_1_0/initiatives/.gitkeep",
     "context/terminology.md",
-    "product-docs/",
+    "reference/",
     "bin/",
     "README.md",
     "LICENSE"
@@ -37,6 +37,6 @@
     "ai",
     "documentation",
     "working-context",
-    "product-docs"
+    "reference"
   ]
 }

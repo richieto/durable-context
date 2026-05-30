@@ -19,7 +19,7 @@ and what outcome it should produce.
 - Tests or verification: `path/to/...`
 - Delivery, CI/CD, build, or artifacts: `path/to/...`
 - Infrastructure, IaC, or environment config: `path/to/...`
-- Product docs or release notes: `path/to/...`
+- Reference or release notes: `path/to/...`
 
 Remove entries that do not apply and add the real paths. Prefer naming the
 delivery concern over assuming a specific folder layout.

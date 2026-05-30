@@ -2,7 +2,7 @@
 
 Use this file to define the domain language that documentation should use.
 
-Product docs should translate code-level names into reader-facing domain
+Reference should translate code-level names into reader-facing domain
 terms when those differ. The goal is consistency for QA, product, support,
 operators, and future agents.
 

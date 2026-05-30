@@ -9,7 +9,7 @@ backlog items, ADRs, agent summaries, and release-transition work.
 | Term | Meaning |
 | --- | --- |
 | `context/` | Working context: plans, specs, ADRs, implementation notes, delivery-surface context, future scope, and release-documentation notes. |
-| `product-docs/` | Released product documentation. It describes shipped behavior for a release/tag and is not edited during normal development work. |
+| `reference/` | Accepted reference. It describes shipped or baseline behavior for a release/tag and is not edited during normal development work. |
 | `context/current.md` | Pointer to the current active release context. Updating this is a release transition. |
 | `context/releases/<version>/` | Release-scoped working context for one version. |
 | `context/programs/` | Durable multi-release working context. |
@@ -60,7 +60,7 @@ both readable Markdown for agents and renderable visual context for humans.
 | `infrastructure.md` | Stable description of environment shape, IaC, resources, networking, identity, storage, secrets, and environment dependencies. |
 | `operations.md` | Optional actionable runtime support context: observability, failure modes, rollback, repair, support procedures, and tooling. |
 | `backlog.md` | Trackable work items for the containing initiative or program. |
-| `release-doc-notes.md` | Notes for future product documentation refresh work. This is the bridge to `product-docs/`. |
+| `release-doc-notes.md` | Notes for future reference refresh work. This is the bridge to `reference/`. |
 | ADR | Architecture Decision Record. Use for durable decisions and tradeoffs. |
 | `brief.html` | Optional human-friendly presentation layer. |
 

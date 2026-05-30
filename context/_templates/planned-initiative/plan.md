@@ -37,4 +37,4 @@ Describe the current agreed future direction.
 - [ ] Move actionable runtime/support concerns into `operations.md`
 - [ ] Move executable future work into `backlog.md`
 - [ ] Move durable program decisions into the parent program's `decisions/`
-- [ ] Move product-documentation impact into `release-doc-notes.md`
+- [ ] Move reference impact into `release-doc-notes.md`

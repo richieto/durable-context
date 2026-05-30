@@ -15,11 +15,11 @@ planning notes, architecture discussions, test plans, deployment notes,
 infrastructure conversations, and people's heads. The problem is that agents
 need this context in a structured, discoverable form.
 
-This is why I started separating **released product documentation** from
+This is why I started separating **released reference** from
 **working context**.
 
 ```text
-product-docs/
+reference/
   What shipped.
 
 context/
@@ -27,7 +27,7 @@ context/
   deferring, and learning.
 ```
 
-Product documentation should stay stable and release-accurate. It should
+Reference should stay stable and release-accurate. It should
 describe the behavior of a known release, not the current shape of an unfinished
 branch.
 
@@ -62,13 +62,13 @@ models and team members materially better.
 flowchart LR
   Code["Codebase<br/>What exists in the system"]
   Dev["context/<br/>What is being planned, built, decided, tested, shipped, hosted, deferred, and learned"]
-  ProductDocs["product-docs/<br/>What shipped in a known release"]
+  Reference["reference/<br/>What shipped in a known release"]
   Agents["Agents and humans<br/>Need context before changing behavior"]
 
   Agents --> Code
   Agents --> Dev
-  Dev -->|"release-doc-notes.md captures future product docs impact"| ProductDocs
-  ProductDocs -->|"stable release truth"| Agents
+  Dev -->|"release-doc-notes.md captures future reference impact"| Reference
+  Reference -->|"stable release truth"| Agents
 ```
 
 ## The Navigation Problem
@@ -234,7 +234,7 @@ decisions/
   Durable decisions and consequences.
 
 release-doc-notes.md
-  What should become product documentation later.
+  What should become reference later.
 ```
 
 ```mermaid
@@ -250,7 +250,7 @@ flowchart TD
   Operations["operations.md<br/>runtime support"]
   Backlog["backlog.md<br/>tracked work"]
   Decisions["decisions/<br/>ADRs"]
-  ReleaseDocs["release-doc-notes.md<br/>future product docs"]
+  ReleaseDocs["release-doc-notes.md<br/>future reference"]
 
   Plan --> Stable
   Stable --> Spec
@@ -454,7 +454,7 @@ It helps agents and humans answer:
 - How will this be built, deployed, promoted, or rolled out?
 - What infrastructure does this depend on?
 - What operational risks need support or rollback context?
-- What should become product documentation later?
+- What should become reference later?
 - What should not be changed by accident?
 - What reasoning needs to survive a change of IDE, agent, or session?
 - What context should travel with the repository instead of a private chat?
@@ -462,7 +462,7 @@ It helps agents and humans answer:
 The mental model is simple:
 
 ```text
-product-docs/
+reference/
   Released truth.
 
 context/releases/

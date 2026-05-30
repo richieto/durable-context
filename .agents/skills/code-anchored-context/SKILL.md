@@ -1,6 +1,6 @@
 ---
 name: code-anchored-context
-description: Use central repository context for planning and implementation. Use when starting, changing, reviewing, or documenting behavior-changing work; when checking or updating context/current.md, context/releases/*/initiatives/*, context/programs/*, context/programs/*/planned-initiatives/*, context/backlog/items/*, specs, plans, interface notes, architecture notes, testing notes, delivery notes, infrastructure notes, actionable operations notes, ADRs, backlog, release-doc-notes.md; when promoting planned initiatives during release transitions; or when deciding whether product-docs/ should be left untouched.
+description: Use central repository context for planning and implementation. Use when starting, changing, reviewing, or documenting behavior-changing work; when checking or updating context/current.md, context/releases/*/initiatives/*, context/programs/*, context/programs/*/planned-initiatives/*, context/backlog/items/*, specs, plans, interface notes, architecture notes, testing notes, delivery notes, infrastructure notes, actionable operations notes, ADRs, backlog, release-doc-notes.md; when promoting planned initiatives during release transitions; or when deciding whether reference/ should be left untouched.
 ---
 
 # Code-Anchored Context
@@ -59,8 +59,8 @@ effort, link it to the relevant program.
 ### 4) Create An Initiative When Needed
 
 Create a new initiative for non-trivial behavior changes, cross-project
-work, release-significant work, or anything likely to need future product
-documentation.
+work, release-significant work, or anything likely to need future reference
+updates.
 
 Use `context/_templates/initiative/` as the source. Copy it to:
 
@@ -164,7 +164,7 @@ Use these files as the standard map:
   observability, failure modes, rollback, repair, and support tooling
 - `backlog.md`: work slices and implementation progress
 - `decisions/ADR-*.md`: meaningful choices and their consequences
-- `release-doc-notes.md`: product-documentation impact to review at release
+- `release-doc-notes.md`: reference impact to review at release
 
 Not every initiative needs every file. Mark a file as not applicable or omit
 it after copying the template when it genuinely does not apply.
@@ -175,15 +175,14 @@ settled truth lives. Promote stable conclusions into `spec.md`,
 `infrastructure.md`, `operations.md` when actionable, `backlog.md`, ADRs, or
 `release-doc-notes.md` as appropriate.
 
-### 9) Preserve The Product Docs Boundary
+### 9) Preserve The Reference Boundary
 
-Do not edit `product-docs/` as part of normal feature work, bug fixes,
+Do not edit `reference/` as part of normal feature work, bug fixes,
 refactors, or planning. Instead, update the initiative's
 `release-doc-notes.md`.
 
-Only update `product-docs/` when a human explicitly asks for release
-documentation work, a specific page update, or a demonstrable documentation
-fix.
+Only update `reference/` when a human explicitly asks for release reference
+work, a specific page update, or a demonstrable reference fix.
 
 ## Knowledge Ownership
 
@@ -205,5 +204,5 @@ Before finishing behavior-changing work:
 - Any changed behavior, interface, architecture, testing, delivery,
   infrastructure, actionable operations, or backlog state was reflected in the
   initiative when appropriate.
-- Future product-documentation impact was captured in `release-doc-notes.md`.
-- `product-docs/` was left untouched unless explicitly requested.
+- Future reference impact was captured in `release-doc-notes.md`.
+- `reference/` was left untouched unless explicitly requested.

@@ -18,7 +18,7 @@ initiative files:
   repair notes
 - `backlog.md` for executable work items
 - `decisions/ADR-*.md` for durable decisions
-- `release-doc-notes.md` for future product-documentation impact
+- `release-doc-notes.md` for future reference impact
 
 ## Current Alignment
 
@@ -54,4 +54,4 @@ the canonical initiative files.
 - [ ] Move multi-release context into `context/programs/`
 - [ ] Move isolated deferred work into `context/backlog/items/`
 - [ ] Move durable decisions into `decisions/`
-- [ ] Move product-documentation impact into `release-doc-notes.md`
+- [ ] Move reference impact into `release-doc-notes.md`

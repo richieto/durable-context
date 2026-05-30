@@ -35,7 +35,7 @@ npx code-anchored-context init --target ../my-existing-project
 
 | Surface | Inputs | Outputs |
 | --- | --- | --- |
-| `init` | `--target`, `--project-name`, `--release`, `--no-product-docs`, `--force`, `--dry-run` | Installed context files and a console summary |
+| `init` | `--target`, `--project-name`, `--release`, `--no-reference`, `--force`, `--dry-run` | Installed context files and a console summary |
 | `--help` | None | Usage text |
 | `--version` | None | Package version |
 

@@ -72,7 +72,7 @@ infrastructure.md    Environments, IaC, networking, identity, storage, secrets.
 operations.md        Runtime/support: observability, failure modes, rollback.
 backlog.md           Trackable work items and progress.
 decisions/           Durable decisions and consequences (ADRs).
-release-doc-notes.md What should become product documentation later.
+release-doc-notes.md What should become reference later.
 ```
 
 Not every initiative needs every file. The point is to give stable knowledge a

@@ -13,18 +13,18 @@ That context usually exists — in chats, tickets, pull request comments,
 planning notes, and people's heads — but agents need it in a structured,
 discoverable form.
 
-## Product Docs vs Working Context
+## Reference vs Working Context
 
-This is why I separate **released product documentation** from **working
+This is why I separate **released reference** from **working
 context**:
 
 ```text
-product-docs/   What shipped.
+reference/   What shipped.
 context/      What we are planning, building, deciding, testing,
                   shipping, hosting, deferring, and learning.
 ```
 
-Product documentation stays stable and release-accurate: it describes a known
+Reference stays stable and release-accurate: it describes a known
 release, not an unfinished branch. Working context is allowed to evolve —
 it is where humans and agents work through ambiguity.
 
@@ -53,13 +53,13 @@ instead of reconstructing it from memory.
 flowchart LR
   Code["Codebase<br/>What exists"]
   Dev["context/<br/>What is being planned, built, decided, tested, shipped, deferred"]
-  ProductDocs["product-docs/<br/>What shipped in a known release"]
+  Reference["reference/<br/>What shipped in a known release"]
   Agents["Agents and humans"]
 
   Agents --> Code
   Agents --> Dev
-  Dev -->|"release-doc-notes.md captures future product docs impact"| ProductDocs
-  ProductDocs -->|"stable release truth"| Agents
+  Dev -->|"release-doc-notes.md captures future reference impact"| Reference
+  Reference -->|"stable release truth"| Agents
 ```
 
 ## Why It Matters
@@ -70,7 +70,7 @@ Code-Anchored Context is context continuity. It helps agents and humans answer:
 - What was cut from scope, and why was a decision made?
 - How should this be tested, and what gates must pass before release?
 - How will it ship, and what infrastructure does it depend on?
-- What should become product documentation later?
+- What should become reference later?
 - What reasoning needs to survive a change of IDE, agent, or session?
 
 Code tells an agent *what exists*. Working context tells it *why* it

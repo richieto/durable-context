@@ -54,7 +54,7 @@ async function main() {
     dryRun: args.dryRun
   });
 
-  await installer.init({ includeProductDocs: args.productDocs });
+  await installer.init({ includeReference: args.reference });
 }
 
 function parseArgs(argv) {
@@ -65,7 +65,7 @@ function parseArgs(argv) {
     release: defaultRelease,
     force: false,
     dryRun: false,
-    productDocs: true,
+    reference: true,
     help: false,
     version: false
   };
@@ -95,8 +95,8 @@ function parseArgs(argv) {
       continue;
     }
 
-    if (arg === '--no-product-docs' || arg === '--no-docs') {
-      options.productDocs = false;
+    if (arg === '--no-reference') {
+      options.reference = false;
       continue;
     }
 
@@ -170,8 +170,7 @@ Options:
   --target <path>          Project root to install into. Defaults to cwd.
   --project-name <name>   Name used to replace PROJECT_NAME placeholders.
   --release <slug>        Initial release slug. Defaults to ${defaultRelease}.
-  --no-product-docs       Skip the product-docs/ starter files.
-  --no-docs               Alias for --no-product-docs.
+  --no-reference          Skip the reference/ starter files.
   --force                 Replace existing generated directories.
   --dry-run               Show planned changes without writing files.
   -h, --help              Show help.
@@ -179,7 +178,7 @@ Options:
 
 Examples:
   npx code-anchored-context init --project-name "My App"
-  npx code-anchored-context init --release v1_0_0 --no-product-docs
+  npx code-anchored-context init --release v1_0_0 --no-reference
 `);
 }
 
@@ -216,7 +215,7 @@ class Installer {
     this.agentsFilePath = path.join(targetRoot, 'AGENTS.md');
   }
 
-  async init({ includeProductDocs }) {
+  async init({ includeReference }) {
     await this.ensureDirectory(this.targetRoot);
 
     await this.installAgentsFile();
@@ -224,10 +223,10 @@ class Installer {
     await this.copyTemplatePath('context', 'context');
     await this.renameReleasePaths();
 
-    if (includeProductDocs) {
-      await this.copyTemplatePath('product-docs', 'product-docs');
+    if (includeReference) {
+      await this.copyTemplatePath('reference', 'reference');
     } else {
-      this.note('skip product-docs/ (--no-product-docs)');
+      this.note('skip reference/ (--no-reference)');
     }
 
     this.printSummary();

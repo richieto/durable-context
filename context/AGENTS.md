@@ -14,7 +14,7 @@ only when they are actionable runtime, support, observability, rollback, or
 repair context.
 
 `context/` describes what is being planned, built, debated, or validated.
-`product-docs/` describes what has shipped for a release.
+`reference/` describes what has shipped for a release.
 
 ## Editing Rules
 
@@ -22,9 +22,9 @@ repair context.
   planned initiatives, release initiatives, backlog items, and promotion.
 - Keep initiative knowledge centralized here. Area `AGENTS.md` files may point
   here, but they should not duplicate initiative content.
-- Do not move in-progress plans into `product-docs/`.
+- Do not move in-progress plans into `reference/`.
 - Use `release-doc-notes.md` inside an initiative to capture what may need to
-  become product documentation later.
+  become reference later.
 - Create initiatives from `context/_templates/initiative/`.
 - Create durable multi-release programs from `context/_templates/program/`.
 - Create scoped future program work from

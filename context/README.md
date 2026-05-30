@@ -6,7 +6,7 @@ repository.
 Use it for specs, interface notes, architecture notes, testing notes, delivery
 notes, infrastructure notes, actionable operations notes, ADRs, backlog items,
 implementation plans, and release-documentation notes. Do not use
-`product-docs/` for in-progress development planning.
+`reference/` for in-progress development planning.
 
 ## Start Here
 
@@ -20,17 +20,17 @@ implementation plans, and release-documentation notes. Do not use
   shape for scoped program work outside the current release.
 - `_templates/release-context/` contains the standard release folder shell.
 
-## Relationship To product-docs/
+## Relationship To reference/
 
-`context/` and `product-docs/` serve different jobs:
+`context/` and `reference/` serve different jobs:
 
 | Folder | Meaning | Updated when |
 | --- | --- | --- |
 | `context/` | What we are planning, building, deciding, or validating. | During normal development. |
-| `product-docs/` | What the product does as of a release or tag. | Only during explicit documentation refresh work. |
+| `reference/` | What the system does as of a release, tag, or explicit baseline. | Only during explicit reference refresh work. |
 
-Working context can feed release documentation, but it is not product
-documentation. Capture that bridge in each initiative's
+Working context can feed release reference, but it is not accepted
+reference. Capture that bridge in each initiative's
 `release-doc-notes.md`.
 
 ## Core Model
@@ -190,7 +190,7 @@ Required for most initiatives:
 | `plan.md` | Working alignment space for humans and agents; rough notes, questions, options, and points to promote. |
 | `spec.md` | What the system should do and which behavior is in or out. |
 | `backlog.md` | What is changing now, sliced into trackable work. |
-| `release-doc-notes.md` | Product documentation impact to review at release time. |
+| `release-doc-notes.md` | Reference impact to review at release time. |
 
 Use when relevant:
 
@@ -246,8 +246,8 @@ When changing behavior, agents should:
    behavior changes that do not belong to an existing initiative.
 7. Create or update a program planned initiative when future scoped work is
    clear but belongs outside the current release.
-8. Record future product-doc impact in `release-doc-notes.md`, not in
-   `product-docs/`, unless a human explicitly asks for documentation refresh.
+8. Record future reference impact in `release-doc-notes.md`, not in
+   `reference/`, unless a human explicitly asks for reference refresh.
 
 The key rule for planning is:
 

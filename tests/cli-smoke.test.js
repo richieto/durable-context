@@ -23,11 +23,11 @@ test('init installs agent context into an empty project', async () => {
     'Smoke App',
     '--release',
     'v1_2_3',
-    '--no-product-docs'
+    '--no-reference'
   ]);
 
   assert.match(stdout, /Code-Anchored Context ready for Smoke App/);
-  assert.equal(await exists(path.join(target, 'product-docs')), false);
+  assert.equal(await exists(path.join(target, 'reference')), false);
   assert.equal(await exists(path.join(target, 'context/releases/v1_2_3')), true);
   assert.equal(await exists(path.join(target, 'context/releases/v0_1_0')), false);
   assert.equal(
@@ -62,7 +62,7 @@ test('init appends guidance to an existing AGENTS file', async () => {
     target,
     '--project-name',
     'Existing Agents App',
-    '--no-product-docs'
+    '--no-reference'
   ]);
 
   const firstAgents = await readFile(path.join(target, 'AGENTS.md'), 'utf8');
@@ -77,7 +77,7 @@ test('init appends guidance to an existing AGENTS file', async () => {
     target,
     '--project-name',
     'Existing Agents App',
-    '--no-product-docs',
+    '--no-reference',
     '--dry-run'
   ]);
 
@@ -99,7 +99,7 @@ test('init reuses an existing Agents.md case variant', async () => {
     target,
     '--project-name',
     'Mixed Case Agents App',
-    '--no-product-docs'
+    '--no-reference'
   ]);
 
   assert.match(stdout, /append Code-Anchored Context guidance to Agents\.md/);
@@ -117,7 +117,7 @@ test('init reuses an existing Agents.md case variant', async () => {
   assert.match(agents, /<!-- code-anchored-context:start -->/);
 });
 
-test('init preserves existing docs and installs product-docs', async () => {
+test('init preserves existing docs and installs reference', async () => {
   const target = await mkdtemp(path.join(tmpdir(), 'cac-existing-docs-'));
   await mkdir(path.join(target, 'docs'));
   await writeFile(path.join(target, 'docs/README.md'), '# Existing Docs\n');
@@ -133,15 +133,15 @@ test('init preserves existing docs and installs product-docs', async () => {
 
   const rootEntries = await readdir(target);
   assert.equal(rootEntries.includes('docs'), true);
-  assert.equal(rootEntries.includes('product-docs'), true);
-  assert.equal(await exists(path.join(target, 'product-docs/README.md')), true);
-  assert.equal(await exists(path.join(target, 'product-docs/_authoring/workflow.md')), true);
+  assert.equal(rootEntries.includes('reference'), true);
+  assert.equal(await exists(path.join(target, 'reference/README.md')), true);
+  assert.equal(await exists(path.join(target, 'reference/_authoring/workflow.md')), true);
   assert.equal(await readFile(path.join(target, 'docs/README.md'), 'utf8'), '# Existing Docs\n');
 });
 
-test('init skips existing product-docs case variants', async () => {
-  const target = await mkdtemp(path.join(tmpdir(), 'cac-product-docs-case-'));
-  await mkdir(path.join(target, 'Product-Docs'));
+test('init skips existing reference case variants', async () => {
+  const target = await mkdtemp(path.join(tmpdir(), 'cac-reference-case-'));
+  await mkdir(path.join(target, 'Reference'));
 
   const { stdout } = await execFileAsync(process.execPath, [
     cliPath,
@@ -149,18 +149,18 @@ test('init skips existing product-docs case variants', async () => {
     '--target',
     target,
     '--project-name',
-    'Product Docs Case App'
+    'Reference Case App'
   ]);
 
   assert.match(
     stdout,
-    /skip product-docs \(already exists at Product-Docs; use --force to replace\)/
+    /skip reference \(already exists at Reference; use --force to replace\)/
   );
 
   const rootEntries = await readdir(target);
-  assert.equal(rootEntries.includes('Product-Docs'), true);
+  assert.equal(rootEntries.includes('Reference'), true);
   assert.equal(
-    rootEntries.filter((entry) => entry.toLowerCase() === 'product-docs').length,
+    rootEntries.filter((entry) => entry.toLowerCase() === 'reference').length,
     1
   );
 });
@@ -180,7 +180,7 @@ test('init appends to existing skill README case variants', async () => {
     target,
     '--project-name',
     'Skill README Case App',
-    '--no-product-docs'
+    '--no-reference'
   ]);
 
   assert.match(stdout, /append Code-Anchored Context skill to \.agents\/skills\/readme\.md/);

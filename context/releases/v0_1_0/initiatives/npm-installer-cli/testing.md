@@ -16,7 +16,7 @@ that should be added or updated.
 
 | Area | Coverage | Tool or location | Status |
 | --- | --- | --- | --- |
-| CLI smoke | Empty target install, custom release, `--no-product-docs`, existing `docs/` preservation, repeated dry run | `tests/cli-smoke.test.js` | Passing |
+| CLI smoke | Empty target install, custom release, `--no-reference`, existing `docs/` preservation, repeated dry run | `tests/cli-smoke.test.js` | Passing |
 
 ## Manual Verification
 
@@ -39,7 +39,7 @@ List the checks that must pass before release.
 
 - `npm test` passes.
 - `npm pack --dry-run` includes `AGENTS.md`, `.agents/`, `context/`,
-  `product-docs/`, and `bin/`.
+  `reference/`, and `bin/`.
 - `npm pack --dry-run` excludes companion `writing/` files.
 
 ## Known Gaps

@@ -17,7 +17,7 @@ produce.
 - Tests or verification: `path/to/...`
 - Delivery, CI/CD, build, or artifacts: `path/to/...`
 - Infrastructure, IaC, or environment config: `path/to/...`
-- Product docs or release notes: `path/to/...`
+- Reference or release notes: `path/to/...`
 
 Remove entries that do not apply and add the real paths. Prefer naming the
 delivery concern over assuming a specific folder layout.
@@ -59,5 +59,5 @@ support, observability, rollback, or repair context.
   Promote settled conclusions into the stable initiative files.
 - Update `release-doc-notes.md` when shipped behavior or product-facing
   behavior changes.
-- Do not update `product-docs/` from this initiative unless a human
-  explicitly asks for release documentation work.
+- Do not update `reference/` from this initiative unless a human
+  explicitly asks for release reference work.

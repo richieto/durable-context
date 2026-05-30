@@ -46,8 +46,8 @@ No runtime feature flags or release toggles are required.
 Companion writing and presentation drafts live under `writing/` in this
 repository only. They are intentionally outside the npm `files` list.
 
-Version `0.2.2` is the package shape that uses `product-docs/` instead of
-`docs/`.
+Version `0.2.3` is the package shape that uses `reference/` for
+release-anchored accepted behavior.
 
 ## Rollout Notes
 

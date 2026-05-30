@@ -19,7 +19,7 @@ existing repository so humans can tell their agents to start using the local
 ## Non-Goals
 
 - Do not make consuming projects depend on the package at runtime.
-- Do not refresh product documentation in `product-docs/`.
+- Do not refresh reference in `reference/`.
 - Do not migrate or merge an existing project's bespoke planning system.
 - Do not require package dependencies for the initializer.
 
@@ -35,7 +35,7 @@ The normal flow is:
    - `AGENTS.md`
    - `.agents/skills/code-anchored-context/SKILL.md`
    - `context/`
-   - `product-docs/` unless `--no-product-docs` is supplied
+   - `reference/` unless `--no-reference` is supplied
 4. If `AGENTS.md` already exists, the command appends or refreshes a
    Code-Anchored Context section instead of replacing the whole file.
 5. If generated directories already exist, the command skips them unless
@@ -52,9 +52,9 @@ hyphens because it becomes part of generated file paths.
       actions without writing files.
 - [x] Installing into an empty target creates the expected agent and
       Working context files.
-- [x] Installing with `--no-product-docs` skips `product-docs/`.
+- [x] Installing with `--no-reference` skips `reference/`.
 - [x] Existing `docs/` folders are preserved and do not block
-      `product-docs/` installation.
+      `reference/` installation.
 - [x] A custom `--release` updates content and release folder names.
 - [x] Existing generated paths are skipped unless `--force` is supplied.
 

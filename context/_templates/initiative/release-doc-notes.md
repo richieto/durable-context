@@ -1,20 +1,20 @@
 # Release Doc Notes
 
-Use this file to capture product-documentation impact while development is
-in progress. At release time, these notes help refresh `product-docs/`
+Use this file to capture reference impact while development is
+in progress. At release time, these notes help refresh `reference/`
 against the final shipped behavior.
 
-Do not edit `product-docs/` from normal development work unless a human
-explicitly asks for a documentation refresh or a specific documentation fix.
+Do not edit `reference/` from normal development work unless a human
+explicitly asks for a reference refresh or a specific reference fix.
 
 ## Product Behavior Changes
 
 - None yet.
 
-## Candidate Product Docs Areas
+## Candidate Reference Areas
 
-- `product-docs/<Area>/README.md`
-- `product-docs/<Area>/features/<feature>.md`
+- `reference/<Area>/README.md`
+- `reference/<Area>/features/<feature>.md`
 
 ## QA Or Support Notes
 
@@ -29,6 +29,6 @@ ship.
 ## Release-Time Checklist
 
 - [ ] Compare this initiative against the final shipped code.
-- [ ] Update the relevant product documentation only after release-doc work
+- [ ] Update the relevant reference only after release-doc work
       is explicitly requested.
-- [ ] Add the release row if the documentation workflow requires it.
+- [ ] Add the release row if the reference workflow requires it.

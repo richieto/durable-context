@@ -5,6 +5,6 @@ Code-Anchored Context.
 
 These files are useful for explaining the practice, but they are not part of
 the installable template. Keep reusable agent scaffolding under `context/`,
-release-anchored product docs under `product-docs/`, and narrative drafts here.
+release-anchored reference under `reference/`, and narrative drafts here.
 
 The npm package intentionally excludes this folder.

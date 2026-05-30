@@ -1,7 +1,7 @@
 # Code-Anchored Context Template
 
 This repository is a reusable starting point for keeping repository-local
-working context and release-anchored product documentation close to the
+working context and release-anchored reference close to the
 code they describe.
 
 It separates two kinds of truth:
@@ -9,7 +9,7 @@ It separates two kinds of truth:
 | Folder | Meaning | Updated when |
 | --- | --- | --- |
 | `context/` | What the team is planning, building, deciding, validating, shipping, hosting, deferring, and learning. | During normal development. |
-| `product-docs/` | What the product does as of a known release or tag. | Only during explicit documentation refresh work. |
+| `reference/` | What the system does as of a known release or explicit baseline. | Only during explicit reference refresh work. |
 
 The goal is to give humans and AI agents enough structured context to change a
 codebase without relying on chat history, tribal memory, or scattered planning
@@ -22,7 +22,7 @@ notes.
   working-context workflow.
 - `context/` with terminology, release context, backlog/program structure,
   initiative templates, and release-documentation notes.
-- `product-docs/` with a generic release-anchored documentation workflow,
+- `reference/` with a generic release-anchored reference workflow,
   authoring guide structure, and area/page templates.
 
 ## Adopting This In A Project
@@ -39,7 +39,7 @@ Useful options:
 
 ```bash
 npx code-anchored-context init --dry-run
-npx code-anchored-context init --no-product-docs
+npx code-anchored-context init --no-reference
 npx code-anchored-context init --target ../existing-project
 ```
 
@@ -54,10 +54,10 @@ Manual adoption still works:
 2. Replace `PROJECT_NAME` placeholders with the project name.
 3. Set the first active release in `context/current.md`.
 4. Add or revise area-specific `AGENTS.md` files so they point back to
-   `context/` and `product-docs/_authoring/`.
-5. Create `product-docs/_authoring/areas/<area>.md` for each documented
+   `context/` and `reference/_authoring/`.
+5. Create `reference/_authoring/areas/<area>.md` for each referenced
    product or code area.
-6. Keep product or domain-specific documentation out of this template repo.
+6. Keep product or domain-specific reference content out of this template repo.
 
 ## Publishing The Package
 
@@ -78,8 +78,8 @@ npx @your-scope/code-anchored-context init
 
 ## Working Rule
 
-Working context can evolve with the branch. Product docs should
+Working context can evolve with the branch. Reference material should
 stay stable and release-accurate. When behavior changes during development,
-record future documentation impact in the relevant initiative's
-`release-doc-notes.md`; refresh `product-docs/` only when that work is
+record future reference impact in the relevant initiative's
+`release-doc-notes.md`; refresh `reference/` only when that work is
 explicitly requested.

@@ -1,24 +1,25 @@
-# Product Docs
+# Reference
 
-This folder holds release-anchored product documentation for PROJECT_NAME.
+This folder holds release-anchored reference material for PROJECT_NAME.
 
-Product docs describe shipped behavior for a known release, tag, or explicit
-baseline. They are not the place for in-progress planning, implementation
-notes, or draft architecture decisions. Put that work in `context/`.
+Reference describes accepted system behavior for a known release, tag, or
+explicit baseline. It is not the place for in-progress planning,
+implementation notes, or draft architecture decisions. Put that work in
+`context/`.
 
 ## Start Here
 
-- `releases/index.md` records release or baseline documentation refreshes.
-- `_authoring/README.md` explains how humans and agents should author product
-  docs.
-- `_authoring/workflow.md` defines when product docs are refreshed and what
+- `releases/index.md` records release or baseline reference refreshes.
+- `_authoring/README.md` explains how humans and agents should author
+  reference material.
+- `_authoring/workflow.md` defines when reference material is refreshed and what
   belongs here.
 - `_authoring/areas/` contains per-area authoring guidance.
 
 ## Standard Layout
 
 ```text
-product-docs/
+reference/
   README.md
   releases/
     index.md
@@ -43,13 +44,13 @@ Every documented area should have:
 
 - a high-level `README.md` that explains the area's purpose and architecture
 - one page per feature under `features/`
-- an authoring guide under `product-docs/_authoring/areas/`
+- an authoring guide under `reference/_authoring/areas/`
 
 ## Contributing
 
-- Refresh product docs only when explicitly asked.
-- For existing projects with little or no product documentation, create
-  baseline product docs only when explicitly asked; otherwise document touched
+- Refresh reference material only when explicitly asked.
+- For existing projects with little or no reference material, create
+  baseline reference only when explicitly asked; otherwise document touched
   behavior during future release refreshes.
 - Write for non-developer technical readers unless the project states
   otherwise.
@@ -58,4 +59,4 @@ Every documented area should have:
 - Describe behavior, inputs, outputs, permissions, errors, business rules, and
   operational expectations in domain language.
 - Prefer Mermaid diagrams for flows, architecture, and relationships.
-- Add release refreshes to `product-docs/releases/index.md`.
+- Add release refreshes to `reference/releases/index.md`.

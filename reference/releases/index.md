@@ -1,9 +1,9 @@
-# Product Docs Release Index
+# Reference Release Index
 
 One row per tagged release. Tag names default to `release/vMAJOR_MINOR_PATCH`
 unless the project documents a different convention.
 
-Product docs at a given tag describe the behavior of that release.
+Reference at a given tag describes the behavior of that release.
 
 | Tag | Date | Areas refreshed | Owner | Summary |
 | --- | --- | --- | --- | --- |

@@ -1,86 +1,86 @@
-# Product Docs Workflow
+# Reference Workflow
 
-This file defines how documentation is versioned, refreshed, and structured
+This file defines how reference material is versioned, refreshed, and structured
 across the repo. It applies to all documented areas; area-specific guidance
 lives in [`areas/`](areas/).
 
-## When Product Docs Get Edited
+## When Reference Gets Edited
 
-Doc refresh is an explicit, on-request activity, not a side effect of code
-work. Humans or agents touch `product-docs/` only when:
+Reference refresh is an explicit, on-request activity, not a side effect of
+code work. Humans or agents touch `reference/` only when:
 
 - A human explicitly asks for a release-time refresh, typically after the
   release tag is cut and QA has signed off.
-- A human explicitly asks for baseline documentation for an existing project,
-  such as "document this repo baseline" or "create initial docs for the current
+- A human explicitly asks for baseline reference for an existing project, such
+  as "document this repo baseline" or "create initial reference for the current
   system."
 - A human explicitly asks to update a specific page.
 - A human asks to fix a demonstrable error in an existing page, such as a
   broken link or factual inaccuracy.
 
-Do not update product docs as part of a feature PR, bug fix, refactor, or
+Do not update reference as part of a feature PR, bug fix, refactor, or
 dependency bump. Mid-stream commits are partial work; "feature complete" is only
 well-defined once the release is accepted.
 
-Agents: if you are working on a code change and notice a doc that looks
+Agents: if you are working on a code change and notice reference material that looks
 outdated, leave it alone. Flag the staleness in your summary or add it to the
-initiative's `release-doc-notes.md`, but do not edit the doc as part of the
-current change unless explicitly asked.
+initiative's `release-doc-notes.md`, but do not edit the reference material as
+part of the current change unless explicitly asked.
 
-## Product Docs Modes
+## Reference Modes
 
-There are two valid ways to introduce or maintain `product-docs/`.
+There are two valid ways to introduce or maintain `reference/`.
 
-### Baseline Product Docs
+### Baseline Reference
 
 Use this mode only when a human explicitly asks to document the current system
 as a starting point. This is common when adopting the template in an existing
-project that has little or no product documentation.
+project that has little or no reference material.
 
 When creating a baseline:
 
 1. Confirm the scope: whole repo, one product area, one feature family, or one
    operational surface.
 2. Create or update the matching area guide under
-   `product-docs/_authoring/areas/` before writing product-facing pages.
+   `reference/_authoring/areas/` before writing reference pages.
 3. Document stable, currently accepted behavior from the current branch,
    current tag, or explicit reference point named by the human.
 4. Prefer broad, accurate coverage over exhaustive implementation detail.
-5. Record the baseline reference in `product-docs/releases/index.md`. If
+5. Record the baseline reference in `reference/releases/index.md`. If
    there is no release tag yet, use the commit, branch, date, or human-named
    baseline label that was used as the source.
-6. Leave uncertain or future behavior out of `product-docs/`. Capture open
+6. Leave uncertain or future behavior out of `reference/`. Capture open
    questions in `context/` or in the area authoring guide.
 
-Baseline product docs are a snapshot of the system as adopted; they are not a
+Baseline reference is a snapshot of the system as adopted; it is not a
 promise that every undocumented behavior is unimportant.
 
-### Release-Forward Product Docs
+### Release-Forward Reference
 
 Use this mode when the team chooses not to create a full baseline. In this
-mode, `product-docs/` may start sparse. Agents capture documentation impact
-in initiative `release-doc-notes.md` during development, then update product
-product docs only at explicit release-refresh time.
+mode, `reference/` may start sparse. Agents capture reference impact in
+initiative `release-doc-notes.md` during development, then update reference
+only at explicit release-refresh time.
 
-This is valid when a full baseline would be too expensive. The documentation
+This is valid when a full baseline would be too expensive. The reference
 becomes complete incrementally around behavior the team changes and releases.
 
 ## Cadence And Versioning
 
-Product docs live under `product-docs/`. After any explicit baseline pass,
-they are refreshed once per release, at git-tag time, after release acceptance.
-Product docs are anchored to the release tag; product docs at tag
-`release/v1_2_3` describe the behavior of that release.
+Reference lives under `reference/`. After any explicit baseline pass, it is
+refreshed once per release, at git-tag time, after release acceptance.
+Reference is anchored to the release tag; reference at tag `release/v1_2_3`
+describes the behavior of that release.
 
 Default tag names follow the convention `release/vMAJOR_MINOR_PATCH` and match
 the release branch name. If a project uses a different release convention,
 document it here before the first refresh. If the first documentation pass is
 a baseline without a tag, record the baseline reference in
-`product-docs/releases/index.md`.
+`reference/releases/index.md`.
 
 ## Audience
 
-Product docs are written for non-developer technical readers by default: QA,
+Reference is written for non-developer technical readers by default: QA,
 product owners, solution owners, support engineers, customer engineers, or
 operators. Adjust this only when the project explicitly defines a different
 audience.
@@ -89,7 +89,7 @@ audience.
   business rules in domain language.
 - Avoid code snippets, private type names, SQL, and framework jargon unless
   the concept has no plain-language equivalent.
-- For readers who need more depth than the product docs provide, link to the
+- For readers who need more depth than the reference provides, link to the
   source rather than replicating the implementation in prose.
 
 ## Writing Focus
@@ -101,10 +101,10 @@ or business process can observe. Add technical detail only when it affects
 released behavior, configuration, permissions, data, integrations, errors,
 support, operations, or auditability.
 
-Product docs should be product-readable first and technically anchored
-second. They can feed release notes, but they are more durable than release
-notes: release notes summarize what changed, while `product-docs/` describes
-what the accepted system does as of a release or baseline.
+Reference should be product-readable first and technically anchored second. It
+can feed release notes, but it is more durable than release notes: release
+notes summarize what changed, while `reference/` describes what the accepted
+system does as of a release or baseline.
 
 Use progressive depth:
 
@@ -128,7 +128,7 @@ Every documented area has two layers:
 Standard per-area layout:
 
 ```text
-product-docs/<Area>/
+reference/<Area>/
   README.md
   features/
     <feature>.md
@@ -159,29 +159,29 @@ Preferred diagram types:
 Keep diagrams small enough to read. If a diagram needs more than about 15 nodes
 or steps, simplify it or split it.
 
-## Feature Docs Cover The Full Vertical
+## Feature Reference Covers The Full Vertical
 
-A feature doc should describe the full behavior path the feature touches:
+A feature reference page should describe the full behavior path the feature touches:
 entry point, important services or processes, data stored or read, external
 systems, permissions, validation, errors, and operational expectations.
 
-If a feature spans multiple areas, place the doc in the area that owns the
+If a feature spans multiple areas, place the page in the area that owns the
 user-facing or operator-facing entry point. Cross-link from the other areas.
 
-## Release-Time Doc Refresh
+## Release-Time Reference Refresh
 
-When invoked to refresh product docs for a release:
+When invoked to refresh reference for a release:
 
 1. Work from the diff `<previous-release-tag>..HEAD`, scoped to one area at a
    time.
-2. Read the matching area guide in `product-docs/_authoring/areas/`.
+2. Read the matching area guide in `reference/_authoring/areas/`.
 3. Read relevant initiative `release-doc-notes.md` files under
    `context/releases/<release>/initiatives/`.
 4. Update the area's `README.md` if the high-level picture changed.
 5. Update feature pages for behavior that changed.
 6. Ignore pure refactors, internal renames, test-only changes, formatting,
    lint fixes, and dependency bumps with no behavior change.
-7. Append one row to `product-docs/releases/index.md`.
+7. Append one row to `reference/releases/index.md`.
 
 ## Source Order
 
@@ -190,12 +190,12 @@ source inspection:
 
 1. Previous release tag to current release diff.
 2. Relevant initiative `release-doc-notes.md` files.
-3. Matching area guide under `product-docs/_authoring/areas/`.
-4. Existing product documentation.
+3. Matching area guide under `reference/_authoring/areas/`.
+4. Existing reference.
 5. Source code, tests, config, CI/CD, infrastructure, and generated artifacts
    only as needed to verify shipped behavior.
 
-For baseline documentation, start from the explicit baseline scope and
+For baseline reference, start from the explicit baseline scope and
 reference point named by the human. If no reference is named, use the current
 working tree and say so in the release index row.
 

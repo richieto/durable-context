@@ -14,21 +14,21 @@ For behavior-changing work, use the repo-wide skill at
 Keep initiative knowledge centralized under `context/`; area
 `AGENTS.md` files should point there rather than copying active plans.
 
-## Product Docs Authoring
+## Reference Authoring
 
-### When To Edit `product-docs/`
+### When To Edit `reference/`
 
-Do not edit `product-docs/` as a side effect of feature work, bug fixes,
-refactors, or other code changes. Product docs in this model are
+Do not edit `reference/` as a side effect of feature work, bug fixes,
+refactors, or other code changes. Reference material in this model is
 release-anchored:
 they describe the behavior of a specific release tag, not the partial state of
 a working branch.
 
-Touch `product-docs/` only when:
+Touch `reference/` only when:
 
-- A human explicitly asks you to refresh product docs for a release, typically
+- A human explicitly asks you to refresh reference for a release, typically
   after a release tag is cut and QA has signed off.
-- A human explicitly asks you to create or refresh baseline documentation for
+- A human explicitly asks you to create or refresh baseline reference for
   an existing project.
 - A human explicitly asks you to update a specific page.
 - A human asks you to fix a demonstrable error in an existing page, such as a
@@ -36,20 +36,20 @@ Touch `product-docs/` only when:
 
 If you are unsure whether the request is one of these, ask before editing.
 
-If a project has documentation that intentionally follows a different cadence,
+If a project has reference material that intentionally follows a different cadence,
 document that exception in the area's README and in
-`product-docs/_authoring/areas/`.
+`reference/_authoring/areas/`.
 
 ### Where The Authoring Guidance Lives
 
-All documentation workflow, per-area authoring guides, and domain terminology
-live under [`product-docs/_authoring/`](product-docs/_authoring/). Start
-with [`product-docs/_authoring/README.md`](product-docs/_authoring/README.md).
+All reference workflow, per-area authoring guides, and domain terminology
+live under [`reference/_authoring/`](reference/_authoring/). Start
+with [`reference/_authoring/README.md`](reference/_authoring/README.md).
 
-If you are refreshing product docs, the per-area guides in
-[`product-docs/_authoring/areas/`](product-docs/_authoring/areas/) tell you
+If you are refreshing reference, the per-area guides in
+[`reference/_authoring/areas/`](reference/_authoring/areas/) tell you
 what matters and what to ignore for each area.
 
 `AGENTS.md` files stay lean. They are for coding conventions and agent
-restrictions, not detailed documentation guidance. If you have doc rules to
+restrictions, not detailed reference guidance. If you have reference rules to
 add, add them under `_authoring/`.
