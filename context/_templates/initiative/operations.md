@@ -7,6 +7,10 @@ If there is nothing concrete for an agent or engineer to act on, omit this
 file after copying the template or mark it as not applicable. Delivery belongs
 in `delivery.md`; environment shape and IaC belong in `infrastructure.md`.
 
+Start from `context/project-profile.md` for repo-wide observability, support,
+rollback, and repair entry points. Capture only initiative-specific actionable
+runtime or support changes here.
+
 ## Runtime Behavior
 
 Describe how the live system behaves after the initiative ships, especially

@@ -55,6 +55,10 @@ When creating a baseline:
 Baseline reference is a snapshot of the system as adopted; it is not a
 promise that every undocumented behavior is unimportant.
 
+This is different from `context/project-profile.md`, which captures the
+repo-wide operating profile: stack, commands, verification, delivery,
+infrastructure, observability, and generated-artifact facts.
+
 ### Release-Forward Reference
 
 Use this mode when the team chooses not to create a full baseline. In this

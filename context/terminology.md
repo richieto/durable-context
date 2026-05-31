@@ -11,6 +11,7 @@ backlog items, ADRs, agent summaries, and release-transition work.
 | `context/` | Working context: plans, specs, ADRs, implementation notes, delivery-surface context, future scope, and release-documentation notes. |
 | `reference/` | Accepted reference. It describes shipped or baseline behavior for a release/tag and is not edited during normal development work. |
 | `context/current.md` | Pointer to the current active release context. Updating this is a release transition. |
+| `context/project-profile.md` | Optional repo-wide operating profile for stack, commands, source roots, verification, delivery, infrastructure, observability, and generated artifacts. |
 | `context/releases/<version>/` | Release-scoped working context for one version. |
 | `context/programs/` | Durable multi-release working context. |
 | `context/backlog/items/` | Deferred isolated work cut from initiatives but worth preserving. |
@@ -44,6 +45,8 @@ scope and should be preserved, but it does not need program-level context.
 The structure follows delivery concerns, not technologies. Use concern names
 such as `testing.md`, `delivery.md`, and `infrastructure.md`; name specific
 tools inside those files only when the tools matter.
+Use `project-profile.md` for repo-wide defaults and toolchain facts, then use
+initiative files for work-specific changes and exceptions.
 
 Mermaid is the preferred diagram syntax for working context because it is
 both readable Markdown for agents and renderable visual context for humans.
@@ -51,6 +54,7 @@ both readable Markdown for agents and renderable visual context for humans.
 | Term | Meaning |
 | --- | --- |
 | `README.md` | Entry point for a folder. It should explain status, scope, links, and where to start. |
+| `project-profile.md` | Repo-wide operating profile. Populate it on human request or when source-backed facts are discovered during work. |
 | `plan.md` | Working alignment space for humans and agents. It may be messy, but settled truth must move into stable files. |
 | `spec.md` | Stable description of what the system should do. |
 | `interface.md` | Stable description of how humans, clients, APIs, config, reports, or tools interact with the work. |

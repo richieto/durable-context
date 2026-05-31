@@ -18,6 +18,13 @@ context, and optional `reference/` starter files into the target repo.
 - `bin/code-anchored-context.js`
 - `tests/cli-smoke.test.js`
 - `README.md`
+- `AGENTS.md`
+- `.agents/skills/code-anchored-context/SKILL.md`
+- `context/project-profile.md`
+- `context/README.md`
+- `context/terminology.md`
+- `context/_templates/initiative/`
+- `context/_templates/planned-initiative/`
 - `reference/_authoring/workflow.md`
 - `reference/_authoring/areas/_template.md`
 - `reference/_templates/area/README.md`
@@ -61,6 +68,12 @@ Infrastructure and operations notes are not applicable for this initiative.
 - Companion article and presentation drafts moved under `writing/` and
   excluded from the npm package.
 - Package version bumped to `0.2.3` for the `reference/` rename.
+- Package version bumped to `0.2.4` for the repo-wide project profile.
+- `context/project-profile.md` added as an optional source-backed baseline
+  for stack, commands, verification, delivery, infrastructure, observability,
+  and generated-artifact facts.
+- Agent guidance now tells consumers to keep repo-specific toolchain facts in
+  `context/project-profile.md`, not in the reusable skill.
 - README adoption and publishing flow updated.
 - Reference authoring guidance now defaults to product-readable,
   technically anchored prose.

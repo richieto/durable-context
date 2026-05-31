@@ -7,6 +7,9 @@ Scope: everything under `/context`.
 This folder is the canonical home for in-progress working context: specs,
 interface notes, architecture notes, actionable operations notes, ADRs,
 backlogs, implementation plans, and release-documentation notes.
+`project-profile.md` is the canonical home for repo-wide operating facts such
+as stack, commands, test layers, CI/CD, infrastructure, observability, and
+generated artifacts when a baseline has been populated.
 
 Testing, delivery, and infrastructure notes belong here when they affect how
 work is verified, shipped, deployed, or hosted. Operational notes belong here
@@ -20,6 +23,9 @@ repair context.
 
 - Use `context/terminology.md` as the canonical vocabulary for programs,
   planned initiatives, release initiatives, backlog items, and promotion.
+- Use `context/project-profile.md` for stable repo-wide operating facts.
+  Populate it only from source-backed discovery or an explicit human request
+  for a repository baseline.
 - Keep initiative knowledge centralized here. Area `AGENTS.md` files may point
   here, but they should not duplicate initiative content.
 - Do not move in-progress plans into `reference/`.

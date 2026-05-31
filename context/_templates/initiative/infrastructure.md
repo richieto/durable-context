@@ -4,6 +4,10 @@ Use this file for environment shape and infrastructure dependencies. Name the
 concern, not the tool. Infrastructure modules, resource templates, manifests,
 or manual environment steps can all appear here when relevant.
 
+Start from `context/project-profile.md` for repo-wide infrastructure and
+configuration defaults. Capture only initiative-specific environment, IaC,
+resource, secret, or migration changes here.
+
 ## Environment Shape
 
 Describe new or changed resources, services, networks, identity boundaries,

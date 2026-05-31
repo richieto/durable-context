@@ -48,8 +48,11 @@ repository only. They are intentionally outside the npm `files` list.
 
 Version `0.2.3` is the package shape that uses `reference/` for
 release-anchored accepted behavior.
+Version `0.2.4` adds `context/project-profile.md` as the repo-wide operating
+profile starter.
 
 ## Rollout Notes
 
-The first publish should use version `0.1.0`. If the unscoped name is not
-available, publish under a personal or organization scope.
+Publish the next registry version after `npm test` and `npm pack --dry-run`
+pass. If the unscoped name is not available in another environment, publish
+under a personal or organization scope.

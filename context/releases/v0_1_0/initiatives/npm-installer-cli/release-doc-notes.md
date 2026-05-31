@@ -28,10 +28,17 @@ explicitly asks for a reference refresh or a specific reference fix.
 - Starter reference guidance now tells agents to write from behavior
   outward: product-readable first, technically anchored where details affect
   shipped behavior, operations, support, or auditability.
+- The template now installs `context/project-profile.md` as an optional
+  source-backed repo baseline for stack, commands, verification, delivery,
+  infrastructure, observability, and generated artifacts.
+- Agent guidance now directs repo-specific toolchain facts into
+  `context/project-profile.md` rather than the reusable skill.
 
 ## Candidate Reference Areas
 
 - Root `README.md` adoption and publishing sections.
+- `context/project-profile.md` starter guidance.
+- `.agents/skills/code-anchored-context/SKILL.md` project-profile workflow.
 - `reference/README.md` root orientation.
 - `reference/_authoring/workflow.md` writing focus and reference
   modes.

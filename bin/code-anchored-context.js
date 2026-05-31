@@ -304,6 +304,9 @@ class Installer {
 In-progress specs, plans, ADRs, backlog, implementation context, and
 release-documentation notes live under [\`context/\`](context/).
 Start with [\`context/current.md\`](context/current.md).
+Use [\`context/project-profile.md\`](context/project-profile.md) for
+repo-wide stack, command, testing, delivery, infrastructure, observability,
+and generated-artifact facts when it has been populated.
 
 For behavior-changing work, use the repo-wide skill at
 [\`.agents/skills/${skillName}/SKILL.md\`](.agents/skills/${skillName}/SKILL.md).
@@ -485,6 +488,10 @@ Start here:
 - \`releases/${this.release}/README.md\`
 - \`releases/${this.release}/backlog.md\`
 - \`releases/${this.release}/initiatives/\`
+
+Project-wide operating profile:
+
+- \`project-profile.md\`
 
 Durable or deferred context:
 

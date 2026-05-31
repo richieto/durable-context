@@ -28,6 +28,7 @@ test('init installs agent context into an empty project', async () => {
 
   assert.match(stdout, /Code-Anchored Context ready for Smoke App/);
   assert.equal(await exists(path.join(target, 'reference')), false);
+  assert.equal(await exists(path.join(target, 'context/project-profile.md')), true);
   assert.equal(await exists(path.join(target, 'context/releases/v1_2_3')), true);
   assert.equal(await exists(path.join(target, 'context/releases/v0_1_0')), false);
   assert.equal(
@@ -41,7 +42,13 @@ test('init installs agent context into an empty project', async () => {
 
   const current = await readFile(path.join(target, 'context/current.md'), 'utf8');
   assert.match(current, /Current release: `v1_2_3`/);
+  assert.match(current, /project-profile\.md/);
   assert.doesNotMatch(current, /npm-installer-cli/);
+
+  const profile = await readFile(path.join(target, 'context/project-profile.md'), 'utf8');
+  assert.match(profile, /Project: Smoke App/);
+  assert.match(profile, /repository operating baseline/);
+  assert.doesNotMatch(profile, /PROJECT_NAME/);
 
   const backlog = await readFile(path.join(target, 'context/releases/v1_2_3/backlog.md'), 'utf8');
   assert.match(backlog, /# v1\.2\.3 Backlog/);

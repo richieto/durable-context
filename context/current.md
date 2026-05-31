@@ -8,6 +8,10 @@ Start here:
 - `releases/v0_1_0/backlog.md`
 - `releases/v0_1_0/initiatives/`
 
+Project-wide operating profile:
+
+- `project-profile.md`
+
 Durable or deferred context:
 
 - `programs/`

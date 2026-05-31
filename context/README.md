@@ -8,10 +8,16 @@ notes, infrastructure notes, actionable operations notes, ADRs, backlog items,
 implementation plans, and release-documentation notes. Do not use
 `reference/` for in-progress development planning.
 
+Use `project-profile.md` for repo-wide operating facts such as stack,
+commands, verification layers, CI/CD, infrastructure, observability, and
+generated artifacts.
+
 ## Start Here
 
 - `terminology.md` defines the shared vocabulary.
 - `current.md` points to the active release context.
+- `project-profile.md` captures repo-wide stack, command, testing, delivery,
+  infrastructure, operations, and generated-artifact facts when populated.
 - `programs/` contains durable multi-release working context.
 - `backlog/` contains deferred isolated work cut from initiatives.
 - `releases/` contains release-scoped working context.
@@ -63,6 +69,9 @@ The delivery-surface rule is:
 
 Use `testing.md`, `delivery.md`, and `infrastructure.md` for concern-based
 context. Mention specific tools inside those files only when the tools matter.
+Use `project-profile.md` for repo-wide defaults such as package manager,
+common commands, test tools, delivery automation, infrastructure tooling, and
+observability entry points.
 
 Mermaid diagrams are encouraged for flows, dependencies, and lifecycle maps
 because they stay readable as Markdown for agents while rendering as visible
@@ -80,6 +89,7 @@ not copy specs, plans, or ADRs into area-local documents.
 ```text
 context/
   current.md
+  project-profile.md
   programs/
     <program-slug>/
       README.md
@@ -119,6 +129,27 @@ context/
           release-doc-notes.md
           brief.html
 ```
+
+## Project Profile
+
+`project-profile.md` is the optional repo-wide operating profile. It answers
+questions future agents routinely need before changing behavior:
+
+- where code, tests, config, infrastructure, generated artifacts, and
+  reference material live
+- which runtime, package manager, frameworks, services, and hosting platform
+  the project uses
+- which commands verify, build, package, run, deploy, or release the project
+- which CI/CD, IaC, observability, support, rollback, and repair tools matter
+
+Populate it when a human asks for a project profile, tech-stack baseline, or
+repository operating baseline, or when a concrete repo-wide fact is discovered
+during work. Do not guess. Mark unknowns explicitly and cite source paths
+where possible.
+
+Initiatives can rely on the project profile for stable defaults. Put only the
+initiative-specific changes, exceptions, and release gates in the initiative's
+`testing.md`, `delivery.md`, `infrastructure.md`, or `operations.md`.
 
 ## Programs
 

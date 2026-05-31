@@ -8,7 +8,7 @@ It separates two kinds of truth:
 
 | Folder | Meaning | Updated when |
 | --- | --- | --- |
-| `context/` | What the team is planning, building, deciding, validating, shipping, hosting, deferring, and learning. | During normal development. |
+| `context/` | What the team is planning, building, deciding, validating, shipping, hosting, deferring, and learning, plus optional repo-wide operating facts in `project-profile.md`. | During normal development. |
 | `reference/` | What the system does as of a known release or explicit baseline. | Only during explicit reference refresh work. |
 
 The goal is to give humans and AI agents enough structured context to change a
@@ -21,7 +21,8 @@ notes.
 - `.agents/skills/code-anchored-context/SKILL.md` for the recurring
   working-context workflow.
 - `context/` with terminology, release context, backlog/program structure,
-  initiative templates, and release-documentation notes.
+  a repo-wide project profile starter, initiative templates, and
+  release-documentation notes.
 - `reference/` with a generic release-anchored reference workflow,
   authoring guide structure, and area/page templates.
 
@@ -55,9 +56,12 @@ Manual adoption still works:
 3. Set the first active release in `context/current.md`.
 4. Add or revise area-specific `AGENTS.md` files so they point back to
    `context/` and `reference/_authoring/`.
-5. Create `reference/_authoring/areas/<area>.md` for each referenced
+5. If you want a repo operating profile, ask an agent to populate
+   `context/project-profile.md` from source files, manifests, CI/CD,
+   infrastructure, test config, and observability tooling.
+6. Create `reference/_authoring/areas/<area>.md` for each referenced
    product or code area.
-6. Keep product or domain-specific reference content out of this template repo.
+7. Keep product or domain-specific reference content out of this template repo.
 
 ## Publishing The Package
 

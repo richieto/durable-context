@@ -34,7 +34,7 @@ The normal flow is:
 3. The command installs:
    - `AGENTS.md`
    - `.agents/skills/code-anchored-context/SKILL.md`
-   - `context/`
+   - `context/`, including `context/project-profile.md`
    - `reference/` unless `--no-reference` is supplied
 4. If `AGENTS.md` already exists, the command appends or refreshes a
    Code-Anchored Context section instead of replacing the whole file.
@@ -52,6 +52,8 @@ hyphens because it becomes part of generated file paths.
       actions without writing files.
 - [x] Installing into an empty target creates the expected agent and
       Working context files.
+- [x] Installing into an empty target creates
+      `context/project-profile.md` with project placeholders replaced.
 - [x] Installing with `--no-reference` skips `reference/`.
 - [x] Existing `docs/` folders are preserved and do not block
       `reference/` installation.

@@ -8,6 +8,9 @@ subfolders layer on top of it. Read those too when working in a given area.
 In-progress specs, plans, ADRs, backlog, implementation context, and
 release-documentation notes live under [`context/`](context/).
 Start with [`context/current.md`](context/current.md).
+Use [`context/project-profile.md`](context/project-profile.md) for
+repo-wide stack, command, testing, delivery, infrastructure, observability,
+and generated-artifact facts when it has been populated.
 
 For behavior-changing work, use the repo-wide skill at
 [`.agents/skills/code-anchored-context/SKILL.md`](.agents/skills/code-anchored-context/SKILL.md).

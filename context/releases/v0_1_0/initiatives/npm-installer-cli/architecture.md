@@ -5,6 +5,9 @@
 This repository is already the canonical template. Its root files are the
 files future projects need: `AGENTS.md`, `.agents/skills/`, `context/`,
 and optionally `reference/`.
+Repo-wide stack and toolchain facts are represented by
+`context/project-profile.md` after installation; the reusable skill stays
+generic.
 
 ## Components
 
@@ -12,7 +15,7 @@ and optionally `reference/`.
 | --- | --- |
 | `package.json` | Defines package metadata, published files, and the CLI binary. |
 | `bin/code-anchored-context.js` | Parses flags, copies template paths, applies placeholder replacements, and prints the install summary. |
-| Template root files | Provide the actual context files copied into target repositories. |
+| Template root files | Provide the actual context files copied into target repositories, including the optional project profile starter. |
 
 ## Flow
 

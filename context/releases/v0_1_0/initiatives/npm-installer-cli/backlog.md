@@ -27,6 +27,9 @@
 | Done | Avoid existing docs collisions | CLI | Version `0.2.3` installs release-facing reference under `reference/` and leaves existing `docs/` folders untouched. |
 | Done | Rename release reference folder | Template | The installable release-anchored material now lives under `reference/`. |
 | Done | Replace Azure wiki starter files | Reference | Removed `.order` and `Welcome.md`; added a portable `reference/README.md`. |
+| Done | Add repo-wide project profile | Context | Added `context/project-profile.md` so agents can store source-backed stack, command, testing, delivery, infrastructure, observability, and generated-artifact facts in consuming repos. |
+| Done | Teach agents profile boundary | Agent guidance | Skill, `AGENTS.md`, context docs, and initiative templates now point repo-specific toolchain facts to `context/project-profile.md` instead of baking them into the reusable skill. |
+| Done | Bump project profile version | Delivery | `package.json` is now `0.2.4` for the project profile starter. |
 
 ## Deferred
 

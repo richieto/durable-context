@@ -4,6 +4,10 @@ Use this file for the initiative's verification strategy. Name the concern,
 not the tool. Specific test runners, unit test frameworks, contract tests, or
 manual scripts can all appear here when they are relevant.
 
+Start from `context/project-profile.md` for repo-wide default commands and
+test tooling. Capture only initiative-specific additions, exceptions, data
+needs, or release gates here.
+
 ## Test Strategy
 
 Describe what must be proven before this initiative can ship.

@@ -17,6 +17,8 @@ produce.
 - Tests or verification: `path/to/...`
 - Delivery, CI/CD, build, or artifacts: `path/to/...`
 - Infrastructure, IaC, or environment config: `path/to/...`
+- Repo-wide operating profile: `context/project-profile.md` if a stable
+  project fact changes
 - Reference or release notes: `path/to/...`
 
 Remove entries that do not apply and add the real paths. Prefer naming the

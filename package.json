@@ -1,6 +1,6 @@
 {
   "name": "code-anchored-context",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Install repo-local agent context, release initiatives, and release-anchored reference scaffolding into an existing project.",
   "license": "MIT",
   "type": "module",
@@ -15,6 +15,7 @@
     "context/_templates/",
     "context/backlog/",
     "context/current.md",
+    "context/project-profile.md",
     "context/programs/",
     "context/releases/v0_1_0/README.md",
     "context/releases/v0_1_0/backlog.md",

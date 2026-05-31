@@ -5,6 +5,10 @@ Name the concern, not the tool. Pipeline definitions, workflow files,
 deployment scripts, release toggles, and gates can all appear here when
 relevant.
 
+Start from `context/project-profile.md` for repo-wide delivery defaults.
+Capture only initiative-specific pipeline, build, deployment, artifact, or
+release changes here.
+
 ## Pipeline Impact
 
 Describe pipeline, workflow, build, packaging, or artifact changes.

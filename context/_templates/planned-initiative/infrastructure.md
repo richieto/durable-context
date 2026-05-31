@@ -3,6 +3,10 @@
 Use this file for future environment shape and infrastructure dependencies
 that are already clear enough to preserve.
 
+Start from `context/project-profile.md` for repo-wide infrastructure and
+configuration defaults. Capture only planned initiative-specific environment,
+IaC, resource, secret, or migration changes here.
+
 ## Environment Shape
 
 Describe expected resources, services, networks, identity boundaries, storage,

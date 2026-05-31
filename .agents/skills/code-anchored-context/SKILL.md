@@ -1,6 +1,6 @@
 ---
 name: code-anchored-context
-description: Use central repository context for planning and implementation. Use when starting, changing, reviewing, or documenting behavior-changing work; when checking or updating context/current.md, context/releases/*/initiatives/*, context/programs/*, context/programs/*/planned-initiatives/*, context/backlog/items/*, specs, plans, interface notes, architecture notes, testing notes, delivery notes, infrastructure notes, actionable operations notes, ADRs, backlog, release-doc-notes.md; when promoting planned initiatives during release transitions; or when deciding whether reference/ should be left untouched.
+description: Use central repository context for planning and implementation. Use when starting, changing, reviewing, or documenting behavior-changing work; when checking or updating context/current.md, context/project-profile.md, context/releases/*/initiatives/*, context/programs/*, context/programs/*/planned-initiatives/*, context/backlog/items/*, specs, plans, interface notes, architecture notes, testing notes, delivery notes, infrastructure notes, actionable operations notes, ADRs, backlog, release-doc-notes.md; when promoting planned initiatives during release transitions; or when deciding whether reference/ should be left untouched.
 ---
 
 # Code-Anchored Context
@@ -15,6 +15,9 @@ work belongs in planned initiatives until the target release becomes current.
 Working context should also cover delivery concerns such as testing,
 delivery pipelines, and infrastructure when they affect how the work is
 verified, shipped, deployed, or hosted.
+
+Repo-specific stack and toolchain facts belong in
+`context/project-profile.md`, not in this reusable skill.
 
 ## Workflow
 
@@ -31,6 +34,24 @@ active release folder.
 Use `context/terminology.md` as the canonical vocabulary for programs,
 planned initiatives, release initiatives, backlog items, statuses, and
 promotion.
+
+Open `context/project-profile.md` when it exists. It is the repo-wide
+operating profile for stack, commands, source roots, verification layers,
+CI/CD, delivery automation, infrastructure, observability, and generated
+artifacts. Use it before inventing default commands or tooling assumptions.
+
+If a human explicitly asks for a project profile, tech-stack baseline, or
+repository operating baseline, create or refresh `context/project-profile.md`
+by inspecting source-backed local facts: manifests, lockfiles, runtime version
+files, build config, test config, CI/CD workflows, deployment scripts,
+infrastructure config, observability config, generated-artifact owners, and
+existing docs. Do not guess. Mark unknowns clearly and cite source paths where
+useful.
+
+If the human asks for a "baseline" without saying whether they mean an
+operating profile or accepted behavior reference, distinguish
+`context/project-profile.md` from baseline reference under `reference/` before
+editing.
 
 If the workspace starts inside a subfolder, navigate upward to the repository
 root when the environment allows it. If `context/` is not available in
@@ -50,6 +71,9 @@ Search for:
 - the feature or bug name
 - affected concern names, such as product code, APIs, contracts, tests,
   delivery, CI/CD, infrastructure, config, generated artifacts, or automation
+- repo-wide toolchain facts from `context/project-profile.md`, such as test
+  commands, e2e tooling, observability tooling, deploy CLIs, source roots,
+  generated artifacts, or CI/CD files
 - related domain terms, APIs, jobs, entities, routes, config names, or tickets
 
 Use an existing initiative when the work belongs to it, even if the code
@@ -165,6 +189,9 @@ Use these files as the standard map:
 - `backlog.md`: work slices and implementation progress
 - `decisions/ADR-*.md`: meaningful choices and their consequences
 - `release-doc-notes.md`: reference impact to review at release
+- `context/project-profile.md`: repo-wide stack, command, testing, delivery,
+  infrastructure, observability, and generated-artifact facts; update it only
+  for stable source-backed discoveries or an explicit baseline request
 
 Not every initiative needs every file. Mark a file as not applicable or omit
 it after copying the template when it genuinely does not apply.
@@ -197,6 +224,9 @@ folder. Do not create area-local copies of initiative documents.
 Before finishing behavior-changing work:
 
 - The matching initiative was read or a reason was given for why none exists.
+- `context/project-profile.md` was read when present and relevant to
+  verification, delivery, infrastructure, operations, or generated artifacts;
+  if a human requested a baseline, it was populated from source-backed facts.
 - Matching programs or context backlog items were checked when the work
   appears phased, deferred, or multi-release.
 - Planned initiatives were checked or created when future program scope is

@@ -16,7 +16,7 @@ that should be added or updated.
 
 | Area | Coverage | Tool or location | Status |
 | --- | --- | --- | --- |
-| CLI smoke | Empty target install, custom release, `--no-reference`, existing `docs/` preservation, repeated dry run | `tests/cli-smoke.test.js` | Passing |
+| CLI smoke | Empty target install, `context/project-profile.md`, custom release, `--no-reference`, existing `docs/` preservation, repeated dry run | `tests/cli-smoke.test.js` | Passing |
 
 ## Manual Verification
 

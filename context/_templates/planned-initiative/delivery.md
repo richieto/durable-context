@@ -3,6 +3,10 @@
 Use this file for future CI/CD, build, release, and environment-promotion
 behavior that is already clear enough to preserve.
 
+Start from `context/project-profile.md` for repo-wide delivery defaults.
+Capture only planned initiative-specific pipeline, build, deployment,
+artifact, or release changes here.
+
 ## Pipeline Impact
 
 Describe expected pipeline, workflow, build, packaging, or artifact changes.
