@@ -1,5 +1,11 @@
 # Giving AI Agents The Context Around The Code
 
+> **Archived draft.** This is the long, original draft of the Code-Anchored
+> Context write-up. It has been superseded by the shorter, current pieces:
+> [Code-Anchored Context: Why](code-anchored-context-why.md) and
+> [Code-Anchored Context: The Structure](code-anchored-context-structure.md).
+> Kept for history; do not treat it as canonical.
+
 AI agents are becoming more capable at reading repositories, editing files,
 and following instructions. But in large enterprise codebases, code is not the
 whole story.
