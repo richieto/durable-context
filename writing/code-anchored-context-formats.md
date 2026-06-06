@@ -27,8 +27,16 @@ usually do not need the full spec. They need the story, the flow, the impact,
 and the current direction.
 
 You can see this in practice in
-[`code-anchored-context.html`](code-anchored-context.html): the same ideas as
-the markdown pieces, presented for a different audience.
+[`code-anchored-context-story.html`](code-anchored-context-story.html): the same
+ideas as the markdown pieces, retold in plain language for a non-technical
+audience.
+
+HTML is not only for outsiders, though. The same format also makes a good
+*scannable reference* for practitioners. The
+[`code-anchored-context.html`](code-anchored-context.html) practitioner brief
+renders the structure — containers, initiative files, and release transitions —
+as something you can scan at a glance rather than read top to bottom. Same
+format, two different jobs: one tells the story, the other maps the mechanics.
 
 ## The Point
 

@@ -58,7 +58,10 @@ For me, the missing layer is **durable context**. Not more documentation for the
 
 That is what I have been working on as **Code-Anchored Context** — not a replacement for specs, but something built around them. If specs tell AI what to do next, durable context helps AI understand what already exists.
 
-I wrote up the idea, and how I structure it, in two companion pieces:
+I wrote up the idea, and how I structure it, as a short series — best read in
+this order:
 
+- [Code-Anchored Context: The Rationale](code-anchored-context-rationale.md) — the painpoints.
 - [Code-Anchored Context: Why](code-anchored-context-why.md) — the principle.
 - [Code-Anchored Context: The Structure](code-anchored-context-structure.md) — the layout.
+- [Code-Anchored Context: Markdown For Work, HTML For People](code-anchored-context-formats.md) — the format.

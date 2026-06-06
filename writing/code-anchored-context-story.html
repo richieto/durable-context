@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Code-Anchored Context: The Story</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17212b;
+      --muted: #52616f;
+      --line: #d6dde5;
+      --soft: #f5f7fa;
+      --panel: #ffffff;
+      --blue: #155e75;
+      --green: #2f6f4e;
+      --gold: #8a5a12;
+      --red: #9f3a38;
+      --violet: #6750a4;
+      --cyan-soft: #e8f5f8;
+      --green-soft: #ebf6ef;
+      --gold-soft: #fff4dc;
+      --red-soft: #fff0ef;
+      --violet-soft: #f2effb;
+      --shadow: 0 10px 25px rgba(23, 33, 43, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--ink);
+      background: #ffffff;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    code {
+      padding: 0.12rem 0.28rem;
+      border-radius: 4px;
+      background: #edf1f5;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.92em;
+    }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(21, 94, 117, 0.08), rgba(47, 111, 78, 0.08)),
+        #ffffff;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 56px 0 44px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--blue);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      line-height: 1.1;
+      font-weight: 760;
+      max-width: 880px;
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 1.12rem;
+    }
+
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .quick-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 6px 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #ffffff;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .quick-links a:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    main {
+      padding: 12px 0 64px;
+    }
+
+    section {
+      padding: 36px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    section:last-child {
+      border-bottom: 0;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 1.6rem;
+      line-height: 1.2;
+    }
+
+    .section-intro {
+      max-width: 820px;
+      margin: 0 0 24px;
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .tile {
+      min-height: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 18px;
+    }
+
+    .tile h3 {
+      margin: 0 0 8px;
+      font-size: 1.08rem;
+    }
+
+    .tile p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .accent-program {
+      border-top: 4px solid var(--violet);
+    }
+
+    .accent-planned {
+      border-top: 4px solid var(--gold);
+    }
+
+    .accent-release {
+      border-top: 4px solid var(--green);
+    }
+
+    .accent-backlog {
+      border-top: 4px solid var(--red);
+    }
+
+    .accent-blue {
+      border-top: 4px solid var(--blue);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .panel.before {
+      border-left: 5px solid var(--red);
+      background: var(--red-soft);
+    }
+
+    .panel.after {
+      border-left: 5px solid var(--green);
+      background: var(--green-soft);
+    }
+
+    .panel h3 {
+      margin: 0 0 10px;
+      font-size: 1.1rem;
+    }
+
+    .panel ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .panel li + li {
+      margin-top: 8px;
+    }
+
+    .note {
+      border-left: 5px solid var(--blue);
+      background: var(--cyan-soft);
+      padding: 16px 18px;
+      border-radius: 6px;
+      color: var(--ink);
+      font-size: 1.06rem;
+    }
+
+    .note p {
+      margin: 0;
+    }
+
+    .read-more {
+      display: grid;
+      gap: 10px;
+    }
+
+    .read-more a {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 10px;
+      align-items: baseline;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px 16px;
+      background: #ffffff;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .read-more a:hover {
+      border-color: var(--blue);
+    }
+
+    .read-more strong {
+      color: var(--blue);
+    }
+
+    .read-more span {
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 28px 0 40px;
+      color: var(--muted);
+      background: var(--soft);
+    }
+
+    @media (max-width: 920px) {
+      .grid.two,
+      .grid.three,
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+    }
+
+    @media print {
+      .quick-links {
+        display: none;
+      }
+
+      body {
+        background: #ffffff;
+      }
+
+      section {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap hero">
+      <p class="eyebrow">Code-Anchored Context</p>
+      <h1>Keep the thinking, not just the code</h1>
+      <p class="lead">
+        Coding agents can build and change software fast. But the most valuable
+        part of that work is usually not the code that ships &mdash; it is the
+        reasoning around it: why a decision was made, what was tried, what was
+        deferred. Today that reasoning keeps disappearing. This is the case for
+        keeping it.
+      </p>
+      <div class="quick-links" aria-label="Audience links">
+        <a href="#problem">The problem</a>
+        <a href="#idea">The idea</a>
+        <a href="#impact">Why it matters</a>
+        <a href="#read-more">Go deeper</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="problem">
+      <h2>The Problem: Valuable Thinking Keeps Escaping</h2>
+      <p class="section-intro">
+        When a team works with coding agents, a lot of careful thinking happens
+        in places nobody owns. A chat window closes and it is gone. A document
+        lives in one tool on one person's machine. None of it travels with the
+        product. That is a quiet but real business risk.
+      </p>
+      <div class="grid two">
+        <div class="tile accent-backlog">
+          <h3>Planning vanishes when a session ends</h3>
+          <p>
+            Hours of planning produce a clear direction, then the session closes
+            and that direction is lost. The next person, or the next agent,
+            starts from scratch.
+          </p>
+        </div>
+        <div class="tile accent-backlog">
+          <h3>Documentation drifts from reality</h3>
+          <p>
+            When docs live apart from the code and depend on each person
+            remembering to update them, they slowly stop matching what the
+            system actually does.
+          </p>
+        </div>
+        <div class="tile accent-backlog">
+          <h3>Knowledge is locked to one tool</h3>
+          <p>
+            If the plan and the context live inside one AI tool, you cannot ask
+            a different one to review it, and switching tools means losing the
+            trail. That is lock-in to a single vendor or setup.
+          </p>
+        </div>
+        <div class="tile accent-backlog">
+          <h3>Work cannot be handed off</h3>
+          <p>
+            Reasoning trapped in a session can only be acted on by that session.
+            A specialist cannot review it, and a colleague cannot pick it up and
+            continue cleanly.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="idea">
+      <h2>The Idea: Keep Truth Close To The Code</h2>
+      <p class="section-intro">
+        The fix is simple to state. Keep the important context in the same place
+        as the code it describes, structured so both people and agents can find
+        it &mdash; and separate what already shipped from what the team is still
+        deciding.
+      </p>
+      <div class="split">
+        <div class="panel after">
+          <h3>What shipped</h3>
+          <p style="margin:0;color:var(--muted);">
+            Stable, release-accurate reference. It describes a known, delivered
+            version of the product &mdash; not an unfinished change.
+          </p>
+        </div>
+        <div class="panel after">
+          <h3>What we are deciding now</h3>
+          <p style="margin:0;color:var(--muted);">
+            Living working context: what is being planned, built, decided,
+            tested, shipped, and deliberately left for later. It is allowed to
+            evolve as the team works through ambiguity.
+          </p>
+        </div>
+      </div>
+      <div class="note" style="margin-top: 20px;">
+        <p>
+          Keep truth as close to code as possible, and keep the surrounding
+          context structured enough that both humans and agents can find it.
+        </p>
+      </div>
+    </section>
+
+    <section id="impact">
+      <h2>Why It Matters</h2>
+      <p class="section-intro">
+        When context lives in the repository instead of a chat or a single
+        tool, the benefits compound &mdash; for the team today and for whoever
+        inherits the system tomorrow.
+      </p>
+      <div class="grid three">
+        <div class="tile accent-blue">
+          <h3>No tool lock-in</h3>
+          <p>
+            The context is portable. You can change AI tools, models, or vendors
+            without losing the trail of why the system is shaped the way it is.
+          </p>
+        </div>
+        <div class="tile accent-release">
+          <h3>Knowledge the company owns</h3>
+          <p>
+            Understanding lives with the product, not in one person's head or
+            one closed session. New people and new agents start from accumulated
+            understanding.
+          </p>
+        </div>
+        <div class="tile accent-program">
+          <h3>Work you can delegate</h3>
+          <p>
+            A documented plan can be reviewed by a specialist before any code is
+            written, handed to a colleague, or supervised with any agent.
+          </p>
+        </div>
+        <div class="tile accent-planned">
+          <h3>Documentation that stays accurate</h3>
+          <p>
+            Because context ships together with the change it describes, it
+            cannot quietly drift away from what the product actually does.
+          </p>
+        </div>
+        <div class="tile accent-blue">
+          <h3>An audit trail for free</h3>
+          <p>
+            Living in the repository means every decision is version-tracked and
+            reviewable, with no extra process to maintain.
+          </p>
+        </div>
+        <div class="tile accent-release">
+          <h3>Continuity through change</h3>
+          <p>
+            Tools, teams, and priorities change. The reasoning behind the system
+            survives all of them.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="direction">
+      <h2>The Current Direction</h2>
+      <p class="section-intro">
+        This is an evolving practice, not a finished product. The goal is steady
+        and practical: make the reasoning around software durable by default, so
+        that humans and coding agents share the same accumulated understanding
+        over time &mdash; and so changing tools never means starting over.
+      </p>
+    </section>
+
+    <section id="read-more">
+      <h2>Go Deeper</h2>
+      <p class="section-intro">
+        If you want the full reasoning and the mechanics, the written series
+        covers it in order, and the practitioner brief shows the structure in
+        detail.
+      </p>
+      <div class="read-more">
+        <a href="ssd-to-idd.md">
+          <strong>When Spec-Driven Design Becomes Interface-Driven Design</strong>
+          <span>&mdash; the precursor critique that motivates the series.</span>
+        </a>
+        <a href="code-anchored-context-rationale.md">
+          <strong>The Rationale</strong>
+          <span>&mdash; the painpoints behind the approach.</span>
+        </a>
+        <a href="code-anchored-context-why.md">
+          <strong>Why</strong>
+          <span>&mdash; the principle and the model.</span>
+        </a>
+        <a href="code-anchored-context-structure.md">
+          <strong>The Structure</strong>
+          <span>&mdash; the concrete layout.</span>
+        </a>
+        <a href="code-anchored-context-formats.md">
+          <strong>Markdown For Work, HTML For People</strong>
+          <span>&mdash; the format choice behind this page.</span>
+        </a>
+        <a href="code-anchored-context.html">
+          <strong>The Practitioner Brief</strong>
+          <span>&mdash; the structure, containers, and workflow in detail.</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      Stakeholder overview of Code-Anchored Context. For the detailed structure
+      and workflow, see the
+      <a href="code-anchored-context.html">practitioner brief</a>.
+    </div>
+  </footer>
+</body>
+</html>

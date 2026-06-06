@@ -1,6 +1,12 @@
-# Code-Anchored Context: Giving AI Agents The Context Around The Code
+# Code-Anchored Context: Giving Coding Agents The Context Around The Code
 
-AI agents are good at reading repositories, editing files, and following
+The companion article,
+[Code-Anchored Context: The Rationale](code-anchored-context-rationale.md), laid
+out the painpoints — reasoning lost to closed sessions, plans that cannot be
+shared, documentation that drifts. This article is the principle that resolves
+them.
+
+Coding agents are good at reading repositories, editing files, and following
 instructions. But in large codebases, code is not the whole story.
 
 The hard part is not whether an agent can change a file. It is whether it

@@ -131,3 +131,7 @@ flowchart TD
 
   Start --> Scan --> Promote --> Link --> Preserve
 ```
+
+For the last piece — what format this context should live in — see the
+companion article,
+[Code-Anchored Context: Markdown For Work, HTML For People](code-anchored-context-formats.md).
