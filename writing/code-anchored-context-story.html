@@ -384,23 +384,30 @@
       <p class="section-intro">
         The fix is simple to state. Keep the important context in the same place
         as the code it describes, structured so both people and agents can find
-        it &mdash; and separate what already shipped from what the team is still
-        deciding.
+        it &mdash; and separate what the team is still deciding, why the system
+        is shaped the way it is, and what already shipped.
       </p>
-      <div class="split">
-        <div class="panel after">
-          <h3>What shipped</h3>
-          <p style="margin:0;color:var(--muted);">
-            Stable, release-accurate reference. It describes a known, delivered
-            version of the product &mdash; not an unfinished change.
-          </p>
-        </div>
+      <div class="grid three">
         <div class="panel after">
           <h3>What we are deciding now</h3>
           <p style="margin:0;color:var(--muted);">
             Living working context: what is being planned, built, decided,
             tested, shipped, and deliberately left for later. It is allowed to
             evolve as the team works through ambiguity.
+          </p>
+        </div>
+        <div class="panel after">
+          <h3>Why it is the way it is</h3>
+          <p style="margin:0;color:var(--muted);">
+            A durable, append-only decision log. The reasoning behind accepted
+            choices is promoted here so it outlives the work that produced it.
+          </p>
+        </div>
+        <div class="panel after">
+          <h3>What shipped</h3>
+          <p style="margin:0;color:var(--muted);">
+            Stable, release-accurate reference. It describes a known, delivered
+            version of the product &mdash; not an unfinished change.
           </p>
         </div>
       </div>
@@ -506,7 +513,7 @@
         </a>
         <a href="code-anchored-context.html">
           <strong>The Practitioner Brief</strong>
-          <span>&mdash; the structure, containers, and workflow in detail.</span>
+          <span>&mdash; the three kinds of truth, initiative files, and the decision log in detail.</span>
         </a>
       </div>
     </section>

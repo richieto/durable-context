@@ -459,42 +459,37 @@
         <p class="eyebrow">Code-Anchored Context &middot; Practitioner Brief</p>
         <h1>How humans and agents keep planning context useful over time</h1>
         <p class="lead">
-          This is the practitioner brief: a scannable map of where active work,
-          future phases, durable program context, deferred scope,
-          delivery-surface context, and release documentation notes belong. For
-          a plain-language overview aimed at stakeholders, see the
+          This is the practitioner brief: a scannable map of the three kinds of
+          truth &mdash; the disposable working bench, the durable decision log,
+          and release-anchored reference &mdash; and where each piece of work
+          belongs. For a plain-language overview aimed at stakeholders, see the
           <a href="code-anchored-context-story.html">story page</a>.
         </p>
         <div class="quick-links" aria-label="Primary links">
           <a href="code-anchored-context-story.html">Stakeholder Story</a>
           <a href="../context/README.md">Context README</a>
-          <a href="../context/terminology.md">Terminology</a>
-          <a href="../context/current.md">Current Release</a>
-          <a href="../context/_templates/release-transition.md">Release Transition</a>
+          <a href="../decisions/README.md">Decision Log</a>
+          <a href="../context/project-profile.md">Project Profile</a>
+          <a href="../README.md">Umbrella README</a>
         </div>
       </div>
 
       <aside class="map" aria-label="Context map">
-        <p class="map-title">Container model</p>
+        <p class="map-title">Three kinds of truth</p>
         <div class="stack">
-          <div class="node program">
-            <strong>Program</strong>
-            <span>Cross-release parent effort</span>
-          </div>
-          <div class="connector">down</div>
-          <div class="node planned">
-            <strong>Planned initiative</strong>
-            <span>Scoped future child of a program</span>
-          </div>
-          <div class="connector">promotes to</div>
           <div class="node release">
-            <strong>Release initiative</strong>
-            <span>Active or historical delivery slice</span>
+            <strong>context/</strong>
+            <span>Disposable working bench &middot; flat initiatives</span>
           </div>
-          <div class="connector">or defer to</div>
-          <div class="node backlog">
-            <strong>Context backlog item</strong>
-            <span>Isolated cut scope saved for later</span>
+          <div class="connector">promote accepted decisions to</div>
+          <div class="node program">
+            <strong>decisions/</strong>
+            <span>Durable, append-only ADR log</span>
+          </div>
+          <div class="connector">separate package</div>
+          <div class="node planned">
+            <strong>reference/</strong>
+            <span>What shipped, as of a release tag</span>
           </div>
         </div>
       </aside>
@@ -504,12 +499,12 @@
   <nav aria-label="Page sections">
     <div class="wrap">
       <a href="#why">Why</a>
-      <a href="#containers">Containers</a>
-      <a href="#decision-guide">Decision Guide</a>
+      <a href="#truth">Three Truths</a>
+      <a href="#decision-guide">Where It Goes</a>
       <a href="#lifecycle">Lifecycle</a>
       <a href="#delivery-surface">Delivery Surface</a>
       <a href="#files">Files</a>
-      <a href="#release-transition">Release Transition</a>
+      <a href="#decision-log">Decision Log</a>
       <a href="#navigation">Navigation</a>
     </div>
   </nav>
@@ -518,121 +513,133 @@
     <section id="why">
       <h2>Why This Exists</h2>
       <p class="section-intro">
-        <code>reference/</code> is released product truth.
-        <code>context/</code> is working development truth. Code-Anchored
-        Context keeps agent context, planning, and decisions visible without
-        mixing in-progress thinking into released reference.
+        <code>context/</code> is working development truth.
+        <code>decisions/</code> is the durable record of why the system is the
+        way it is. <code>reference/</code> is released product truth.
+        Code-Anchored Context keeps agent context, planning, and decisions
+        visible without mixing in-progress thinking into released reference.
       </p>
-      <div class="grid two">
+      <div class="grid three">
         <div class="tile accent-release">
           <h3>Use <code>context/</code> while work is forming</h3>
           <p>
-            Put plans, specs, ADRs, backlog, implementation context, future
-            phases, and release-doc notes here during normal development.
+            Put plans, specs, ADR drafts, backlog, and release-doc notes here
+            during normal development. It is disposable; archive it when done.
           </p>
         </div>
         <div class="tile accent-program">
+          <h3>Promote accepted choices to <code>decisions/</code></h3>
+          <p>
+            The append-only ADR log outlives the bench, so the rationale behind
+            accepted decisions stays findable after an initiative is archived.
+          </p>
+        </div>
+        <div class="tile accent-planned">
           <h3>Use <code>reference/</code> only for shipped reference</h3>
           <p>
-            Reference remains release anchored. Working context
-            can feed it later through <code>release-doc-notes.md</code>.
+            Reference stays release anchored. Working context can feed it later
+            through <code>release-doc-notes.md</code>.
           </p>
         </div>
       </div>
+      <div class="note" style="margin-top: 16px;">
+        <p>
+          Two independent packages ship this. Install either or both:
+          <code>npx @code-anchored-context/planning init</code> brings
+          <code>context/</code> and <code>decisions/</code>;
+          <code>npx @code-anchored-context/reference init</code> brings
+          <code>reference/</code>. Reference works whether or not planning is used.
+        </p>
+      </div>
     </section>
 
-    <section id="containers">
-      <h2>The Four Work Containers</h2>
+    <section id="truth">
+      <h2>The Three Kinds Of Truth</h2>
       <p class="section-intro">
         The core rule is simple: put knowledge where its lifetime matches the
         work. Do not duplicate active plans into area-local folders.
       </p>
-      <div class="grid four">
+      <div class="grid three">
+        <div class="tile accent-release">
+          <h3>Working context</h3>
+          <p>Disposable bench, one folder per piece of work in progress. Drifts by design; archived when the work ships.</p>
+          <code class="path">context/initiatives/&lt;slug&gt;/</code>
+        </div>
         <div class="tile accent-program">
-          <h3>Program</h3>
-          <p>Cross-release parent effort with durable context, roadmap, phase history, and program-level ADRs.</p>
-          <code class="path">context/programs/&lt;program&gt;/</code>
+          <h3>Durable decisions</h3>
+          <p>Append-only, numbered ADR log with statuses. Accepted decisions are promoted out of an initiative and kept here.</p>
+          <code class="path">decisions/&lt;NNNN&gt;-short-title.md</code>
         </div>
         <div class="tile accent-planned">
-          <h3>Planned initiative</h3>
-          <p>Scoped future delivery slice that belongs to a program but is not active yet.</p>
-          <code class="path">programs/&lt;program&gt;/planned-initiatives/&lt;initiative&gt;/</code>
-        </div>
-        <div class="tile accent-release">
-          <h3>Release initiative</h3>
-          <p>Active or historical delivery slice for a specific release.</p>
-          <code class="path">releases/&lt;version&gt;/initiatives/&lt;initiative&gt;/</code>
-        </div>
-        <div class="tile accent-backlog">
-          <h3>Backlog item</h3>
-          <p>Isolated work cut from scope and kept for possible later pickup.</p>
-          <code class="path">backlog/items/&lt;origin&gt;--&lt;item&gt;.md</code>
+          <h3>Released reference</h3>
+          <p>Release-tag-anchored behavior, owned by the reference package and refreshed from the diff between tags.</p>
+          <code class="path">reference/</code>
         </div>
       </div>
     </section>
 
     <section id="decision-guide">
-      <h2>Decision Guide</h2>
+      <h2>Where Does It Go?</h2>
       <p class="section-intro">
-        Use this when deciding where new context belongs.
+        Use this when deciding where new knowledge belongs.
       </p>
 
       <div class="decision">
-        <div class="question">Is this active in the current release?</div>
-        <div class="answer">Use a release initiative. It is the delivery surface for the current release.</div>
-        <div class="target"><code>context/releases/&lt;current&gt;/initiatives/</code></div>
+        <div class="question">Is this work in progress right now?</div>
+        <div class="answer">Use an initiative on the working bench. One folder per piece of work.</div>
+        <div class="target"><code>context/initiatives/&lt;slug&gt;/</code></div>
       </div>
 
       <div class="decision">
-        <div class="question">Does this span releases or phases?</div>
-        <div class="answer">Use a program for durable context, roadmap, and program-level decisions.</div>
-        <div class="target"><code>context/programs/</code></div>
+        <div class="question">Is this an accepted architecture or design choice?</div>
+        <div class="answer">Promote it into the durable, append-only decision log so it outlives the bench.</div>
+        <div class="target"><code>decisions/&lt;NNNN&gt;-short-title.md</code></div>
       </div>
 
       <div class="decision">
-        <div class="question">Is a future phase already clear?</div>
-        <div class="answer">Use a planned initiative so detail is preserved before the release becomes current.</div>
-        <div class="target"><code>programs/&lt;program&gt;/planned-initiatives/</code></div>
+        <div class="question">Does this describe behavior that shipped in a release?</div>
+        <div class="answer">It belongs in release-anchored reference, refreshed from the tag diff.</div>
+        <div class="target"><code>reference/</code></div>
       </div>
 
       <div class="decision">
-        <div class="question">Was isolated work cut from scope?</div>
-        <div class="answer">Use a context backlog item. Link it back to the originating initiative.</div>
-        <div class="target"><code>context/backlog/items/</code></div>
+        <div class="question">Is it just future reference impact noted while building?</div>
+        <div class="answer">Leave it in the initiative as a hint for the next reference refresh.</div>
+        <div class="target"><code>context/initiatives/&lt;slug&gt;/release-doc-notes.md</code></div>
       </div>
     </section>
 
     <section id="lifecycle">
       <h2>Lifecycle</h2>
       <p class="section-intro">
-        The same work can move through several containers as it becomes more
-        concrete. Promotion is explicit and traceable.
+        Work moves from a messy bench to durable artifacts. The planning skills
+        are invocation-only &mdash; they run when you ask for them by name.
       </p>
       <div class="timeline" aria-label="Context lifecycle">
         <div class="step">
           <span class="step-number">1</span>
-          <h3>Plan the arc</h3>
-          <p>Create or update a program when the effort spans releases.</p>
+          <h3>Start an initiative</h3>
+          <p>Copy the initiative template into <code>context/initiatives/&lt;slug&gt;/</code>.</p>
         </div>
         <div class="step">
           <span class="step-number">2</span>
-          <h3>Scope future work</h3>
-          <p>Capture clear future phases as planned initiatives.</p>
+          <h3>Plan with context</h3>
+          <p>Use <code>plan-with-context</code> to draft the durable plan in <code>plan.md</code> across the whole change surface.</p>
         </div>
         <div class="step">
           <span class="step-number">3</span>
-          <h3>Set current release</h3>
-          <p>Run the release transition checklist and promote matching planned initiatives.</p>
+          <h3>Grill and distribute</h3>
+          <p>Use <code>grill-and-distribute</code> to fan settled truth into the per-concern docs.</p>
         </div>
         <div class="step">
           <span class="step-number">4</span>
-          <h3>Deliver the slice</h3>
-          <p>Work in the release initiative and keep stable files current.</p>
+          <h3>Promote decisions</h3>
+          <p>Accepted ADRs move out of the initiative into the <code>decisions/</code> log.</p>
         </div>
         <div class="step">
           <span class="step-number">5</span>
-          <h3>Carry forward</h3>
-          <p>Move durable context to programs and isolated cut scope to backlog items.</p>
+          <h3>Archive the bench</h3>
+          <p>Once the durable truth is extracted, the initiative can be archived freely.</p>
         </div>
       </div>
     </section>
@@ -757,40 +764,42 @@
       </div>
     </section>
 
-    <section id="release-transition">
-      <h2>Release Transition</h2>
+    <section id="decision-log">
+      <h2>The Decision Log</h2>
       <p class="section-intro">
-        Changing <code>context/current.md</code> is a workflow. The agent
-        should materialize planned work for the new current release.
+        <code>decisions/</code> is a top-level, append-only ADR log. The bench
+        is disposable, so accepted decisions are promoted here where they stay
+        findable. To see what is in force, read the entries marked
+        <code>Accepted</code>.
       </p>
       <table class="matrix">
         <thead>
           <tr>
-            <th>Step</th>
-            <th>What happens</th>
-            <th>Source</th>
+            <th>Rule</th>
+            <th>What it means</th>
+            <th>Where</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>1</td>
-            <td>Update <code>current.md</code> and create the release folder if needed.</td>
-            <td><code>_templates/release-context/</code></td>
+            <td>One file per decision</td>
+            <td>Numbered in order; copy the template to start a new entry.</td>
+            <td><code>decisions/&lt;NNNN&gt;-short-title.md</code></td>
           </tr>
           <tr>
-            <td>2</td>
-            <td>Scan programs for planned initiatives targeting the new release.</td>
-            <td><code>programs/*/planned-initiatives/*/README.md</code></td>
+            <td>Append-only</td>
+            <td>Do not rewrite history. When a decision changes, add a new entry.</td>
+            <td><code>Status: Superseded by NNNN</code></td>
           </tr>
           <tr>
-            <td>3</td>
-            <td>Promote matching planned initiatives into the release.</td>
-            <td><code>releases/&lt;version&gt;/initiatives/</code></td>
+            <td>Status-driven</td>
+            <td>Each entry is Accepted, Superseded, or Deprecated.</td>
+            <td><code>Status: Accepted</code></td>
           </tr>
           <tr>
-            <td>4</td>
-            <td>Update links both ways and leave the planned initiative as history.</td>
-            <td><code>Status: Promoted</code></td>
+            <td>Promoted from work</td>
+            <td>Accepted decisions move out of an initiative's local ADR drafts.</td>
+            <td><code>context/initiatives/&lt;slug&gt;/decisions/</code></td>
           </tr>
         </tbody>
       </table>
@@ -803,20 +812,20 @@
       </p>
       <div class="grid two">
         <div class="tile">
-          <h3>For vocabulary</h3>
-          <p><a href="../context/terminology.md">context/terminology.md</a></p>
+          <h3>For the working bench</h3>
+          <p><a href="../context/README.md">context/README.md</a></p>
         </div>
         <div class="tile">
-          <h3>For active release context</h3>
-          <p><a href="../context/current.md">context/current.md</a></p>
+          <h3>For durable decisions</h3>
+          <p><a href="../decisions/README.md">decisions/README.md</a></p>
         </div>
         <div class="tile">
-          <h3>For release transitions</h3>
-          <p><a href="../context/_templates/release-transition.md">context/_templates/release-transition.md</a></p>
+          <h3>For repo-wide operating facts</h3>
+          <p><a href="../context/project-profile.md">context/project-profile.md</a></p>
         </div>
         <div class="tile">
-          <h3>For agent behavior</h3>
-          <p><a href="../.agents/skills/code-anchored-context/SKILL.md">code-anchored-context skill</a></p>
+          <h3>For the planning workflow</h3>
+          <p><a href="../README.md">umbrella README</a> &mdash; install and skill invocation phrases</p>
         </div>
       </div>
     </section>
@@ -824,11 +833,11 @@
 
   <footer>
     <div class="wrap">
-      Practitioner brief for the repository <code>context/</code> context model.
-      For a plain-language overview, see the
-      <a href="code-anchored-context-story.html">story page</a>. Reference still
-      lives under <code>reference/</code> and follows its own release refresh
-      rules.
+      Practitioner brief for the <code>context/</code> and <code>decisions/</code>
+      planning model. For a plain-language overview, see the
+      <a href="code-anchored-context-story.html">story page</a>. Reference lives
+      under <code>reference/</code> in a separate package and follows its own
+      release refresh rules.
     </div>
   </footer>
 </body>

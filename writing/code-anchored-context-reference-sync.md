@@ -50,11 +50,16 @@ The mechanism is simple, and it does not depend on the whole team adopting
 ```
 
 Working from `<previous-release-tag>..HEAD` (or tag-to-tag) scopes the agent to
-real, shipped change. It ignores pure refactors, renames, formatting, lint, and
-dependency bumps that carry no behavior change. When initiative
-`release-doc-notes.md` files exist, they make the refresh sharper — they are the
-notes captured during development about what should become reference later — but
-they are an accelerant, not a requirement.
+what actually shipped between two known points. The diff itself contains
+everything — refactors, renames, formatting, lint, and dependency bumps right
+alongside real behavior changes. What filters the noise is the refresh step,
+not the diff: the agent reads the full diff and only updates the pages whose
+*released behavior* changed, deliberately skipping the changes that carry no
+behavior. That diff is still the source of truth for what to inspect, which is
+exactly why this works whether or not anyone used the planning workflow. When
+`context/initiatives/*/release-doc-notes.md` files exist, they make the refresh
+sharper — they are the notes captured during development about what should
+become reference later — but they are optional enrichment, never a requirement.
 
 ## Why This Matters More Than It Looks
 
@@ -69,10 +74,13 @@ reference, they can still keep it accurate from the tags alone, whether or not
 their colleagues use `context/` at all. The working context makes the refresh
 richer; the tags make it possible.
 
-For the heavier, fully-context-driven version of this — closing a release,
-carrying unfinished work forward, and folding shipped knowledge into reference
-in one pass — see the `release-context-closeout` workflow. The tag-diff refresh
-above is the minimum that works even without it.
+This is why reference ships as its own package. The
+`@code-anchored-context/reference` install carries two invocation-only skills
+and nothing from the planning side: `reference-from-tags` runs the tag-to-tag
+refresh above, and `reference-baseline` documents the current accepted behavior
+as a first baseline for a repository that has no reference yet. Neither one
+fires on its own — you ask for them by name when a release is ready to be
+documented.
 
 For the honest accounting of where all of this is *not* worth it, see the
 companion article,

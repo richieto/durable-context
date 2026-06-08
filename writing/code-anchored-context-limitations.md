@@ -48,9 +48,10 @@ and nothing forces a team to wrap trivial work in process.
   never harvested at release time defeats the entire reference vs working
   context split. Drift is fine in `context/`; it is not fine to let the durable
   truth never get written.
-- **Skipping the release transition.** If `context/current.md` is not advanced
-  when a release ships, the pointer lies and promotion breaks for everyone
-  downstream.
+- **Letting `context/` be the only home for decisions.** The bench is
+  disposable; it gets archived. If accepted architecture and design decisions
+  are never promoted into the durable `decisions/` log, the rationale dies with
+  the initiative that made it.
 
 ## Pitfalls To Watch
 

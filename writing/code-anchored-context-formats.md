@@ -34,9 +34,10 @@ audience.
 HTML is not only for outsiders, though. The same format also makes a good
 *scannable reference* for practitioners. The
 [`code-anchored-context.html`](code-anchored-context.html) practitioner brief
-renders the structure — containers, initiative files, and release transitions —
-as something you can scan at a glance rather than read top to bottom. Same
-format, two different jobs: one tells the story, the other maps the mechanics.
+renders the structure — the three kinds of truth, the flat initiative layout,
+the initiative files, and the decision log — as something you can scan at a
+glance rather than read top to bottom. Same format, two different jobs: one
+tells the story, the other maps the mechanics.
 
 ## The Point
 

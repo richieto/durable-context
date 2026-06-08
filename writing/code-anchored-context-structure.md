@@ -14,42 +14,46 @@ keeps its own plans, cross-project work fragments.
 > Denormalize navigation, not knowledge.
 
 Local `AGENTS.md` files point agents toward the right place. But plans, specs,
-ADRs, release context, testing strategy, delivery notes, and infrastructure
-context live centrally under `context/`.
+decisions, testing strategy, delivery notes, and infrastructure context live
+centrally, in the two roots described below.
 
-## The Core Model
+## Three Kinds Of Truth
 
-Vocabulary is captured in `context/terminology.md`. The main containers:
+There are three kinds of truth, and they live in three places:
 
 ```text
-Program                  Long-lived multi-release effort.
-Planned initiative       A scoped future slice inside a program.
-Release initiative       Active or historical work for a specific release.
-Context backlog item     Isolated work cut from scope but worth preserving.
-Program release slice    What a release contributes to a program.
+context/     What you are planning and building right now.
+             Disposable working bench; archive when done.
+decisions/   Why the system is the way it is.
+             Durable, append-only decision log.
+reference/   What the system does as of a release tag.
+             Refreshed per release.
 ```
 
-Each kind of context gets a home:
+Each root has its own lifetime. `context/` is allowed to drift and be thrown
+away. `decisions/` is permanent. `reference/` tracks released behavior. The
+working bench is laid out flat:
 
 ```text
 context/
-  terminology.md
-  current.md
-  programs/
-  backlog/
-  releases/
-  _templates/
+  initiatives/<slug>/
+  project-profile.md
+  _templates/initiative/
+decisions/
+  0001-some-decision.md
+  0002-another-decision.md
 ```
 
 Structure follows delivery concerns, not technologies. Name a file for the
 knowledge it preserves, not the tool that produced it.
 
-## Release Initiatives
+## Initiatives
 
-The main unit of active delivery:
+The main unit of active work is an initiative, one folder per piece of work in
+progress:
 
 ```text
-context/releases/<version>/initiatives/<initiative>/
+context/initiatives/<slug>/
   README.md   plan.md   spec.md   interface.md   architecture.md
   testing.md  delivery.md  infrastructure.md  operations.md
   backlog.md  decisions/  release-doc-notes.md
@@ -71,7 +75,7 @@ delivery.md          CI/CD, build, deployment, promotion, release toggles.
 infrastructure.md    Environments, IaC, networking, identity, storage, secrets.
 operations.md        Runtime/support: observability, failure modes, rollback.
 backlog.md           Trackable work items and progress.
-decisions/           Durable decisions and consequences (ADRs).
+decisions/           Local ADR drafts; accepted ones promote to ../../decisions/.
 release-doc-notes.md What should become reference later.
 ```
 
@@ -85,78 +89,66 @@ Start with the files the work actually needs — often just `README.md`,
 to put in them. Empty stubs train everyone to skim past these files; trim the
 template down to your project and grow it deliberately.
 
-## Programs And Planned Initiatives
+## Durable Decisions
 
-Some work is bigger than one release — and not by accident. You design the
-architecture for a whole system, but time-to-market pressure forces you to
-slice it and ship in phases: phase one, phase two, phase three. Other work is
-phased by nature — retiring a subsystem, marking something obsolete, migrating
-to a new approach — where the change needs transition time and cannot land in
-one release. This is the enterprise-grade case programs exist to solve: a
-long-lived effort whose shape is known up front but whose delivery is
-deliberately staged.
+`context/` is a disposable bench — it drifts by design and is archived once the
+work it described has shipped. That makes it the wrong home for the decisions
+you want to keep. Architecture and design choices need to outlive the
+initiative that produced them.
 
-A program holds that durable multi-release context:
+So accepted decisions are promoted out of an initiative's local `decisions/`
+into the top-level log:
 
 ```text
-context/programs/<program>/
-  README.md  context.md  roadmap.md  backlog.md
-  decisions/  planned-initiatives/  releases/
+decisions/
+  0001-some-decision.md      Status: Accepted
+  0002-another-decision.md   Status: Superseded by 0003
+  0003-revised-decision.md   Status: Accepted
 ```
 
-Future work that is clear enough to plan — but whose target release is not
-current yet — becomes a planned initiative:
+The log is append-only and numbered in order. You do not rewrite history: when
+a decision changes, you add a new entry and mark the old one `Superseded`. Each
+entry records its status (`Accepted`, `Superseded`, `Deprecated`), the context,
+the decision, its consequences, and a backlink to where it was made. To see
+what is in force right now, you read the entries marked `Accepted` — no digging
+through months of folders required.
 
-```text
-context/programs/<program>/planned-initiatives/<initiative>/
-```
-
-When the target release becomes current, it is promoted into
-`context/releases/<version>/initiatives/<initiative>/`. Promotion is
-explicit; the original planned initiative stays as historical context.
-
-## Context Backlog
-
-Work cut from scope but worth preserving — when it doesn't justify a program or
-planned initiative — lives in:
-
-```text
-context/backlog/items/<originating-initiative>--<item>.md
-```
-
-Each item records where it came from, why it was deferred, future value, and
-re-entry criteria. If picked up later, it is marked promoted and linked — never
-silently rewritten.
-
-The point is that the thinking you already paid for does not evaporate when the
-item is cut from scope. You produced real value while planning it, and the
-backlog keeps it — so the next person, a teammate or a future agent, picks it up
-and starts from something rather than from zero.
-
-> Cut scope is not cut value. Preserve the reasoning, not just the decision.
-
-## Release Transitions
-
-Changing the current release is more than editing a pointer. When
-`context/current.md` moves to a new release, agents should scan program
-planned initiatives, promote items targeting the new release into the release
-folder, update links both ways, and preserve the originals as history.
-
-This does not add new discipline to the team. Deciding what ships, what carries
-forward, and what gets deferred is work the team already does at every release.
-The transition just executes that decision once the team is aligned — and it is
-a one-person job. One maintainer runs it; everyone else keeps working.
+The planning workflow is what distills the bench into these durable artifacts:
 
 ```mermaid
-flowchart TD
-  Start["Set a new current release"]
-  Scan["Scan program planned initiatives"]
-  Promote["Promote into releases/<version>/initiatives/"]
-  Link["Update links both ways"]
-  Preserve["Preserve original as history"]
+flowchart LR
+  Plan["plan.md<br/>messy working surface"]
+  Distribute["per-concern docs<br/>spec, architecture, testing, ..."]
+  Decisions["decisions/<br/>accepted ADRs"]
 
-  Start --> Scan --> Promote --> Link --> Preserve
+  Plan --> Distribute
+  Distribute -->|"promote accepted decisions"| Decisions
 ```
+
+## Two Packages, One Umbrella
+
+This layout ships as two small, independent packages under one umbrella, in an
+npm workspaces monorepo:
+
+```text
+packages/planning/    @code-anchored-context/planning  (context/ + decisions/)
+packages/reference/   @code-anchored-context/reference (reference/)
+writing/              shared narrative (not published)
+```
+
+Adopt either or both — they share one idea but have no hard dependency on each
+other:
+
+```bash
+npx @code-anchored-context/planning init --project-name "My App"
+npx @code-anchored-context/reference init --project-name "My App"
+```
+
+The planning package installs the disposable bench, the durable decision log,
+and the invocation-only planning skills (`plan-with-context`,
+`grill-and-distribute`). The reference package installs the `reference/` tree
+and its own skills (`reference-from-tags`, `reference-baseline`), and works
+whether or not anyone uses planning.
 
 With the layout in place, the next question is how the stable half stays true.
 See the companion article,

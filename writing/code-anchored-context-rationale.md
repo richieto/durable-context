@@ -48,7 +48,10 @@ If you want to stay lean on a small project, start with something like
 OpenSpec. Once you get complex enough, consider this approach instead. And even
 then it is opt-in: it earns its keep on large, long-lived initiatives, while
 small fixes still just ship without ceremony. Nobody has to wrap a one-line
-change in process.
+change in process. It is also opt-in at the level of the practice itself — the
+planning side and the release-anchored reference side ship as two independent
+pieces, so you can take only the one you need instead of swallowing a single
+heavy bundle.
 
 > The richer the repository, the more context an agent inherits for free.
 

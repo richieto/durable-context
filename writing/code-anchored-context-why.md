@@ -19,26 +19,29 @@ That context usually exists — in chats, tickets, pull request comments,
 planning notes, and people's heads — but agents need it in a structured,
 discoverable form.
 
-## Reference vs Working Context
+## Three Kinds Of Truth
 
-This is why I separate **released reference** from **working
-context**:
+This is why I separate the truth into three kinds, by lifetime:
 
 ```text
-reference/   What shipped.
-context/      What we are planning, building, deciding, testing,
-                  shipping, hosting, deferring, and learning.
+context/     What we are planning, building, deciding, testing,
+             shipping, hosting, deferring, and learning right now.
+decisions/   Why the system is the way it is — durable, append-only.
+reference/   What shipped, as of a known release tag.
 ```
 
-Reference stays stable and release-accurate: it describes a known
-release, not an unfinished branch. Working context is allowed to evolve —
-it is where humans and agents work through ambiguity.
+Reference stays stable and release-accurate: it describes a known release, not
+an unfinished branch. Working context is allowed to evolve — it is where humans
+and agents work through ambiguity. The decision log sits between them: it is
+not disposable like the bench, and it is not release behavior like reference —
+it is the durable record of *why* the choices were made.
 
 Be aware that this means `context/` *drifts by design*. It is working-time
-scaffolding, not the source of truth. The durable conclusions are folded back
-into `reference/` when a release is accepted, so reference is eventually
-consistent with shipped code while `context/` is free to move on. For how that
-sync actually happens, see the companion article,
+scaffolding, not the source of truth. So the durable conclusions are extracted
+before the bench is archived: accepted decisions are promoted into `decisions/`,
+and any future reference impact is captured in `release-doc-notes.md` so it can
+feed `reference/` at release time. The bench is then free to move on. For how
+the reference half stays consistent, see the companion article,
 [Code-Anchored Context: Keeping Reference In Sync](code-anchored-context-reference-sync.md).
 
 ## Why `reference/`, Not `docs/`
@@ -117,12 +120,15 @@ instead of reconstructing it from memory.
 flowchart LR
   Code["Codebase<br/>What exists"]
   Dev["context/<br/>What is being planned, built, decided, tested, shipped, deferred"]
+  Decisions["decisions/<br/>Why the system is the way it is"]
   Reference["reference/<br/>What shipped in a known release"]
   Agents["Agents and humans"]
 
   Agents --> Code
   Agents --> Dev
+  Dev -->|"promote accepted decisions"| Decisions
   Dev -->|"release-doc-notes.md captures future reference impact"| Reference
+  Decisions -->|"durable rationale"| Agents
   Reference -->|"stable release truth"| Agents
 ```
 
@@ -139,6 +145,12 @@ The contribution is the bundle and the lifetimes, not a new primitive. If you
 already practice ADRs and docs-as-code, you are most of the way here; this gives
 those habits a shared home and an explicit boundary between what shipped and
 what is still being figured out.
+
+That bundle now ships as two small, independent packages — one for planning
+(`context/` plus the `decisions/` log) and one for release-anchored
+`reference/`. They share the one organizing idea but have no hard dependency on
+each other, so you can adopt either or both without taking on the whole
+practice at once.
 
 ## Why It Matters
 

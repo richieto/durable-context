@@ -54,7 +54,7 @@ The better question is:
 
 **Can the agent build it in a direction you still want to maintain later?**
 
-For me, the missing layer is **durable context**. Not more documentation for the sake of documentation, but context that helps both humans and AI understand the system over time: architecture, decisions, what is changing now, and what was deliberately left for later.
+For me, the missing layer is **durable context**. Not more documentation for the sake of documentation, but context that helps both humans and AI understand the system over time: the architecture, a durable log of the decisions and why they were made, what is changing now, and what was deliberately left for later.
 
 That is what I have been working on as **Code-Anchored Context** — not a replacement for specs, but something built around them. If specs tell AI what to do next, durable context helps AI understand what already exists.
 
