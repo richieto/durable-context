@@ -1,0 +1,31 @@
+{
+  "name": "durable-context",
+  "version": "1.0.0",
+  "description": "Invocation-only skills and scaffold for durable planning: initiatives in context/, decisions in an append-only log.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "durable-context": "bin/durable-context.js"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "template/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "agents",
+    "ai",
+    "planning",
+    "working-context",
+    "adr",
+    "decisions"
+  ]
+}

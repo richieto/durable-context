@@ -1,8 +1,8 @@
 {
-  "name": "code-anchored-context-monorepo",
+  "name": "durable-context-monorepo",
   "version": "0.0.0",
   "private": true,
-  "description": "Code-Anchored Context: durable planning context and release-anchored reference for coding agents, split into focused packages.",
+  "description": "Monorepo for durable-context and reference-docs — agent skills and scaffolds for planning and release-anchored documentation.",
   "license": "MIT",
   "type": "module",
   "workspaces": [

@@ -41,7 +41,7 @@ and any future product-doc impact can be noted in `release-doc-notes.md` for
 whoever maintains shipped-behavior docs later. The bench is then free to move on.
 
 Shipped-behavior documentation is a separate practice —
-[Code-Anchored Docs](../code-anchored-docs/why.md) — with its own lifetime and
+[Reference Docs](../reference-docs/why.md) — with its own lifetime and
 workflow. Durable Context does not depend on it.
 
 ## The Principle
@@ -126,10 +126,10 @@ The contribution is the lifetimes, not a new primitive. If you already practice
 ADRs, you are most of the way here; this gives those habits a shared home and
 an explicit path from messy planning to settled truth.
 
-The practice ships as `@code-anchored-context/planning` — invocation-only skills
-(`plan-with-context`, `grill-and-distribute`) plus the `context/` and
+The practice ships as `durable-context` — invocation-only skills
+(`plan-with-context`, `dive-into-plan`) plus the `context/` and
 `decisions/` scaffold. It has no hard dependency on
-[Code-Anchored Docs](../code-anchored-docs/why.md).
+[Reference Docs](../reference-docs/why.md).
 
 ## Why It Matters
 

@@ -1,9 +1,9 @@
 # Decisions
 
-Durable, append-only architecture and design decision log for this repository.
+This is the durable, append-only decision log for PROJECT_NAME.
 
-Working context under [`../context/`](../context/) is a disposable bench and is
-archived over time. Architecture and design decisions must outlive it, so
+Working context under [`context/`](../context/) is a disposable bench and will
+be archived over time. Architecture and design decisions must outlive it, so
 accepted decisions are promoted here where they stay findable.
 
 ## How It Works
@@ -24,12 +24,15 @@ accepted decisions are promoted here where they stay findable.
 
 To see what is currently in force, read the entries with status `Accepted`.
 
+## Promotion From Initiatives
+
+The `dive-into-plan` skill promotes accepted decisions out of an
+initiative's scratch `context/initiatives/<slug>/decisions/` folder into this
+log, assigns the next number, and links back to the originating initiative and
+to the release tag, PR, or commit where the decision was made.
+
 ## Index
 
 | Number | Title | Status | Date |
 | --- | --- | --- | --- |
-| 0001 | Split into planning and reference packages | Accepted | 2026-06-08 |
-| 0002 | Flatten working context and add a durable decision log | Accepted | 2026-06-08 |
-| 0003 | Make planning skills invocation-only | Accepted | 2026-06-08 |
-| 0004 | Rebrand to durable-context and reference-docs | Accepted | 2026-06-13 |
-| 0005 | Keep shipped agent artifacts lean | Accepted | 2026-06-13 |
+| 0000 | (template) | - | - |

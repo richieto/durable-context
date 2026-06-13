@@ -71,4 +71,4 @@ Context:
 - [Durable Context: Limitations](durable-context/limitations.md) — when not to use it.
 
 For shipped-behavior docs, see
-[Code-Anchored Docs: Why](code-anchored-docs/why.md).
+[Reference Docs: Why](reference-docs/why.md).

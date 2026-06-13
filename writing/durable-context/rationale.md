@@ -59,7 +59,7 @@ them to "update the documentation." The problem is the same as plan mode: the
 practice depends on a specific agent, a specific tool, and a specific machine.
 That is a different problem — keeping shipped-behavior docs accurate from the
 code — and it has its own practice:
-[Code-Anchored Docs: Why](../code-anchored-docs/why.md).
+[Reference Docs: Why](../reference-docs/why.md).
 
 Durable Context is about the reasoning *around* the change while you are still
 building it, not about refreshing product docs after a release.
@@ -75,9 +75,9 @@ output documentation and get more value out of the tokens you already paid for.
 
 ## Where You Open The Repo Should Not Matter
 
-To be clear, the IDE is not irrelevant to agents — indexing, language servers,
-and tool wiring genuinely help. The narrower point is this: *where in the tree
-you open the repo should not change the outcome.* Root or a nested subfolder,
+To be clear, the IDE is not irrelevant to agents — indexing, language servers,  
+and tool wiring genuinely help. The narrower point is this: *where in the tree*  
+*you open the repo should not change the outcome.* Root or a nested subfolder,  
 the agent should reach the same context and the same answer.
 
 As long as you give your agents the right context, they have no trouble
@@ -93,7 +93,7 @@ workspace-specific capabilities, I just open another window dedicated to that.
 
 There is a quieter cost hiding under all of these. When planning and reasoning
 stay locked in one session, the work cannot move. Nobody else can pick it up
-cleanly — not a teammate, not a specialist, not a different model.
+cleanly — not a teammate, not an architect, not a different coding agent.
 
 Planning that ends in a documented set of actions changes that. The work
 becomes something a specialist can review before any code is written, something

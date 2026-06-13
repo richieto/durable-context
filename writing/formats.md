@@ -25,16 +25,11 @@ want to read engineering documentation. Customers, management, and stakeholders
 usually do not need the full spec. They need the story, the flow, the impact,
 and the current direction.
 
-You can see this in practice in
-[`code-anchored-context.html`](code-anchored-context.html): a lightweight
-overview of both practices for a non-technical audience.
-
-HTML is not only for outsiders, though. The same format also makes a good
-*scannable reference* for practitioners:
+Practitioner briefs in HTML:
 
 - [`durable-context/brief.html`](durable-context/brief.html) — working bench,
   decision log, lifecycle.
-- [`code-anchored-docs/brief.html`](code-anchored-docs/brief.html) — tag-diff
+- [`reference-docs/brief.html`](reference-docs/brief.html) — tag-diff
   workflow and boundary rules.
 
 Same format, different jobs: one tells the story, the others map the mechanics.
@@ -47,4 +42,4 @@ letting them drift into separate stories.
 
 For where each practice is not worth the cost, see
 [Durable Context: Limitations](durable-context/limitations.md) and
-[Code-Anchored Docs: Limitations](code-anchored-docs/limitations.md).
+[Reference Docs: Limitations](reference-docs/limitations.md).

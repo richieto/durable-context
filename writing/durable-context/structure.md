@@ -122,16 +122,14 @@ flowchart LR
 ## Install
 
 ```bash
-npx @code-anchored-context/planning init --project-name "My App"
+npx durable-context init --project-name "My App"
 ```
 
-This adds `context/`, `decisions/`, and the invocation-only planning skills
-(`plan-with-context`, `grill-and-distribute`). Ask for them by name when you
-want the workflow — they do not run automatically.
+This adds `context/`, `decisions/`, and skills
+(`plan-with-context`, `dive-into-plan`).
 
-For shipped-behavior documentation kept accurate from release tags, see the
-sibling practice:
-[Code-Anchored Docs](../code-anchored-docs/why.md).
+For release-anchored documentation, see
+[Reference Docs](../reference-docs/why.md).
 
 For what format the context should live in, see the shared companion
 [Markdown For Work, HTML For People](../formats.md).

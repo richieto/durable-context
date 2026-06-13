@@ -1,0 +1,30 @@
+{
+  "name": "reference-docs",
+  "version": "1.0.0",
+  "description": "Invocation-only skills and scaffold for release-anchored reference documentation refreshed from tag diffs.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "reference-docs": "bin/reference-docs.js"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "template/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "agents",
+    "ai",
+    "documentation",
+    "reference",
+    "release-notes"
+  ]
+}
