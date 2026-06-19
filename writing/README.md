@@ -3,6 +3,8 @@
 Maintainer-only narrative — explains why this repository exists. **Not installed**
 by either npm package; adopters never see these files.
 
+**Start here:** [Agent-Agnostic Engineering](index.md)
+
 Two practices, independent products:
 
 - [Durable Context](durable-context/rationale.md) — npm: `durable-context`
