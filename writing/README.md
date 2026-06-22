@@ -8,7 +8,7 @@ by either npm package; adopters never see these files.
 Two practices, independent products:
 
 - [Durable Context](durable-context/rationale.md) — npm: `durable-context`
-- [Reference Docs](reference-docs/why.md) — npm: `reference-docs`
+- [Reference Docs](reference-docs/model.md) — npm: `reference-docs`
 
 ## Shared
 
@@ -29,8 +29,7 @@ HTML: [Brief](durable-context/brief.html)
 
 Package: `reference-docs` · installs `reference/`.
 
-1. [Why](reference-docs/why.md)
-2. [Keeping In Sync](reference-docs/keeping-in-sync.md)
-3. [Limitations](reference-docs/limitations.md)
+1. [Model](reference-docs/model.md)
+2. [Limitations](reference-docs/limitations.md)
 
 HTML: [Brief](reference-docs/brief.html)

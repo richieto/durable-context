@@ -1,6 +1,6 @@
-# Code-Anchored Docs: Limitations, Anti-Patterns, and When Not To Use It
+# Reference Docs: Limitations, Anti-Patterns, and When Not To Use It
 
-Every other article in the Code-Anchored Docs series makes the case *for* the
+Every other article in the Reference Docs series makes the case *for* the
 practice. This one is the honest accounting of where it costs more than it
 returns, where it breaks, and how to tell.
 
@@ -33,7 +33,7 @@ It is opt-in: the refresh runs only when explicitly asked.
 
 ## The Honest Framing
 
-Code-Anchored Docs does not claim to remove documentation discipline — it
+Reference Docs does not claim to remove documentation discipline — it
 relocates it to where the source of truth lives and makes the refresh
 derivable from the code. The trade is real: release tags, a deliberate lag
 between merge and document, and someone accountable for running the refresh.
@@ -41,4 +41,4 @@ For products that have to outlive any one writer, that trade is worth making.
 For everything else, it is honestly overkill — and that is fine.
 
 For the principle behind the practice, see
-[Code-Anchored Docs: Why](why.md).
+[Reference Docs: The Model](model.md).

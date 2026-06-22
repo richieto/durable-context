@@ -58,7 +58,7 @@ them to "update the documentation." The problem is the same as plan mode: the
 practice depends on a specific agent, a specific tool, and a specific machine.
 That is a different problem — keeping shipped-behavior docs accurate from the
 code — and it has its own practice:
-[Reference Docs: Why](../reference-docs/why.md).
+[Reference Docs: The Model](../reference-docs/model.md).
 
 Durable Context is about the reasoning *around* the change while you are still
 building it, not about refreshing product docs after a release.

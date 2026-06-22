@@ -46,13 +46,12 @@ Package: `durable-context` · installs `context/` and `decisions/`.
 
 Practitioner brief (HTML): [Durable Context Brief](durable-context/brief.html)
 
-## Code-Anchored Docs
+## Reference Docs
 
 Shipped-behavior documentation anchored to the code that was released.
 Package: `reference-docs` · installs `reference/`.
 
-- [Code-Anchored Docs: Why](reference-docs/why.md)
-- [Code-Anchored Docs: Keeping Docs In Sync](reference-docs/keeping-in-sync.md)
-- [Code-Anchored Docs: Limitations, Anti-Patterns, and When Not To Use It](reference-docs/limitations.md)
+- [Reference Docs: The Model](reference-docs/model.md)
+- [Reference Docs: Limitations, Anti-Patterns, and When Not To Use It](reference-docs/limitations.md)
 
-Practitioner brief (HTML): [Code-Anchored Docs Brief](reference-docs/brief.html)
+Practitioner brief (HTML): [Reference Docs Brief](reference-docs/brief.html)

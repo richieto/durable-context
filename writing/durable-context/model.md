@@ -27,7 +27,7 @@ future documentation. It is working-time scaffolding, not permanent history.
 there so they remain findable after an initiative is archived.
 
 Shipped-behavior documentation is a separate practice:
-[Reference Docs](../reference-docs/why.md). Durable Context can leave
+[Reference Docs](../reference-docs/model.md). Durable Context can leave
 `release-doc-notes.md` for that later workflow, but it does not depend on it.
 
 ## The Working Bench

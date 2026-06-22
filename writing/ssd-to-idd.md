@@ -59,7 +59,7 @@ For me, the missing layer is **durable context**. Not more documentation for the
 That is what I have been working on as **Durable Context** — not a replacement
 for specs, but something built around them. If specs tell AI what to do next,
 durable context helps AI understand what already exists while you are still
-building. A sibling practice, **Code-Anchored Docs**, handles shipped-behavior
+building. A sibling practice, **Reference Docs**, handles shipped-behavior
 documentation kept accurate from release tags.
 
 I wrote up both practices in [`writing/`](README.md). Start with Durable
@@ -70,4 +70,4 @@ Context:
 - [Durable Context: Limitations](durable-context/limitations.md) — when not to use it.
 
 For shipped-behavior docs, see
-[Reference Docs: Why](reference-docs/why.md).
+[Reference Docs: The Model](reference-docs/model.md).
