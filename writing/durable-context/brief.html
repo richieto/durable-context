@@ -497,6 +497,7 @@
       <a href="#truth">Layout</a>
       <a href="#decision-guide">Where It Goes</a>
       <a href="#lifecycle">Lifecycle</a>
+      <a href="#skills">Skills</a>
       <a href="#delivery-surface">Delivery Surface</a>
       <a href="#files">Files</a>
       <a href="#decision-log">Decision Log</a>
@@ -533,7 +534,9 @@
         <p>
           Install:
           <code>npx durable-context init --project-name "My App"</code>.
-          Invocation-only skills: <code>plan-with-context</code>,
+          Invocation-only skills: <code>project-profile-baseline</code>,
+          <code>project-profile-refresh</code>, <code>plan-with-context</code>,
+          <code>devils-advocate</code>,
           <code>dive-into-plan</code>.
         </p>
       </div>
@@ -617,6 +620,50 @@
           <p>Once the durable truth is extracted, the initiative can be archived freely.</p>
         </div>
       </div>
+    </section>
+
+    <section id="skills">
+      <h2>Installed Skills</h2>
+      <p class="section-intro">
+        These skills are discoverable after install, but invocation-only. Ask
+        for them by name when the work needs that part of the model.
+      </p>
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th>Skill</th>
+            <th>Use it for</th>
+            <th>When</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>project-profile-baseline</code></td>
+            <td>Establish stable repo-wide operating facts.</td>
+            <td>Once, when adopting the practice.</td>
+          </tr>
+          <tr>
+            <td><code>project-profile-refresh</code></td>
+            <td>Update stable facts when repo behavior changes.</td>
+            <td>When commands, structure, delivery, or docs boundaries change.</td>
+          </tr>
+          <tr>
+            <td><code>plan-with-context</code></td>
+            <td>Create or use an initiative and draft <code>plan.md</code>.</td>
+            <td>For meaningful work that deserves durable planning.</td>
+          </tr>
+          <tr>
+            <td><code>devils-advocate</code></td>
+            <td>Challenge a draft plan before it hardens.</td>
+            <td>Before distribution, when a decision needs pressure-testing.</td>
+          </tr>
+          <tr>
+            <td><code>dive-into-plan</code></td>
+            <td>Interrogate gaps, distribute truth, and record or promote ADRs.</td>
+            <td>After the plan is settled enough to distribute.</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
 
     <section id="delivery-surface">

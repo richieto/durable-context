@@ -58,6 +58,22 @@ commands, verification layers, delivery paths, infrastructure notes, generated
 artifacts, and known unknowns. Initiatives should not rediscover those basics
 every time.
 
+## Installed Invocation Skills
+
+The installed skills are the operational interface to this model. They are
+discoverable after install, but invocation-only: humans ask for them by name
+when the work calls for that step.
+
+- `project-profile-baseline` establishes stable repo-wide operating facts in
+  `context/project-profile.md`.
+- `project-profile-refresh` updates those stable facts when repository behavior
+  changes.
+- `plan-with-context` creates or uses an initiative and drafts the durable plan
+  in `plan.md`.
+- `devils-advocate` challenges a draft plan before it hardens.
+- `dive-into-plan` interrogates gaps, distributes settled truth, and records or
+  promotes ADRs.
+
 ## Initiatives
 
 An initiative is one folder per meaningful piece of work:
@@ -141,8 +157,8 @@ reasoning a home, not because every change deserves ceremony.
 npx durable-context init --project-name "My App"
 ```
 
-This adds `context/`, `decisions/`, and invocation-only skills for project
-profiles, planning, challenge review, and plan distribution.
+This adds `context/`, `decisions/`, and the invocation-only skills described
+above.
 
 For where this model is not worth it, see
 [Durable Context: Limitations](limitations.md). For what format the context
