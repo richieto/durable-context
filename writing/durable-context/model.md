@@ -160,6 +160,9 @@ npx durable-context init --project-name "My App"
 This adds `context/`, `decisions/`, and the invocation-only skills described
 above.
 
+After install, `npx durable-context@latest update` refreshes managed agent
+skills and guidance without replacing `context/` or `decisions/`.
+
 For where this model is not worth it, see
 [Durable Context: Limitations](limitations.md). For what format the context
 should live in, see

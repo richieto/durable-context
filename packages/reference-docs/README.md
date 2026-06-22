@@ -21,4 +21,11 @@ Refresh reference from <previous-tag> to <new-tag>.
 
 Skills are invocation-only — they do not run automatically.
 
-Options: `--target`, `--dry-run`, `--force`, `status`.
+Update managed agent assets without replacing project work:
+
+```bash
+npx reference-docs@latest update
+```
+
+Commands/options: `update`, `status`, `--target`, `--dry-run`, and `--force`
+for `init`.

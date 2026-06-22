@@ -36,12 +36,12 @@ export async function runCli(config, argv) {
     return;
   }
 
-  if (args.command !== 'init') {
+  if (args.command !== 'init' && args.command !== 'update') {
     throw new Error(`Unknown command "${args.command}". Run "${config.cliName} --help".`);
   }
 
   const targetRoot = path.resolve(args.target);
-  const projectName = args.projectName ?? (await inferProjectName(targetRoot));
+  const projectName = await resolveProjectName(config, args, targetRoot);
   const installer = new Installer({
     config,
     targetRoot,
@@ -50,7 +50,12 @@ export async function runCli(config, argv) {
     dryRun: args.dryRun
   });
 
-  await installer.init();
+  if (args.command === 'init') {
+    await installer.init();
+    return;
+  }
+
+  await installer.update();
 }
 
 function parseArgs(argv, config) {
@@ -143,21 +148,24 @@ function printHelp(config) {
 
 Usage:
   ${config.cliName} init [options]
+  ${config.cliName} update [options]
   ${config.cliName} status [options]
 
 Options:
   --target <path>          Project root to install into. Defaults to cwd.
   --project-name <name>    Name used to replace PROJECT_NAME placeholders.
-  --force                  Replace existing generated directories.
+  --force                  Replace existing generated directories during init.
   --dry-run                Show planned changes without writing files.
   -h, --help               Show help.
   -v, --version            Show package version.
 
 Examples:
   npx ${config.packageJson.name} init --project-name "My App"
+  npx ${config.packageJson.name}@latest update
   npx ${config.packageJson.name}@${config.packageJson.version} init --project-name "My App"
   npx ${config.packageJson.name} status --target ../existing-project
 
+The update command refreshes managed agent assets without replacing project work.
 The status command reads ${config.metadataPath} from an initialized project.
 `);
 }
@@ -174,6 +182,22 @@ async function inferProjectName(targetRoot) {
   }
 
   return path.basename(targetRoot);
+}
+
+async function resolveProjectName(config, args, targetRoot) {
+  if (args.projectName) {
+    return args.projectName;
+  }
+
+  if (args.command === 'update') {
+    const metadata = await readOptionalJson(path.join(targetRoot, config.metadataPath));
+
+    if (typeof metadata?.projectName === 'string' && metadata.projectName.trim()) {
+      return metadata.projectName;
+    }
+  }
+
+  return inferProjectName(targetRoot);
 }
 
 class Installer {
@@ -194,6 +218,16 @@ class Installer {
     await this.installAgentsFile();
     await this.installSkills();
     await this.installPayloadRoots();
+    await this.writeMetadata();
+
+    this.printSummary();
+  }
+
+  async update() {
+    await this.ensureDirectory(this.targetRoot);
+
+    await this.installAgentsFile();
+    await this.updateSkills();
     await this.writeMetadata();
 
     this.printSummary();
@@ -290,6 +324,22 @@ class Installer {
       );
     }
 
+    await this.upsertSkillsReadme();
+  }
+
+  async updateSkills() {
+    for (const skill of this.config.skills) {
+      await this.copyTemplatePath(
+        `${agentsSkillsRelative}/${skill.name}`,
+        `${agentsSkillsRelative}/${skill.name}`,
+        { replaceExisting: true }
+      );
+    }
+
+    await this.upsertSkillsReadme();
+  }
+
+  async upsertSkillsReadme() {
     const readmeTarget = await this.findExistingTargetPath(`${agentsSkillsRelative}/README.md`);
     const readmePath = readmeTarget.exists
       ? readmeTarget.path
@@ -302,29 +352,55 @@ class Installer {
     }
 
     const current = await readFile(readmePath, 'utf8');
-    const missingSkills = this.config.skills.filter((skill) => !current.includes(skill.name));
+    const section = this.renderSkillsReadmeSection();
+    const { start, end } = this.skillsReadmeMarkers();
 
-    if (missingSkills.length === 0) {
-      this.note(`${readmeDisplay} already lists the ${this.config.summaryLabel} skills`);
+    if (current.includes(start) && current.includes(end)) {
+      const updated = current.replace(
+        new RegExp(`${escapeRegExp(start)}[\\s\\S]*?${escapeRegExp(end)}`),
+        section
+      );
+
+      if (updated === current) {
+        this.note(`${readmeDisplay} already has the ${this.config.summaryLabel} skills section`);
+        return;
+      }
+
+      await this.writeFile(readmePath, updated, `update ${readmeDisplay} ${this.config.summaryLabel} skills section`);
       return;
     }
 
-    const entry = [
-      '',
-      `## ${this.config.summaryLabel} Skills`,
-      '',
-      ...missingSkills.map((skill) => skill.readmeEntry),
-      ''
-    ].join('\n');
+    const separator = current.endsWith('\n\n') ? '' : current.endsWith('\n') ? '\n' : '\n\n';
 
     await this.writeFile(
       readmePath,
-      `${current.trimEnd()}\n${entry}`,
+      `${current}${separator}${section}\n`,
       `append ${this.config.summaryLabel} skills to ${readmeDisplay}`
     );
   }
 
-  async copyTemplatePath(sourceRelative, targetRelative) {
+  skillsReadmeMarkers() {
+    const name = this.config.packageJson.name;
+
+    return {
+      start: `<!-- ${name}:skills:start -->`,
+      end: `<!-- ${name}:skills:end -->`
+    };
+  }
+
+  renderSkillsReadmeSection() {
+    const { start, end } = this.skillsReadmeMarkers();
+
+    return [
+      start,
+      `## ${this.config.summaryLabel} Skills`,
+      '',
+      ...this.config.skills.map((skill) => skill.readmeEntry),
+      end
+    ].join('\n');
+  }
+
+  async copyTemplatePath(sourceRelative, targetRelative, { replaceExisting = this.force } = {}) {
     const sourcePath = path.join(this.templateDir, sourceRelative);
     const targetInfo = await this.findExistingTargetPath(targetRelative);
 
@@ -337,7 +413,7 @@ class Installer {
     if (targetInfo.exists) {
       const variantNote = targetInfo.caseVariant ? ` at ${targetInfo.display}` : '';
 
-      if (!this.force) {
+      if (!replaceExisting) {
         this.note(`skip ${targetRelative} (already exists${variantNote}; use --force to replace)`);
         return false;
       }

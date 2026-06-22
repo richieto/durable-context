@@ -28,6 +28,13 @@ Skills are invocation-only — they do not run automatically.
 Use `project-profile-baseline` once to populate repo-wide commands and
 operating facts; use `project-profile-refresh` when those stable facts change.
 
-Options: `--target`, `--dry-run`, `--force`, `status`.
+Update managed agent assets without replacing project work:
+
+```bash
+npx durable-context@latest update
+```
+
+Commands/options: `update`, `status`, `--target`, `--dry-run`, and `--force`
+for `init`.
 
 For release-anchored documentation, see the `reference-docs` package.

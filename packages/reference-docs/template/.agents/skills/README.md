@@ -1,6 +1,10 @@
 # Project Skills
 
-Invocation-only — ask by name.
+Invocation-only - ask by name.
 
-- `reference-from-tags` — refresh `reference/` from a tag-to-tag diff.
-- `reference-baseline` — first baseline pass under `reference/`.
+<!-- reference-docs:skills:start -->
+## Reference Docs Skills
+
+- `reference-from-tags` - invoke explicitly to refresh `reference/` from the diff between two release tags.
+- `reference-baseline` - invoke explicitly for a first baseline pass under `reference/`.
+<!-- reference-docs:skills:end -->

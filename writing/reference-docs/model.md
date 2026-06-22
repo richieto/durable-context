@@ -78,5 +78,8 @@ This adds the `reference/` tree and two invocation-only skills:
 - `reference-baseline` — document current accepted behavior as a first baseline.
 - `reference-from-tags` — refresh `reference/` from a tag-to-tag diff.
 
+After install, `npx reference-docs@latest update` refreshes managed agent
+skills and guidance without replacing `reference/`.
+
 For where this model is not worth it, see
 [Reference Docs: Limitations](limitations.md).
