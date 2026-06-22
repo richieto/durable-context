@@ -9,7 +9,9 @@
     "packages/*"
   ],
   "scripts": {
-    "test": "npm test --workspaces --if-present"
+    "test": "npm test --workspaces --if-present",
+    "publish:dry-run": "npm publish --dry-run --workspace durable-context && npm publish --dry-run --workspace reference-docs",
+    "publish:packages": "npm publish --workspace durable-context && npm publish --workspace reference-docs"
   },
   "engines": {
     "node": ">=18"

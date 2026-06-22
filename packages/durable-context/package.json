@@ -1,6 +1,6 @@
 {
   "name": "durable-context",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Invocation-only skills and scaffold for durable planning: initiatives in context/, decisions in an append-only log.",
   "license": "MIT",
   "type": "module",
