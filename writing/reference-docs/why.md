@@ -23,7 +23,7 @@ by default, and you get auditing for free.
 
 This is a different problem from owning the working context while you plan a
 change — that is
-[Durable Context](../durable-context/why.md). Code-Anchored Docs is about the
+[Durable Context](../durable-context/model.md). Code-Anchored Docs is about the
 *stable* half: what the product does as of a known release, kept true as the
 code ships.
 
@@ -59,6 +59,11 @@ runbooks in `docs/`; putting shipped-behavior reference under
 
 > The boundary that matters is shipped behavior vs everything else — not the
 > label on the folder.
+
+The reference templates and authoring guides live inside `reference/` for the
+same reason: they are meant to be customized with the documentation tree they
+shape. Skills invoke the workflow, but the repo owns the document structure,
+terminology, area guides, and page templates.
 
 ## The Principle
 

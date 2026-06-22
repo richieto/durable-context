@@ -41,8 +41,7 @@ Planning context and decision history that survive a tool change.
 Package: `durable-context` · installs `context/` and `decisions/`.
 
 - [Durable Context: The Rationale](durable-context/rationale.md)
-- [Durable Context: Why](durable-context/why.md)
-- [Durable Context: The Structure](durable-context/structure.md)
+- [Durable Context: The Model](durable-context/model.md)
 - [Durable Context: Limitations, Anti-Patterns, and When Not To Use It](durable-context/limitations.md)
 
 Practitioner brief (HTML): [Durable Context Brief](durable-context/brief.html)

@@ -74,5 +74,4 @@ outlive any one session, tool, or engineer, that trade is worth making. For
 everything else, it is honestly overkill — and that is fine.
 
 For where this practice sits relative to the ideas it borrows from, see the
-"A Deliberate Composition" section of
-[Durable Context: Why](why.md).
+[Durable Context: The Model](model.md).

@@ -39,8 +39,7 @@ different concerns. Spec, IaC, CI/CD, architecture, and the list goes on.
 There is a compounding effect here: the more "code-first" your repository is,
 the better your results, because the agent inherits the context *around* the
 artifacts, not just the artifacts themselves. That argument has its own home in
-the "Where It Shines" section of
-[Durable Context: Why](why.md). And do not let
+[Durable Context: The Model](model.md). And do not let
 perfect be the enemy of good — if all you have is IaC and the code itself, that
 is already very helpful. Just plan to grow into more over time.
 
@@ -110,5 +109,5 @@ reasoning live inside one session, one tool, or one machine. There is a single
 idea underneath all of it — and it has a name.
 
 That is the subject of the next article,
-[Durable Context: Why](why.md), where the principle
+[Durable Context: The Model](model.md), where the principle
 and the model that resolve this friction are laid out in full.

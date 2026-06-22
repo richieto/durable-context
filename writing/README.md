@@ -20,9 +20,8 @@ Two practices, independent products:
 Package: `durable-context` · installs `context/` and `decisions/`.
 
 1. [Rationale](durable-context/rationale.md)
-2. [Why](durable-context/why.md)
-3. [Structure](durable-context/structure.md)
-4. [Limitations](durable-context/limitations.md)
+2. [Model](durable-context/model.md)
+3. [Limitations](durable-context/limitations.md)
 
 HTML: [Brief](durable-context/brief.html)
 

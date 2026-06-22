@@ -66,8 +66,7 @@ I wrote up both practices in [`writing/`](README.md). Start with Durable
 Context:
 
 - [Durable Context: The Rationale](durable-context/rationale.md) — the painpoints.
-- [Durable Context: Why](durable-context/why.md) — the principle.
-- [Durable Context: The Structure](durable-context/structure.md) — the layout.
+- [Durable Context: The Model](durable-context/model.md) — the principle and layout.
 - [Durable Context: Limitations](durable-context/limitations.md) — when not to use it.
 
 For shipped-behavior docs, see
