@@ -19,6 +19,9 @@ Second half of durable planning, after `plan-with-context`. Requires a settled `
 
 ## Boundary
 
+Use this after the agent's native planning is settled; it does not replace the
+agent's planning capability, but interrogates, distributes, and records durable
+artifacts from that plan.
 Do not edit `reference/`. Capture future reference impact in `release-doc-notes.md` only.
 Do not create ADRs for routine daily technical choices.
 

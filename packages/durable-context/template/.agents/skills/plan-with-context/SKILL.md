@@ -7,6 +7,13 @@ description: Draft a durable plan in an initiative plan.md covering the full cha
 
 Invocation-only. Produces `plan.md` for a later `dive-into-plan` pass.
 
+## Boundary
+
+Use the coding agent's native planning mode or planning capabilities to reason
+through the work. This skill does not replace that planning behavior; it
+extends it by grounding the plan in repository context and materializing the
+result in `context/initiatives/<slug>/plan.md`.
+
 ## Workflow
 
 1. Read nearest `AGENTS.md` and `context/project-profile.md` when it exists.
