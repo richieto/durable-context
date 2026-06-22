@@ -31,8 +31,21 @@ test('init installs the flat planning scaffold and decision log', async () => {
   assert.equal(await exists(path.join(target, 'context/project-profile.md')), true);
   assert.equal(await exists(path.join(target, 'decisions/README.md')), true);
   assert.equal(await exists(path.join(target, 'decisions/0000-template.md')), true);
+  assert.equal(await exists(path.join(target, 'decisions/indexes/by-area.md')), true);
+  assert.equal(
+    await exists(path.join(target, '.agents/skills/project-profile-baseline/SKILL.md')),
+    true
+  );
+  assert.equal(
+    await exists(path.join(target, '.agents/skills/project-profile-refresh/SKILL.md')),
+    true
+  );
   assert.equal(
     await exists(path.join(target, '.agents/skills/plan-with-context/SKILL.md')),
+    true
+  );
+  assert.equal(
+    await exists(path.join(target, '.agents/skills/devils-advocate/SKILL.md')),
     true
   );
   assert.equal(
@@ -46,7 +59,10 @@ test('init installs the flat planning scaffold and decision log', async () => {
   const agents = await readFile(path.join(target, 'AGENTS.md'), 'utf8');
   assert.match(agents, /# Agent Guidance - Planning App/);
   assert.match(agents, /<!-- durable-context:start -->/);
+  assert.match(agents, /\.agents\/skills\/project-profile-baseline\/SKILL\.md/);
+  assert.match(agents, /\.agents\/skills\/project-profile-refresh\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/plan-with-context\/SKILL\.md/);
+  assert.match(agents, /\.agents\/skills\/devils-advocate\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/dive-into-plan\/SKILL\.md/);
 
   const profile = await readFile(path.join(target, 'context/project-profile.md'), 'utf8');
@@ -58,11 +74,20 @@ test('init installs the flat planning scaffold and decision log', async () => {
   );
   assert.equal(metadata.installedVersion, packageJson.version);
   assert.equal(metadata.projectName, 'Planning App');
-  assert.deepEqual(metadata.installedSkills, ['plan-with-context', 'dive-into-plan']);
+  assert.deepEqual(metadata.installedSkills, [
+    'project-profile-baseline',
+    'project-profile-refresh',
+    'plan-with-context',
+    'devils-advocate',
+    'dive-into-plan'
+  ]);
 
   const status = await execFileAsync(process.execPath, [cliPath, 'status', '--target', target]);
   assert.match(status.stdout, new RegExp(`Installed version: ${escapeRegExp(packageJson.version)}`));
-  assert.match(status.stdout, /Installed skills: plan-with-context, dive-into-plan/);
+  assert.match(
+    status.stdout,
+    /Installed skills: project-profile-baseline, project-profile-refresh, plan-with-context, devils-advocate, dive-into-plan/
+  );
 });
 
 test('init appends guidance to an existing AGENTS file and is idempotent', async () => {

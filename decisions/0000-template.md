@@ -1,7 +1,12 @@
 # NNNN: Decision Title
 
-Status: Proposed
+Status: Accepted
 Date: YYYY-MM-DD
+Area: TBD
+Scope: TBD
+Tags: TBD
+Supersedes: None
+Superseded by: None
 
 ## Context
 

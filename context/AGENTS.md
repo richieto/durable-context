@@ -23,7 +23,8 @@ behavior under `reference/`.
   `architecture.md`, `testing.md`, `delivery.md`, `infrastructure.md`,
   `operations.md`, `backlog.md`) and into `release-doc-notes.md`.
 - Promote accepted architecture and design decisions into the repo-wide
-  `decisions/` log. Do not leave durable decisions only in an initiative.
+  `decisions/` log only when they cross the ADR threshold. Routine choices
+  belong in initiative notes, specs, plans, or code review.
 - Use `project-profile.md` for stable repo-wide operating facts (stack,
   commands, test layers, CI/CD, infrastructure, observability).
 - Do not edit `reference/` from working context. Capture future reference impact

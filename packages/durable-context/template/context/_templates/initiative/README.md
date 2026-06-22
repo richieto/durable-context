@@ -14,7 +14,8 @@ Started: YYYY-MM-DD
 
 ## Decisions
 
-Promote accepted decisions to repo-wide [`decisions/`](../../../decisions/).
+Keep active ADR drafts in `decisions/`. Promote only approved, implemented or
+accepted architectural decisions to repo-wide [`decisions/`](../../../decisions/).
 
 - None yet.
 

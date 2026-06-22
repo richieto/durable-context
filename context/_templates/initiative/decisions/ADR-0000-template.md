@@ -2,6 +2,11 @@
 
 Status: Proposed
 Date: YYYY-MM-DD
+Area: TBD
+Scope: TBD
+Tags: TBD
+Supersedes: None
+Superseded by: None
 
 ## Context
 
@@ -31,4 +36,3 @@ Negative or tradeoffs:
 ## Links
 
 - Related specs, PRs, tickets, discussions, or code paths.
-

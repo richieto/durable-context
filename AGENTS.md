@@ -17,7 +17,10 @@ In-progress work: [`context/`](context/). Durable decisions: [`decisions/`](deci
 
 Planning skills (invocation-only):
 
+- [`packages/durable-context/template/.agents/skills/project-profile-baseline/SKILL.md`](packages/durable-context/template/.agents/skills/project-profile-baseline/SKILL.md)
+- [`packages/durable-context/template/.agents/skills/project-profile-refresh/SKILL.md`](packages/durable-context/template/.agents/skills/project-profile-refresh/SKILL.md)
 - [`packages/durable-context/template/.agents/skills/plan-with-context/SKILL.md`](packages/durable-context/template/.agents/skills/plan-with-context/SKILL.md)
+- [`packages/durable-context/template/.agents/skills/devils-advocate/SKILL.md`](packages/durable-context/template/.agents/skills/devils-advocate/SKILL.md)
 - [`packages/durable-context/template/.agents/skills/dive-into-plan/SKILL.md`](packages/durable-context/template/.agents/skills/dive-into-plan/SKILL.md)
 
 Reference scaffold: `packages/reference-docs/template/reference/`. No top-level `reference/` here.
