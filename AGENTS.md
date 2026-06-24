@@ -7,13 +7,10 @@ npm workspaces monorepo publishing **durable-context** and **reference-docs**.
 - `packages/durable-context/` — planning skills plus `context/` and `decisions/` scaffold
 - `packages/reference-docs/` — reference skills plus `reference/` scaffold
 - `writing/` — maintainer-only narrative; never installed by either package
-- `context/` and `decisions/` — this repo's working bench and decision log (dogfood)
 
-Change installed behavior in each package's `template/`, not root `context/` or `decisions/` directly — sync dogfood from the template after template changes.
+Change installed behavior in each package's `template/`, not root scaffolds. This repo intentionally does not keep top-level `context/`, `decisions/`, or `reference/` folders.
 
 ## Working On This Repo
-
-In-progress work: [`context/`](context/). Durable decisions: [`decisions/`](decisions/).
 
 Planning skills (invocation-only):
 

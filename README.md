@@ -51,7 +51,6 @@ All invocation-only — ask by name; they do not auto-run.
 packages/durable-context/   npm: durable-context
 packages/reference-docs/    npm: reference-docs
 writing/                    maintainer narrative (not installed)
-context/  decisions/        this repo dogfoods durable-context
 ```
 
 ```bash
