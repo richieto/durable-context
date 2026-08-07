@@ -14,6 +14,12 @@ npx durable-context init --project-name "My App"
 npx reference-docs init --project-name "My App"
 ```
 
+Projects that require another reference root can configure one at install time:
+
+```bash
+npx reference-docs init --project-name "My App" --reference-root Reference
+```
+
 Planning:
 
 ```text
@@ -28,6 +34,8 @@ Refresh reference from <previous-tag> to <new-tag>.
 ```
 
 Both installers are idempotent and expose `status`, `--target`, and `--dry-run`.
+`reference-docs` updates use managed-file conflict detection and preserve
+project-owned authoring overlays and reference content.
 
 ## Mental Model
 

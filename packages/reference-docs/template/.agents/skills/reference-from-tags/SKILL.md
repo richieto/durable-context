@@ -1,28 +1,48 @@
 ---
 name: reference-from-tags
-description: Refresh reference/ from the diff between two release tags. Use ONLY when the human explicitly asks to refresh reference for a release, update from tags, update a page, or fix a demonstrable error. Do not trigger during feature work or refactors.
+description: Refresh REFERENCE_ROOT/ from a release-tag diff, update a requested reference page, or fix a demonstrable documentation error. Use ONLY when the human explicitly requests that documentation work. Do not trigger during feature work or refactors.
 ---
 
 # Reference From Tags
 
-Documentation only — no executable changes.
+Documentation only. Do not change executable behavior.
 
 ## Invariants
 
-- Read `reference/README.md`, `reference/_authoring/workflow.md`, and relevant area guides first.
-- Tag diff is source of truth; planning artifacts optional.
-- Extend and correct pages; do not wipe existing reference.
+- Read the nearest `AGENTS.md`, `REFERENCE_ROOT/_authoring/workflow.md`, the
+  optional `REFERENCE_ROOT/_authoring/project.md`, relevant area guides, and
+  `REFERENCE_ROOT/releases/index.md` first.
+- The resolved tag diff is the source of truth. Existing documentation,
+  `context/**/release-doc-notes.md`, `context/project-profile.md`, and accepted
+  records under `decisions/` are optional hints that must be verified.
+- Extend and correct existing pages. Do not wipe project reference material.
 
 ## Workflow
 
-1. **Tags** — resolve base and target from human input and `reference/releases/index.md`. Ask if ambiguous.
-2. **Per area** — read `reference/_authoring/areas/<area>.md`; scope diff to area paths:
-   `git diff --name-status <base>..<target> -- <paths>`
-3. **Optional hints** — read `context/initiatives/*/release-doc-notes.md` when present; verify against diff.
-4. **Update** — area `README.md` and `features/*.md` for material behavior changes. Skip refactors, test-only, lint, dep bumps with no behavior change.
-5. **Record** — append row to `reference/releases/index.md`.
-6. **Validate** — `git diff --check`; confirm documentation-only diff; summarize.
+1. Resolve base and target tags from the request and release index. Ask only
+   when the range is ambiguous.
+2. Read each affected area's authoring guide and scope the source diff:
 
-**Single-page/fix requests:** minimal edit to that page; verify against source.
+   ```bash
+   git diff --name-status <base>..<target> -- <area-source-paths>
+   ```
 
-See `reference/_authoring/workflow.md` for audience, writing style, and diagrams.
+3. Read relevant optional release notes and accepted decisions, then verify
+   material claims against the diff, source, tests, configuration, or IaC.
+4. Update area summaries and feature pages for observable behavior changes.
+   Ignore formatting, lint, internal refactors, test-only changes, and
+   dependency bumps with no behavior impact.
+5. Append or update the target row in `REFERENCE_ROOT/releases/index.md`.
+6. Run `git diff --check`, inspect the changed paths, and run any validation
+   commands named in the project overlay.
+
+## Single-Page Or Fix Requests
+
+Make the smallest source-backed edit that fulfills the request; a tag-range
+sweep is unnecessary unless the human requested one.
+
+## Done When
+
+- The resolved tag range and materially affected areas are reported.
+- Updated pages describe accepted behavior in reader-facing language.
+- The release index and validation results are included in the final summary.

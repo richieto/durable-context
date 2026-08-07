@@ -1,43 +1,141 @@
 # Reference Workflow
 
-How `reference/` is structured, written, and refreshed. Area-specific paths live in [`areas/`](areas/).
+This file defines how release-anchored reference material is introduced,
+written, and refreshed. Area-specific source paths and exceptions belong in
+[`areas/`](areas/); project-wide exceptions belong in [`project.md`](project.md).
 
-## When To Edit
+## When Reference Gets Edited
 
-Only when a human explicitly asks: release refresh, baseline, a specific page update, or a demonstrable fix. Never as a side effect of feature work — flag staleness in `release-doc-notes.md` instead.
+Reference work is explicit and on request. Edit `REFERENCE_ROOT/` only when a
+human asks for a baseline, a release refresh, a specific page update, or a
+demonstrable documentation correction.
 
-## Modes
+Do not update reference material as a side effect of feature work, bug fixes,
+refactors, or dependency changes. If development reveals future documentation
+impact, record it in the project's planning system or final summary instead.
 
-**Baseline** — document current accepted behavior. Use `.agents/skills/reference-baseline/SKILL.md`. Record reference point in `reference/releases/index.md`.
+## Reference Modes
 
-**Release-forward** — sparse start; refresh at tag time from diff. Use `.agents/skills/reference-from-tags/SKILL.md`. Optional hints from `context/initiatives/*/release-doc-notes.md`.
+### Baseline
 
-## Cadence
+A baseline documents stable, currently accepted behavior at a named reference
+point. Use `.agents/skills/reference-baseline/SKILL.md`.
 
-Refreshed once per accepted release, anchored to tag (default `release/vMAJOR_MINOR_PATCH`). Document custom tag conventions here before first refresh.
+- Confirm the requested scope before writing.
+- Create or update an area guide before adding product-facing pages.
+- Prefer broad, accurate coverage over exhaustive implementation detail.
+- Record the branch, tag, commit, date, or human-named baseline in
+  `REFERENCE_ROOT/releases/index.md`.
+- Keep unresolved and future behavior out of product-facing reference pages.
 
-## Audience
+### Release Forward
 
-Non-developer technical readers (QA, product, support, operators) unless the project defines otherwise. Behavior and rules in domain language; link to source for depth.
+Release-forward reference may begin sparse and become complete around behavior
+the team changes. Use `.agents/skills/reference-from-tags/SKILL.md` at explicit
+release-refresh time. The resolved tag diff remains the source of truth.
 
-## Layout
+## Cadence And Versioning
+
+Refresh reference once per accepted release unless `project.md` documents a
+different cadence. Anchor each refresh to a release tag or explicit baseline.
+The default example tag format is `release/vMAJOR_MINOR_PATCH`; projects should
+record their real convention in the project overlay.
+
+## Audience And Writing Focus
+
+Write for non-developer technical readers by default: QA, product, support,
+customer engineering, and operators.
+
+- Start with observable behavior, purpose, and reader outcomes.
+- Explain workflows, roles, permissions, validation, errors, and business
+  rules in product or domain language.
+- Add data, configuration, integration, delivery, and operational detail when
+  it affects released behavior or supportability.
+- Avoid private type names, SQL, framework jargon, and source-shaped prose
+  unless no reader-facing equivalent exists.
+- Link to source for verification and depth; do not substitute links for an
+  explanation.
+
+Use progressive depth:
+
+1. Summary and purpose.
+2. Workflows, actors, permissions, and business rules.
+3. Inputs, outputs, state changes, integrations, errors, and edge cases.
+4. Configuration, dependencies, and operational expectations.
+5. Source references for verification.
+
+## Layout And Coverage
+
+Each documented area normally has two levels:
 
 ```text
-reference/<Area>/
+REFERENCE_ROOT/<Area>/
   README.md
-  features/<feature>.md
+  features/
+    <feature>.md
 ```
 
-Write from observable behavior outward. Mermaid for architecture/flow when clearer than prose; keep diagrams small.
+The area README provides purpose and architecture. Feature pages cover the
+complete observable path: entry point, important processes, stored or read
+data, external systems, permissions, validation, failures, and operational
+expectations.
 
-## Release Refresh (summary)
+When behavior spans areas, place the primary page with the reader-facing or
+operator-facing owner and cross-link rather than duplicating it.
 
-1. Diff `<previous-tag>..<target>`, one area at a time per area guide.
-2. Update affected pages; ignore refactors and test-only changes.
-3. Append `reference/releases/index.md` row.
+## Diagrams
 
-Full steps: `.agents/skills/reference-from-tags/SKILL.md`.
+Use Mermaid when architecture, sequence, state, topology, or relationships are
+clearer visually than in prose. Prefer a sentence over an unnecessary diagram
+and split diagrams that grow beyond roughly 15 nodes or steps. Avoid ASCII-art
+box drawings.
 
-## Do Not Document
+| Scenario | Mermaid type |
+| --- | --- |
+| Components, topology, or data flow | `flowchart LR` or `flowchart TD` |
+| Interactions over time | `sequenceDiagram` |
+| Entity relationships | `erDiagram` |
+| State transitions | `stateDiagram-v2` |
 
-Internal helpers, generated API docs (link instead), transient scaffolding, or open plans (those live in `context/`).
+## Release Refresh Source Order
+
+Use sources in this order, skipping optional sources that are absent:
+
+1. The resolved previous-tag to target-tag diff.
+2. Relevant `context/**/release-doc-notes.md` hints.
+3. Accepted records under `decisions/`.
+4. The matching area guide.
+5. Existing reference pages.
+6. Source, tests, configuration, CI/CD, infrastructure, and generated
+   artifacts needed to verify released behavior.
+
+`context/project-profile.md` may help locate stable operating facts, but
+reference-docs does not require durable-context and does not invoke its skills.
+Alternate planning or decision paths belong in `project.md`.
+
+## Release Refresh Checklist
+
+1. Resolve and report the base and target tags.
+2. Work one documented area at a time using its authoring guide.
+3. Update the area README only when its high-level picture changed.
+4. Update feature pages for material behavior changes.
+5. Ignore formatting, lint, internal refactors, test-only changes, and
+   dependency bumps without observable impact.
+6. Append or update the release row in `REFERENCE_ROOT/releases/index.md`.
+7. Run `git diff --check`, inspect changed paths, and run project validation.
+
+## What Not To Document
+
+- Private helpers or implementation details that can change without reader or
+  operator impact.
+- Generated API reference or inline documentation that should be linked.
+- Temporary migration scaffolding.
+- Draft plans, undecided architecture, disputed claims, or open implementation
+  questions.
+
+## Completion Criteria
+
+A reference task is complete when its scope and reference point are recorded,
+claims are source-backed, existing project work is preserved, open questions
+are not presented as accepted behavior, release history is current when
+applicable, and the final summary reports pages changed and validation run.

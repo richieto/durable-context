@@ -14,17 +14,20 @@ implementation notes, or draft architecture decisions. Put that work in
   reference material.
 - `_authoring/workflow.md` defines when reference material is refreshed and what
   belongs here.
+- `_authoring/project.md` holds project-specific rules that package updates
+  never overwrite.
 - `_authoring/areas/` contains per-area authoring guidance.
 
 ## Standard Layout
 
 ```text
-reference/
+REFERENCE_ROOT/
   README.md
   releases/
     index.md
   _authoring/
     README.md
+    project.md
     workflow.md
     terminology.md
     areas/
@@ -44,7 +47,7 @@ Every documented area should have:
 
 - a high-level `README.md` that explains the area's purpose and architecture
 - one page per feature under `features/`
-- an authoring guide under `reference/_authoring/areas/`
+- an authoring guide under `REFERENCE_ROOT/_authoring/areas/`
 
 ## Contributing
 
@@ -59,4 +62,4 @@ Every documented area should have:
 - Describe behavior, inputs, outputs, permissions, errors, business rules, and
   operational expectations in domain language.
 - Prefer Mermaid diagrams for flows, architecture, and relationships.
-- Add release refreshes to `reference/releases/index.md`.
+- Add release refreshes to `REFERENCE_ROOT/releases/index.md`.

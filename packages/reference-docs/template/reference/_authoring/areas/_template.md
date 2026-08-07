@@ -4,7 +4,7 @@
 
 - Source orientation: `path/to/runtime-or-product-code`, `path/to/contracts`,
   `path/to/tests`, `path/to/ci-or-delivery`, `path/to/infra-or-config`
-- Reference root: `reference/<Area>/`
+- Reference root: `REFERENCE_ROOT/<Area>/`
 - Owner or reviewer: TBD
 
 Describe what this area owns and what it intentionally does not own.
@@ -20,7 +20,7 @@ operational expectations without private implementation detail.
 
 | Feature | Reference page | Notes |
 | --- | --- | --- |
-| TBD | `reference/<Area>/features/<feature>.md` | TBD |
+| TBD | `REFERENCE_ROOT/<Area>/features/<feature>.md` | TBD |
 
 ## What Matters At Release Time
 
@@ -57,7 +57,7 @@ known gaps, and questions that should not yet appear in product-facing docs.
 
 ## Terminology
 
-List area-specific terms or link to `reference/_authoring/terminology.md`.
+List area-specific terms or link to `REFERENCE_ROOT/_authoring/terminology.md`.
 
 ## Cross-Links
 

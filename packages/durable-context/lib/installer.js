@@ -1,6 +1,7 @@
 import { execPath } from 'node:process';
 import { constants as fsConstants } from 'node:fs';
 import { access, mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 
 const agentsSkillsRelative = '.agents/skills';
@@ -15,6 +16,10 @@ const agentsSkillsRelative = '.agents/skills';
  *   - skills:         [{ name, readmeEntry }] copied into .agents/skills
  *   - agents:         { start, end, render(projectName) } AGENTS.md section
  *   - metadataPath:   relative path of the install metadata file in the target
+ *   - payloadRoot:    optional configurable template-to-target payload root
+ *   - managedFiles:   optional file-level update manifest with conflict checks
+ *   - projectFiles:   optional user-owned files created only when absent
+ *   - legacyManagedHashes: accepted hashes for metadata migration
  *   - nextSteps:      strings printed after a successful install
  *   - summaryLabel:   short label used in the final summary line
  */
@@ -41,11 +46,15 @@ export async function runCli(config, argv) {
   }
 
   const targetRoot = path.resolve(args.target);
+  const previousMetadata = await readOptionalJson(path.join(targetRoot, config.metadataPath));
+  const payloadRoot = await resolvePayloadRoot(config, args, targetRoot, previousMetadata);
   const projectName = await resolveProjectName(config, args, targetRoot);
   const installer = new Installer({
     config,
     targetRoot,
     projectName,
+    payloadRoot,
+    previousMetadata,
     force: args.force,
     dryRun: args.dryRun
   });
@@ -63,6 +72,7 @@ function parseArgs(argv, config) {
     command: 'help',
     target: process.cwd(),
     projectName: undefined,
+    payloadRoot: undefined,
     force: false,
     dryRun: false,
     help: false,
@@ -116,6 +126,19 @@ function parseArgs(argv, config) {
       continue;
     }
 
+    const payloadRootOption = config.payloadRoot?.optionName;
+
+    if (payloadRootOption && arg.startsWith(`--${payloadRootOption}=`)) {
+      options.payloadRoot = arg.slice(`--${payloadRootOption}=`.length);
+      continue;
+    }
+
+    if (payloadRootOption && arg === `--${payloadRootOption}`) {
+      options.payloadRoot = readOptionValue(argv, index, `--${payloadRootOption}`);
+      index += 1;
+      continue;
+    }
+
     if (arg.startsWith('-')) {
       throw new Error(`Unknown option "${arg}". Run "${config.cliName} --help".`);
     }
@@ -144,6 +167,13 @@ function readOptionValue(argv, index, optionName) {
 }
 
 function printHelp(config) {
+  const payloadRootOption = config.payloadRoot
+    ? `\n  --${config.payloadRoot.optionName} <path>  ${config.payloadRoot.help}`
+    : '';
+  const forceHelp = config.managedFiles
+    ? 'Replace conflicted package-managed files only.'
+    : 'Replace existing generated directories during init.';
+
   console.log(`${config.cliName}
 
 Usage:
@@ -154,7 +184,7 @@ Usage:
 Options:
   --target <path>          Project root to install into. Defaults to cwd.
   --project-name <name>    Name used to replace PROJECT_NAME placeholders.
-  --force                  Replace existing generated directories during init.
+  --force                  ${forceHelp}${payloadRootOption}
   --dry-run                Show planned changes without writing files.
   -h, --help               Show help.
   -v, --version            Show package version.
@@ -165,9 +195,98 @@ Examples:
   npx ${config.packageJson.name}@${config.packageJson.version} init --project-name "My App"
   npx ${config.packageJson.name} status --target ../existing-project
 
-The update command refreshes managed agent assets without replacing project work.
+The update command refreshes managed files without replacing project work.
 The status command reads ${config.metadataPath} from an initialized project.
 `);
+}
+
+async function resolvePayloadRoot(config, args, targetRoot, metadata) {
+  if (!config.payloadRoot) {
+    return undefined;
+  }
+
+  if (args.command === 'update' && args.payloadRoot !== undefined) {
+    throw new Error(`--${config.payloadRoot.optionName} is only valid with init; the installed root is immutable.`);
+  }
+
+  const configured = metadata?.[config.payloadRoot.metadataKey];
+  let existing = configured;
+
+  if (!existing && metadata) {
+    existing =
+      (await findExistingDisplayPath(targetRoot, config.payloadRoot.defaultValue)) ??
+      config.payloadRoot.defaultValue;
+  }
+
+  if (args.command === 'update') {
+    if (!metadata) {
+      throw new Error(`No installation metadata found at ${config.metadataPath}; run ${config.cliName} init first.`);
+    }
+
+    return validateRelativeRoot(existing, config.payloadRoot.optionName);
+  }
+
+  const requested = args.payloadRoot ?? existing ?? config.payloadRoot.defaultValue;
+  const validated = validateRelativeRoot(requested, config.payloadRoot.optionName);
+
+  if (existing && normalizeRelativeRoot(existing) !== validated) {
+    throw new Error(
+      `The installed reference root is "${existing}" and cannot be changed by init; migrate it manually first.`
+    );
+  }
+
+  return validated;
+}
+
+function validateRelativeRoot(value, optionName) {
+  if (typeof value !== 'string' || !value.trim()) {
+    throw new Error(`--${optionName} requires a non-empty relative path.`);
+  }
+
+  if (path.isAbsolute(value) || /^[A-Za-z]:[\\/]/.test(value)) {
+    throw new Error(`--${optionName} must be a relative path.`);
+  }
+
+  const parts = value.split(/[\\/]/);
+
+  if (parts.some((part) => !part || part === '.' || part === '..')) {
+    throw new Error(`--${optionName} must not contain empty, ".", or ".." path segments.`);
+  }
+
+  return parts.join('/');
+}
+
+function normalizeRelativeRoot(value) {
+  return value.split(/[\\/]+/).filter(Boolean).join('/');
+}
+
+async function findExistingDisplayPath(targetRoot, targetRelative) {
+  const parts = targetRelative.split('/').filter(Boolean);
+  let currentPath = targetRoot;
+  const displayParts = [];
+
+  for (const part of parts) {
+    let entries;
+
+    try {
+      entries = await readdir(currentPath, { withFileTypes: true });
+    } catch {
+      return undefined;
+    }
+
+    const match =
+      entries.find((entry) => entry.name === part) ??
+      entries.find((entry) => entry.name.toLowerCase() === part.toLowerCase());
+
+    if (!match) {
+      return undefined;
+    }
+
+    currentPath = path.join(currentPath, match.name);
+    displayParts.push(match.name);
+  }
+
+  return displayParts.join('/');
 }
 
 async function inferProjectName(targetRoot) {
@@ -201,11 +320,13 @@ async function resolveProjectName(config, args, targetRoot) {
 }
 
 class Installer {
-  constructor({ config, targetRoot, projectName, force, dryRun }) {
+  constructor({ config, targetRoot, projectName, payloadRoot, previousMetadata, force, dryRun }) {
     this.config = config;
     this.templateDir = path.join(config.packageRoot, 'template');
     this.targetRoot = targetRoot;
     this.projectName = projectName;
+    this.payloadRoot = payloadRoot;
+    this.previousMetadata = previousMetadata;
     this.force = force;
     this.dryRun = dryRun;
     this.actions = [];
@@ -214,6 +335,12 @@ class Installer {
 
   async init() {
     await this.ensureDirectory(this.targetRoot);
+
+    if (this.config.managedFiles) {
+      await this.initManagedInstallation();
+      this.printSummary();
+      return;
+    }
 
     await this.installAgentsFile();
     await this.installSkills();
@@ -226,11 +353,213 @@ class Installer {
   async update() {
     await this.ensureDirectory(this.targetRoot);
 
+    if (this.config.managedFiles) {
+      await this.updateManagedInstallation();
+      this.printSummary();
+      return;
+    }
+
     await this.installAgentsFile();
     await this.updateSkills();
     await this.writeMetadata();
 
     this.printSummary();
+  }
+
+  async initManagedInstallation() {
+    await this.installAgentsFile();
+    await this.installSkillsMerged();
+    await this.installPayloadRootMerged();
+    await this.upsertSkillsReadme();
+
+    if (this.force) {
+      await this.writeManagedFiles();
+    }
+
+    const managedFiles = await this.collectRecognizedManagedFiles();
+    await this.writeMetadata(managedFiles);
+  }
+
+  async updateManagedInstallation() {
+    const conflicts = await this.findManagedFileConflicts();
+
+    if (conflicts.length > 0 && !this.force) {
+      throw new Error(
+        [
+          'Managed file conflicts prevent a safe update; no files were changed:',
+          ...conflicts.map((conflict) => `- ${conflict}`),
+          `Move durable project rules to ${this.payloadRoot}/_authoring/project.md or rerun with --force.`
+        ].join('\n')
+      );
+    }
+
+    for (const conflict of conflicts) {
+      this.note(`force managed file ${conflict}`);
+    }
+
+    await this.installAgentsFile();
+    await this.upsertSkillsReadme();
+    await this.installProjectFilesIfMissing();
+    await this.writeManagedFiles();
+    await this.writeMetadata(await this.currentManagedFileHashes());
+  }
+
+  managedFileSpecs() {
+    return this.config.managedFiles.map((spec) => ({
+      ...spec,
+      source: this.replaceTokens(spec.source),
+      target: this.replaceTokens(spec.target)
+    }));
+  }
+
+  projectFileSpecs() {
+    return (this.config.projectFiles ?? []).map((spec) => ({
+      ...spec,
+      source: this.replaceTokens(spec.source),
+      target: this.replaceTokens(spec.target)
+    }));
+  }
+
+  replaceTokens(value) {
+    return value.replaceAll('REFERENCE_ROOT', this.payloadRoot ?? 'reference');
+  }
+
+  async installSkillsMerged() {
+    for (const skill of this.config.skills) {
+      await this.mergeTemplateTree(
+        `${agentsSkillsRelative}/${skill.name}`,
+        `${agentsSkillsRelative}/${skill.name}`
+      );
+    }
+  }
+
+  async installPayloadRootMerged() {
+    const sourceRoot = this.config.payloadRoot.templateRoot;
+    await this.mergeTemplateTree(sourceRoot, this.payloadRoot);
+  }
+
+  async installProjectFilesIfMissing() {
+    for (const spec of this.projectFileSpecs()) {
+      await this.installTemplateFileIfMissing(spec.source, spec.target);
+    }
+  }
+
+  async mergeTemplateTree(sourceRelative, targetRelative) {
+    const sourceRoot = path.join(this.templateDir, sourceRelative);
+    const files = await listFiles(sourceRoot);
+
+    for (const file of files) {
+      const child = path.relative(sourceRoot, file).split(path.sep).join('/');
+      await this.installTemplateFileIfMissing(
+        path.posix.join(sourceRelative, child),
+        path.posix.join(targetRelative, child)
+      );
+    }
+  }
+
+  async installTemplateFileIfMissing(sourceRelative, targetRelative) {
+    const targetInfo = await this.findExistingTargetPath(targetRelative);
+
+    if (targetInfo.exists) {
+      this.note(`skip ${targetInfo.display} (already exists)`);
+      return false;
+    }
+
+    const contents = this.transformText(await readFile(path.join(this.templateDir, sourceRelative)));
+    await this.writeFile(path.join(this.targetRoot, targetRelative), contents, `create ${targetRelative}`);
+    return true;
+  }
+
+  async findManagedFileConflicts() {
+    const conflicts = [];
+    const recorded = this.previousMetadata?.managedFiles ?? {};
+
+    for (const spec of this.managedFileSpecs()) {
+      const targetInfo = await this.findExistingTargetPath(spec.target);
+      const recordedHash = recorded[spec.target];
+
+      if (!targetInfo.exists) {
+        if (recordedHash || this.config.legacyManagedHashes?.[spec.source]) {
+          conflicts.push(`${spec.target} (missing)`);
+        }
+        continue;
+      }
+
+      const stats = await stat(targetInfo.path);
+
+      if (!stats.isFile()) {
+        conflicts.push(`${targetInfo.display} (expected a file)`);
+        continue;
+      }
+
+      const currentHash = hash(await readFile(targetInfo.path));
+      const currentTemplateHash = hash(await this.managedSourceContents(spec));
+      const accepted = new Set([
+        recordedHash,
+        currentTemplateHash,
+        ...(this.config.legacyManagedHashes?.[spec.source] ?? [])
+      ].filter(Boolean));
+
+      if (!accepted.has(currentHash)) {
+        conflicts.push(`${targetInfo.display} (locally modified or unmanaged)`);
+      }
+    }
+
+    return conflicts;
+  }
+
+  async collectRecognizedManagedFiles() {
+    const managedFiles = {};
+
+    for (const spec of this.managedFileSpecs()) {
+      const targetInfo = await this.findExistingTargetPath(spec.target);
+
+      if (!targetInfo.exists || !(await stat(targetInfo.path)).isFile()) {
+        continue;
+      }
+
+      const currentHash = hash(await readFile(targetInfo.path));
+      const currentTemplateHash = hash(await this.managedSourceContents(spec));
+      const accepted = new Set([
+        currentTemplateHash,
+        ...(this.config.legacyManagedHashes?.[spec.source] ?? [])
+      ]);
+
+      if (accepted.has(currentHash)) {
+        managedFiles[spec.target] = currentHash;
+      } else {
+        this.note(`preserve ${targetInfo.display} (unmanaged local content)`);
+      }
+    }
+
+    return managedFiles;
+  }
+
+  async currentManagedFileHashes() {
+    const result = {};
+
+    for (const spec of this.managedFileSpecs()) {
+      result[spec.target] = hash(await this.managedSourceContents(spec));
+    }
+
+    return result;
+  }
+
+  async writeManagedFiles() {
+    for (const spec of this.managedFileSpecs()) {
+      const targetInfo = await this.findExistingTargetPath(spec.target);
+
+      if (targetInfo.exists && !(await stat(targetInfo.path)).isFile()) {
+        await this.removePath(targetInfo.path, `replace managed path ${targetInfo.display}`);
+      }
+
+      const targetPath = targetInfo.exists ? targetInfo.path : path.join(this.targetRoot, spec.target);
+      await this.writeFile(targetPath, await this.managedSourceContents(spec), `update managed file ${spec.target}`);
+    }
+  }
+
+  async managedSourceContents(spec) {
+    return this.transformText(await readFile(path.join(this.templateDir, spec.source)));
   }
 
   async installPayloadRoots() {
@@ -250,14 +579,16 @@ class Installer {
     const targetDisplay = path.basename(targetFile);
     this.agentsFilePath = targetFile;
 
-    const section = this.config.agents.render(this.projectName);
+    const section = this.transformText(this.config.agents.render(this.projectName, {
+      payloadRoot: this.payloadRoot
+    }));
     const { start, end } = this.config.agents;
 
     if (!(await exists(targetFile))) {
       const templateAgents = path.join(this.templateDir, 'AGENTS.md');
 
       if (await exists(templateAgents)) {
-        const text = (await readFile(templateAgents, 'utf8')).replaceAll('PROJECT_NAME', this.projectName);
+        const text = this.transformText(await readFile(templateAgents));
         await this.writeFile(path.join(this.targetRoot, 'AGENTS.md'), text, 'create AGENTS.md');
         this.agentsFilePath = path.join(this.targetRoot, 'AGENTS.md');
         return;
@@ -395,7 +726,7 @@ class Installer {
       start,
       `## ${this.config.summaryLabel} Skills`,
       '',
-      ...this.config.skills.map((skill) => skill.readmeEntry),
+      ...this.config.skills.map((skill) => this.transformText(skill.readmeEntry)),
       end
     ].join('\n');
   }
@@ -497,15 +828,18 @@ class Installer {
   }
 
   transformText(contents) {
-    return contents.toString('utf8').replaceAll('PROJECT_NAME', this.projectName);
+    return contents
+      .toString('utf8')
+      .replaceAll('PROJECT_NAME', this.projectName)
+      .replaceAll('REFERENCE_ROOT', this.payloadRoot ?? 'reference');
   }
 
-  async writeMetadata() {
+  async writeMetadata(managedFiles) {
     const metadataPath = path.join(this.targetRoot, this.config.metadataPath);
-    const previous = await readOptionalJson(metadataPath);
+    const previous = this.previousMetadata ?? (await readOptionalJson(metadataPath));
     const now = new Date().toISOString();
     const metadata = {
-      schemaVersion: 1,
+      schemaVersion: this.config.managedFiles ? 2 : 1,
       packageName: this.config.packageJson.name,
       installedVersion: this.config.packageJson.version,
       firstInstalledVersion:
@@ -513,7 +847,9 @@ class Installer {
       firstInstalledAt: previous?.firstInstalledAt ?? previous?.installedAt ?? now,
       lastUpdatedAt: now,
       projectName: this.projectName,
-      installedSkills: this.config.skills.map((skill) => skill.name)
+      installedSkills: this.config.skills.map((skill) => skill.name),
+      ...(this.config.payloadRoot ? { [this.config.payloadRoot.metadataKey]: this.payloadRoot } : {}),
+      ...(this.config.managedFiles ? { managedFiles: managedFiles ?? {} } : {})
     };
 
     await this.writeFile(
@@ -590,11 +926,59 @@ async function printStatus(config, target) {
   console.log(`Installed version: ${metadata.installedVersion ?? 'Unknown'}`);
   console.log(`Project: ${metadata.projectName ?? 'Unknown'}`);
   console.log(`Installed skills: ${formatList(metadata.installedSkills)}`);
+  if (config.payloadRoot) {
+    const storedRoot = metadata[config.payloadRoot.metadataKey];
+    const referenceRoot =
+      storedRoot ??
+      (await findExistingDisplayPath(targetRoot, config.payloadRoot.defaultValue)) ??
+      config.payloadRoot.defaultValue;
+    const managedState = await inspectManagedState(config, targetRoot, metadata, referenceRoot);
+    console.log(
+      `Reference root: ${referenceRoot}`
+    );
+    console.log(`Managed files: ${Object.keys(metadata.managedFiles ?? {}).length} tracked`);
+    console.log(`Managed file state: ${managedState}`);
+  }
   console.log(`Metadata path: ${config.metadataPath}`);
 
   if (metadata.installedVersion && metadata.installedVersion !== config.packageJson.version) {
     console.log('Note: running CLI version differs from installed metadata.');
   }
+}
+
+async function inspectManagedState(config, targetRoot, metadata, payloadRoot) {
+  const recorded = metadata.managedFiles ?? {};
+  const conflicts = [];
+
+  for (const spec of config.managedFiles ?? []) {
+    const targetRelative = spec.target.replaceAll('REFERENCE_ROOT', payloadRoot);
+    const display = await findExistingDisplayPath(targetRoot, targetRelative);
+    const recordedHash = recorded[targetRelative];
+
+    if (!display) {
+      conflicts.push(`${targetRelative} missing`);
+      continue;
+    }
+
+    const filePath = path.join(targetRoot, display);
+    const stats = await stat(filePath);
+
+    if (!stats.isFile()) {
+      conflicts.push(`${display} is not a file`);
+      continue;
+    }
+
+    if (!recordedHash) {
+      conflicts.push(`${display} untracked`);
+      continue;
+    }
+
+    if (hash(await readFile(filePath)) !== recordedHash) {
+      conflicts.push(`${display} modified`);
+    }
+  }
+
+  return conflicts.length === 0 ? 'clean' : `${conflicts.length} conflict(s): ${conflicts.join(', ')}`;
 }
 
 function formatList(value) {
@@ -616,6 +1000,31 @@ async function exists(filePath) {
   } catch {
     return false;
   }
+}
+
+async function listFiles(root) {
+  const entries = await readdir(root, { withFileTypes: true });
+  const files = [];
+
+  for (const entry of entries) {
+    if (entry.name === '.DS_Store') {
+      continue;
+    }
+
+    const child = path.join(root, entry.name);
+
+    if (entry.isDirectory()) {
+      files.push(...(await listFiles(child)));
+    } else {
+      files.push(child);
+    }
+  }
+
+  return files;
+}
+
+function hash(contents) {
+  return createHash('sha256').update(contents).digest('hex');
 }
 
 function escapeRegExp(value) {

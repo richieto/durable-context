@@ -1,46 +1,49 @@
 # Reference Authoring Guide
 
-This subtree owns all guidance for authoring and refreshing the reference
-under `reference/`. Humans and agents both read from here to know how
-reference is structured, when it is refreshed, what belongs in each area,
-and which domain terminology to use.
+This subtree separates package-managed reference guidance from project-owned
+knowledge for material under `REFERENCE_ROOT/`.
 
 ## Start Here
 
-- [`workflow.md`](workflow.md) explains how reference is versioned,
-  refreshed, and structured.
-- [`terminology.md`](terminology.md) holds project-specific domain language.
-- [`areas/`](areas/) contains one file per documented area, covering feature
-  inventory, code orientation, conventions, and what matters at release time.
+- [`workflow.md`](workflow.md) is the package-managed generic workflow.
+- [`project.md`](project.md) is the project-owned overlay for local conventions
+  and exceptions. Package updates never overwrite it.
+- [`terminology.md`](terminology.md) holds project and domain language.
+- [`areas/`](areas/) contains one project-owned guide per documented area.
+
+Skills read the generic workflow first, then the project overlay and relevant
+area guides. When local guidance differs, the more specific project or area
+guidance applies without requiring edits to package-managed skills.
 
 ## Area Guide Pattern
 
-Create one authoring guide per documented area:
+Create one guide per documented area:
 
 ```text
-reference/_authoring/areas/<area-slug>.md
+REFERENCE_ROOT/_authoring/areas/<area-slug>.md
 ```
 
 Each area guide should identify:
 
-- the source locations that own the behavior, such as product code,
-  interfaces, tests, CI/CD, generated artifacts, infrastructure, or config
-- the reference root under `reference/`
+- source locations that own the behavior, including product code, tests,
+  configuration, CI/CD, infrastructure, and generated artifacts
+- the reference root under `REFERENCE_ROOT/`
 - feature pages that should exist
 - behavior that matters at release time
-- changes to ignore, such as pure refactors or test-only edits
-- domain terms and cross-links specific to that area
+- changes to ignore
+- useful search terms, terminology, dependencies, and cross-links
 
-Use [`areas/_template.md`](areas/_template.md) when adding a new area guide.
+Use [`areas/_template.md`](areas/_template.md) when adding an area.
 
-## Relationship To `AGENTS.md`
+## Ownership And Updates
 
-Area `AGENTS.md` files may point here, but they should not copy the detailed
-reference workflow. Keep authoring rules in this subtree so the guidance
-has one source of truth.
+The package manages this README and `workflow.md`, with conflict protection for
+direct edits. Put durable project rules in `project.md`; keep terminology, area
+guides, release history, templates, and reference pages project-owned.
 
-## Contributing
+If an update reports a conflict in a managed file, move local rules into the
+project overlay and retry. Use `--force` only to replace the reported managed
+files; it never removes whole directories or unknown project files.
 
-Edits to this subtree usually belong with documentation workflow changes or
-release refresh work. If a project's documented area changes shape, update the
-matching authoring guide.
+Keep root and area `AGENTS.md` files lean. Point them here rather than copying
+the detailed authoring workflow.
