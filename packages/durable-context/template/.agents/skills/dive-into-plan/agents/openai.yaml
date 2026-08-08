@@ -1,0 +1,6 @@
+interface:
+  display_name: "Dive Into Plan"
+  short_description: "Interrogate and distribute a settled plan"
+  default_prompt: "Use $dive-into-plan to distribute a named initiative plan into applicable artifacts."
+policy:
+  allow_implicit_invocation: false

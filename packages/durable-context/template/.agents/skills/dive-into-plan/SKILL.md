@@ -1,33 +1,46 @@
 ---
 name: dive-into-plan
-description: Interrogate a settled initiative plan for gaps, distribute into per-concern docs, create local ADRs for active work, and promote approved implemented ADRs into decisions/. Use ONLY when the human explicitly invokes it ("dive into the plan", "distribute the plan"). Do not trigger automatically.
+description: Interrogate a settled durable plan, negotiate concern-by-concern artifact routing, create only applicable local documents, and record or promote architectural decisions. Use ONLY when the human explicitly invokes dive-into-plan, distribute the plan, or durable-context routes a named initiative through Detailed Design.
 ---
 
 # Dive Into Plan
 
-Second half of durable planning, after `plan-with-context`. Requires a settled `plan.md`.
+Interrogate and distribute a named settled plan. Prefer `durable-context` unless
+the human intentionally enters Detailed Design directly.
 
-## Workflow
+## Interrogate
 
-1. Read initiative `README.md`, `plan.md`, nearest `AGENTS.md`, `context/project-profile.md` when present, root `decisions/README.md` and relevant `decisions/indexes/` when present, and relevant local `context/**/decisions/`.
-2. **Interrogate** — ask pointed questions for surfaces the plan skipped (behavior, interface, architecture, tests, e2e, IaC, CI/CD, config, ops, rollback, security, data, ADRs, project profile impact, reference impact). Record answers in `plan.md`; note deferred surfaces with reason.
-3. **Distribute** — move settled truth from `plan.md` into initiative files (see templates under `context/_templates/initiative/` for each file's role):
-   `spec.md`, `interface.md`, `architecture.md`, `testing.md`, `delivery.md`, `infrastructure.md`, `operations.md` (only when actionable), `backlog.md`, `release-doc-notes.md`. Mark N/A files explicitly.
-4. **Record ADRs** — create ADRs only for architecturally significant decisions: choices that cross team boundaries, have multiple credible options, or are costly to reverse. Keep proposed, recommended, planned, or in-progress ADRs under the relevant initiative `decisions/` folder.
-5. **Promote decisions** — move ADRs to root `decisions/` only when approved and implemented/accepted, or when the human explicitly says they are ready for root history. Assign the next `NNNN`, preserve or complete metadata (`Area`, `Scope`, `Tags`, `Supersedes`, `Superseded by`), update `decisions/README.md` and relevant `decisions/indexes/*.md`, and link back from the initiative.
-6. Update initiative `README.md` (status, decisions, implementation state).
+1. Read the initiative README and plan, nearest `AGENTS.md`, project profile,
+   relevant accepted/local decisions, and the lifecycle protocol at
+   `../checkpoint-context/references/lifecycle.md` when lifecycle-managed.
+2. Ask pointed questions for applicable behavior, interface, architecture,
+   tests/e2e, data/security, IaC, CI/CD, configuration, operations, rollback,
+   project-profile impact, decision impact, and reference/release impact.
+3. Record answers in `plan.md`; do not manufacture answers for unavailable
+   external systems or people.
 
-## Boundary
+## Route Before Scaffolding
 
-Use this after the agent's native planning is settled; it does not replace the
-agent's planning capability, but interrogates, distributes, and records durable
-artifacts from that plan.
-Do not edit `reference/`. Capture future reference impact in `release-doc-notes.md` only.
-Do not create ADRs for routine daily technical choices.
+1. Propose a concern routing table based on repository evidence, then confirm
+   ambiguous and external routes with the human.
+2. Use `Local`, `External`, `Hybrid`, or `Not applicable`. Record a reason,
+   local path, external destination/evidence, and merge-blocking status.
+3. Create a concern document only for Local or Hybrid routes, using the
+   project-owned templates when present. Do not create empty N/A files.
+4. For external work the agent cannot perform, create a structured follow-up;
+   never claim completion without evidence.
+5. Mark artifact routing `Confirmed` only when every concern has a settled
+   route.
 
-## Done when
+## Decisions And Completion
 
-- Applicable surfaces grilled; answers in `plan.md`.
-- Settled truth not living only in `plan.md`.
-- ADR candidates were recorded locally, promoted to root `decisions/`, or left as normal initiative notes.
-- Promoted ADRs have complete metadata and current indexes.
+- Create initiative-local ADRs only for architecturally significant choices.
+- Promote only approved, implemented/accepted conclusions to root `decisions/`.
+  Make each root ADR self-contained and give it stable PR, commit, or release
+  provenance; the initiative link is optional provenance.
+- Never promote review transcripts, backfill evidence, or routine choices.
+- Update the phase record and checkpoint at the Detailed Design boundary.
+
+Settled truth must not live only in `plan.md`. Do not edit reference docs during
+normal development; route reference impact to `release-doc-notes.md` or its
+external destination.

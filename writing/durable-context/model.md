@@ -64,6 +64,9 @@ The installed skills are the operational interface to this model. They are
 discoverable after install, but invocation-only: humans ask for them by name
 when the work calls for that step.
 
+- `durable-context` is the recommended front door. Given an explicit initiative
+  name, it reads the recorded state and advances work to the next meaningful
+  boundary. It never infers initiative identity from a branch name.
 - `project-profile-baseline` establishes stable repo-wide operating facts in
   `context/project-profile.md`.
 - `project-profile-refresh` updates those stable facts when repository behavior
@@ -73,6 +76,38 @@ when the work calls for that step.
 - `devils-advocate` challenges a draft plan before it hardens.
 - `dive-into-plan` interrogates gaps, distributes settled truth, and records or
   promotes ADRs.
+- `backfill-with-context` reconstructs context when implementation grew beyond
+  an ordinary plan before an initiative existed.
+- `checkpoint-context` validates and records lifecycle state across sessions.
+
+The specialist names are advanced direct entry points. Most users need to
+remember only `durable-context`. For work that remains small, the front door
+recommends normal agent planning rather than scaffolding an initiative.
+
+## Initiative Lifecycle
+
+Lifecycle-managed initiatives move through six phases:
+
+```text
+Planning -> Plan Review -> Detailed Design -> Implementation
+         -> Verification -> PR Preparation
+```
+
+The accompanying condition is `Active`, `Paused`, `Blocked`, `Complete`, or
+`Abandoned`. The README records the current state, next action, blockers, and a
+compact checkpoint history. A checkpoint is written at meaningful decisions,
+phase boundaries, pauses, review conclusions, implementation milestones, and
+substantial session endings.
+
+Plan Review is advisory. Skipping it is visible but does not require a waiver.
+If review produces a material challenge, however, that challenge names the
+later phases that depend on its conclusion. The devil is not the authority: a
+human resolves the challenge as Retain, Revise, Replace, or Accept Risk and
+records rationale and trade-offs. Unrelated work can continue while review is
+waiting.
+
+Existing initiatives without lifecycle markers remain readable legacy context
+and are not migrated automatically.
 
 ## Initiatives
 
@@ -80,9 +115,9 @@ An initiative is one folder per meaningful piece of work:
 
 ```text
 context/initiatives/<slug>/
-  README.md   plan.md   spec.md   interface.md   architecture.md
-  testing.md  delivery.md  infrastructure.md  operations.md
-  backlog.md  decisions/  release-doc-notes.md
+  README.md   plan.md
+  [applicable concern documents created on demand]
+  [reviews/]  [decisions/]  [backfill.md]  [follow-up.md]
 ```
 
 `plan.md` is the working alignment space. It can be messy with notes, options,
@@ -91,7 +126,11 @@ questions, and tradeoffs, with one rule:
 > `plan.md` may be messy, but it must not be the only place settled truth
 > lives.
 
-Once something stabilizes, move it into the file that owns that concern:
+New initiatives begin with only README and plan. During Detailed Design, first
+agree where each concern belongs: Local, External, Hybrid, or Not applicable.
+Record the reason, destination, evidence, and whether it blocks merge. Create a
+local document only for Local and Hybrid routes. Once something stabilizes,
+move it into the applicable file that owns that concern:
 
 ```text
 spec.md              What the system should do.
@@ -106,9 +145,18 @@ decisions/           Local ADR drafts; accepted ones promote to ../../decisions/
 release-doc-notes.md Optional notes for whoever maintains shipped-behavior docs.
 ```
 
-Not every initiative needs every file. The template is a starting point to
-tune, not a checklist to satisfy. Empty stubs train everyone to skim past these
-files; trim the template down to your project and grow it deliberately.
+Not every initiative needs every file. The templates are a library, not a
+directory to copy wholesale. Empty stubs train everyone to skim past these
+files; grow each initiative only when a concern earns a local home.
+
+`backfill.md` is an evidence record for initiatives reconstructed after work
+already exists. It separates observable facts, human-confirmed intent,
+inferences, and unknowns, while `plan.md` holds the normalized direction.
+
+`follow-up.md` records work that cannot or should not finish before merge. At
+PR readiness each item is completed, transferred to a stable destination, or
+explicitly transfer-waived by a human. The merged initiative is a final
+disclosure, not a post-merge status tracker.
 
 ## Durable Decisions
 
@@ -116,6 +164,11 @@ Architecture and design choices need to outlive the initiative that produced
 them. Proposed, recommended, planned, or in-progress ADRs stay local under the
 initiative while the work is active. Accepted decisions promote to the root
 decision log when they are implemented or explicitly ready for durable history.
+
+Root decisions are self-contained: they must remain understandable after the
+initiative disappears and include stable PR, commit, or release-tag provenance.
+Initiative links are optional provenance. Full review and backfill records stay
+on the disposable bench.
 
 Root decisions are flat and numbered in order:
 
@@ -135,10 +188,14 @@ The workflow is simple:
 ```mermaid
 flowchart LR
   Plan["plan.md<br/>working alignment"]
+  Review["advisory review<br/>human conclusion"]
+  Route["artifact routes<br/>local, external, hybrid, N/A"]
   Distribute["per-concern docs<br/>spec, architecture, testing, ..."]
   Decisions["decisions/<br/>accepted ADRs"]
 
-  Plan --> Distribute
+  Plan --> Review
+  Review --> Route
+  Route --> Distribute
   Distribute -->|"promote accepted decisions"| Decisions
 ```
 

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Plan With Context"
+  short_description: "Draft a repository-grounded durable plan"
+  default_prompt: "Use $plan-with-context to draft a plan for a named durable initiative."
+policy:
+  allow_implicit_invocation: false

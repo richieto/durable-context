@@ -1,5 +1,5 @@
 import { execFile } from 'node:child_process';
-import { mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -11,6 +11,25 @@ const execFileAsync = promisify(execFile);
 const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const cliPath = path.join(packageRoot, 'bin/durable-context.js');
 const packageJson = JSON.parse(await readFile(path.join(packageRoot, 'package.json'), 'utf8'));
+
+test('installed skills encode the front-door, backfill, review, and routing scenarios', async () => {
+  const skillsRoot = path.join(packageRoot, 'template/.agents/skills');
+  const frontDoor = await readFile(path.join(skillsRoot, 'durable-context/SKILL.md'), 'utf8');
+  const backfill = await readFile(path.join(skillsRoot, 'backfill-with-context/SKILL.md'), 'utf8');
+  const devil = await readFile(path.join(skillsRoot, 'devils-advocate/SKILL.md'), 'utf8');
+  const dive = await readFile(path.join(skillsRoot, 'dive-into-plan/SKILL.md'), 'utf8');
+
+  assert.match(frontDoor, /recommend the agent's native planning behavior/);
+  assert.match(frontDoor, /Never\s+infer the initiative from the branch name/);
+  assert.match(frontDoor, /legacy and leave it unchanged/);
+  assert.match(backfill, /Observed:/);
+  assert.match(backfill, /Human-confirmed:/);
+  assert.match(backfill, /Do not fabricate completed/);
+  assert.match(devil, /advice, never as decision authority/);
+  assert.match(devil, /Continue unrelated work/);
+  assert.match(dive, /Route Before Scaffolding/);
+  assert.match(dive, /Local.*External.*Hybrid.*Not applicable/);
+});
 
 test('init installs the flat planning scaffold and decision log', async () => {
   const target = await mkdtemp(path.join(tmpdir(), 'durable-context-'));
@@ -33,6 +52,10 @@ test('init installs the flat planning scaffold and decision log', async () => {
   assert.equal(await exists(path.join(target, 'decisions/0000-template.md')), true);
   assert.equal(await exists(path.join(target, 'decisions/indexes/by-area.md')), true);
   assert.equal(
+    await exists(path.join(target, '.agents/skills/durable-context/SKILL.md')),
+    true
+  );
+  assert.equal(
     await exists(path.join(target, '.agents/skills/project-profile-baseline/SKILL.md')),
     true
   );
@@ -52,6 +75,14 @@ test('init installs the flat planning scaffold and decision log', async () => {
     await exists(path.join(target, '.agents/skills/dive-into-plan/SKILL.md')),
     true
   );
+  assert.equal(
+    await exists(path.join(target, '.agents/skills/backfill-with-context/SKILL.md')),
+    true
+  );
+  assert.equal(
+    await exists(path.join(target, '.agents/skills/checkpoint-context/scripts/validate-initiative.mjs')),
+    true
+  );
 
   assert.equal(await exists(path.join(target, 'context/current.md')), false);
   assert.equal(await exists(path.join(target, 'context/releases')), false);
@@ -59,11 +90,28 @@ test('init installs the flat planning scaffold and decision log', async () => {
   const agents = await readFile(path.join(target, 'AGENTS.md'), 'utf8');
   assert.match(agents, /# Agent Guidance - Planning App/);
   assert.match(agents, /<!-- durable-context:start -->/);
+  assert.match(agents, /\.agents\/skills\/durable-context\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/project-profile-baseline\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/project-profile-refresh\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/plan-with-context\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/devils-advocate\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/dive-into-plan\/SKILL\.md/);
+  assert.match(agents, /\.agents\/skills\/backfill-with-context\/SKILL\.md/);
+  assert.match(agents, /\.agents\/skills\/checkpoint-context\/SKILL\.md/);
+
+  const initiativeTemplate = await readFile(
+    path.join(target, 'context/_templates/initiative/README.md'),
+    'utf8'
+  );
+  assert.match(initiativeTemplate, /<!-- durable-context:lifecycle:start -->/);
+  assert.match(initiativeTemplate, /\| Operations \| TBD \|/);
+  assert.equal(
+    initiativeTemplate,
+    await readFile(
+      path.join(target, '.agents/skills/durable-context/assets/initiative/README.md'),
+      'utf8'
+    )
+  );
 
   const profile = await readFile(path.join(target, 'context/project-profile.md'), 'utf8');
   assert.match(profile, /Project: Planning App/);
@@ -75,18 +123,21 @@ test('init installs the flat planning scaffold and decision log', async () => {
   assert.equal(metadata.installedVersion, packageJson.version);
   assert.equal(metadata.projectName, 'Planning App');
   assert.deepEqual(metadata.installedSkills, [
+    'durable-context',
     'project-profile-baseline',
     'project-profile-refresh',
     'plan-with-context',
     'devils-advocate',
-    'dive-into-plan'
+    'dive-into-plan',
+    'backfill-with-context',
+    'checkpoint-context'
   ]);
 
   const status = await execFileAsync(process.execPath, [cliPath, 'status', '--target', target]);
   assert.match(status.stdout, new RegExp(`Installed version: ${escapeRegExp(packageJson.version)}`));
   assert.match(
     status.stdout,
-    /Installed skills: project-profile-baseline, project-profile-refresh, plan-with-context, devils-advocate, dive-into-plan/
+    /Installed skills: durable-context, project-profile-baseline, project-profile-refresh, plan-with-context, devils-advocate, dive-into-plan, backfill-with-context, checkpoint-context/
   );
 });
 
@@ -170,6 +221,15 @@ test('update refreshes managed agent assets without replacing project work', asy
   await writeFile(path.join(target, 'context/README.md'), '# User Context\n');
   await writeFile(path.join(target, 'decisions/README.md'), '# User Decisions\n');
   await writeFile(
+    path.join(target, 'context/_templates/initiative/README.md'),
+    '# Project-owned legacy initiative template\n'
+  );
+  await mkdir(path.join(target, 'context/initiatives/legacy-work'));
+  await writeFile(
+    path.join(target, 'context/initiatives/legacy-work/README.md'),
+    '# Legacy Work\n\nStatus: In progress\n'
+  );
+  await writeFile(
     path.join(target, '.durable-context/install.json'),
     JSON.stringify(
       {
@@ -202,7 +262,7 @@ test('update refreshes managed agent assets without replacing project work', asy
     'utf8'
   );
   assert.match(updatedSkill, /# Plan With Context/);
-  assert.match(updatedSkill, /native planning mode/);
+  assert.match(updatedSkill, /native planning capability/);
   assert.doesNotMatch(updatedSkill, /Locally edited/);
   assert.equal(await exists(path.join(target, '.agents/skills/devils-advocate/SKILL.md')), true);
 
@@ -210,6 +270,8 @@ test('update refreshes managed agent assets without replacing project work', asy
   assert.match(skillsReadme, /User notes stay here/);
   assert.match(skillsReadme, /<!-- durable-context:skills:start -->/);
   assert.match(skillsReadme, /project-profile-baseline/);
+  assert.match(skillsReadme, /durable-context/);
+  assert.match(skillsReadme, /backfill-with-context/);
   assert.doesNotMatch(skillsReadme, /stale durable skill list/);
   assert.match(skillsReadme, /reference docs section stays here/);
 
@@ -219,6 +281,14 @@ test('update refreshes managed agent assets without replacing project work', asy
 
   assert.equal(await readFile(path.join(target, 'context/README.md'), 'utf8'), '# User Context\n');
   assert.equal(await readFile(path.join(target, 'decisions/README.md'), 'utf8'), '# User Decisions\n');
+  assert.equal(
+    await readFile(path.join(target, 'context/_templates/initiative/README.md'), 'utf8'),
+    '# Project-owned legacy initiative template\n'
+  );
+  assert.equal(
+    await readFile(path.join(target, 'context/initiatives/legacy-work/README.md'), 'utf8'),
+    '# Legacy Work\n\nStatus: In progress\n'
+  );
 
   const metadata = JSON.parse(
     await readFile(path.join(target, '.durable-context/install.json'), 'utf8')
@@ -228,11 +298,14 @@ test('update refreshes managed agent assets without replacing project work', asy
   assert.equal(metadata.firstInstalledVersion, '1.0.0');
   assert.equal(metadata.firstInstalledAt, '2026-01-01T00:00:00.000Z');
   assert.deepEqual(metadata.installedSkills, [
+    'durable-context',
     'project-profile-baseline',
     'project-profile-refresh',
     'plan-with-context',
     'devils-advocate',
-    'dive-into-plan'
+    'dive-into-plan',
+    'backfill-with-context',
+    'checkpoint-context'
   ]);
 
   await writeFile(

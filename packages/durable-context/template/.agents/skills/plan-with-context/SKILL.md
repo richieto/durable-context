@@ -1,43 +1,43 @@
 ---
 name: plan-with-context
-description: Draft a durable plan in an initiative plan.md covering the full change surface. Use ONLY when the human explicitly invokes it ("plan with context", "plan with durable context", "durable plan"). Do not trigger for ordinary planning or small tasks.
+description: Draft or refine a durable initiative plan grounded in repository evidence and the full change surface. Use ONLY when the human explicitly invokes plan-with-context or durable-context routes a named initiative through Planning; do not trigger for ordinary planning or small tasks.
 ---
 
 # Plan With Context
 
-Invocation-only. Produces `plan.md` for a later `dive-into-plan` pass.
+Draft `plan.md` for a named initiative. Prefer `durable-context` unless the
+human intentionally enters Planning directly.
 
-## Boundary
+## Start
 
-Use the coding agent's native planning mode or planning capabilities to reason
-through the work. This skill does not replace that planning behavior; it
-extends it by grounding the plan in repository context and materializing the
-result in `context/initiatives/<slug>/plan.md`.
+1. Read the nearest `AGENTS.md`, `context/project-profile.md` when present, and
+   relevant accepted and initiative-local decisions.
+2. Require an initiative name; never infer it from the branch. For work that
+   remains small, recommend native agent planning and create no initiative
+   unless the human explicitly opts in.
+3. For a new initiative, create only `README.md` and `plan.md`. Prefer a
+   project-owned template whose README has lifecycle markers; otherwise use the
+   managed `durable-context` skill assets. Do not copy the whole initiative
+   template directory or overwrite project-owned templates.
+4. If the README lacks lifecycle markers, continue the legacy workflow without
+   inserting or migrating lifecycle state.
 
-## Workflow
+## Plan
 
-1. Read nearest `AGENTS.md` and `context/project-profile.md` when it exists.
-2. Find or create `context/initiatives/<slug>/` (copy `context/_templates/initiative/`). Update `README.md`, then work in `plan.md`. Skip initiatives for tiny fixes.
-3. Draft in `plan.md`: alignment, options, open questions. For each applicable surface, plan the work or mark N/A with reason:
-   - Application code · unit/integration tests · e2e · IaC · CI/CD · config/secrets (names only) · observability/rollback · security/data · reference impact
-4. Ground items in real repo tooling (profile or direct inspection). Do not guess.
-5. For architectural decisions, consult `decisions/README.md`, relevant `decisions/indexes/`, and local `context/**/decisions/` when present. Use metadata such as Area, Scope, Tags, and supersession links to avoid loading every ADR.
-6. Iterate with the human until direction is settled. Do not distribute yet.
-
-## ADR Guidance
-
-Consider an ADR only when a decision is architecturally significant: it crosses
-team boundaries, has multiple credible options, or is costly to reverse.
-Routine technical choices belong in `plan.md`, specs, or notes.
+1. Use the agent's native planning capability and ground claims in repository
+   evidence. Do not guess.
+2. Settle the goal, success criteria, audience, in/out scope, constraints,
+   options, trade-offs, and open questions with the human.
+3. Cover or disposition the applicable change surface: application code,
+   tests/e2e, interfaces, data/security, IaC, CI/CD, configuration, operations,
+   rollback, project-profile impact, ADR impact, and reference/release impact.
+4. Consider an ADR only for architecturally significant choices crossing
+   boundaries, having credible alternatives, or being costly to reverse.
+5. Keep settled planning truth in `plan.md`; do not create concern documents
+   until artifact routing is confirmed during `dive-into-plan`.
 
 ## Handoff
 
-When a recommendation is ready, invoke `devils-advocate` if the human wants a
-challenge pass. When settled, invoke `dive-into-plan`.
-
-## Done when
-
-- Initiative exists (or reason given why not).
-- `plan.md` covers every applicable surface.
-- Existing accepted and local ADRs were consulted where relevant.
-- Open questions visible; settled truth not frozen in `plan.md` alone.
+For lifecycle-managed work, checkpoint at the Planning boundary and return
+control. The human may use the advisory `devils-advocate` review or proceed to
+Detailed Design through `durable-context`.

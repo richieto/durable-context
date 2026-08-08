@@ -102,6 +102,27 @@ alike, because none of them depend on having been in the original session.
 
 > Reasoning trapped in a session can only be acted on by that session.
 
+## Small Work Can Grow Up
+
+Not every initiative announces itself at the beginning. A change can start as
+an ordinary plan, accumulate implementation across several sessions, and only
+reveal its architectural or delivery consequences when the pull request is
+near. Refusing durable context at that point loses the reasoning; pretending it
+was planned first invents history.
+
+Backfilling solves a narrower problem: reconstruct what the branch proves,
+separate that from intent a human confirms after the fact, and resume the
+remaining review and verification honestly. The code proves what changed. It
+does not, by itself, prove why.
+
+> Capture late without rewriting the past.
+
+Long planning also needs a durable answer to “what is next?” A compact phase,
+condition, next action, and checkpoint trail lets another human or agent resume
+without repeating the investigation. The state is useful because it records
+boundaries and unresolved dependencies, not because every initiative must
+obey a heavyweight universal checklist.
+
 ## Where This Leads
 
 Every one of these painpoints points the same direction: stop letting valuable

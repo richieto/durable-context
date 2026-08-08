@@ -33,6 +33,11 @@ Negative or tradeoffs:
 | --- | --- |
 | TBD | TBD |
 
+## Origin
+
+- Stable PR, commit, or release tag: TBD
+- Initiative (optional provenance): `context/initiatives/<slug>/`
+
 ## Links
 
 - Related specs, PRs, tickets, discussions, or code paths.

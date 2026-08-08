@@ -35,8 +35,8 @@ Negative or tradeoffs:
 
 ## Origin
 
-- Initiative: `context/initiatives/<slug>/`
-- Release tag, PR, or commit: TBD
+- Stable PR, commit, or release tag: TBD
+- Initiative (optional provenance): `context/initiatives/<slug>/`
 
 ## Links
 

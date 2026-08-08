@@ -1,28 +1,34 @@
 # context/
 
-Working bench for PROJECT_NAME — disposable planning context for work in progress.
-
-Persists elsewhere: [`../decisions/`](../decisions/) (durable log); `reference/` if reference-docs is installed.
+Disposable working bench for PROJECT_NAME. Durable architectural conclusions
+belong in [`../decisions/`](../decisions/); shipped-behavior reference may be
+managed separately when reference-docs is installed.
 
 ## Start Here
 
-- `initiatives/` — one folder per piece of work
-- `project-profile.md` — repo-wide stack, commands, tests, delivery (when populated)
-- `_templates/initiative/` — copy to start a new initiative
+- `initiatives/` — one explicitly named folder per meaningful piece of work
+- `project-profile.md` — stable repo-wide commands and operating facts
+- `_templates/initiative/` — project-owned source templates; do not copy every
+  file into a new initiative
 
-## Flow
+Invoke `durable-context` with an initiative name. It is the only workflow name
+most users need to remember.
 
 ```text
-project-profile-baseline/refresh -> project-profile.md
-plan-with-context                -> initiatives/<slug>/plan.md
-devils-advocate                  -> critique before distribution
-dive-into-plan                   -> per-concern docs + ../decisions/
+Planning -> Plan Review -> Detailed Design -> Implementation
+         -> Verification -> PR Preparation
 ```
 
-1. Copy `_templates/initiative/` to `initiatives/<slug>/`.
-2. Invoke `project-profile-baseline` when repo-wide commands and operating facts are not yet populated.
-3. Invoke `plan-with-context` to draft `plan.md`.
-4. Optionally invoke `devils-advocate` to challenge a meaningful recommendation.
-5. When settled, invoke `dive-into-plan` to distribute and promote decisions.
+New initiatives begin with only `README.md` and `plan.md`. During Detailed
+Design, agree whether each concern is Local, External, Hybrid, or Not applicable,
+then create only applicable local files. The devil's-advocate pass is advisory,
+but a material recorded challenge blocks the phases that depend on its human
+conclusion.
 
-Settled truth must not live only in `plan.md`. Do not edit `reference/` from here — use `release-doc-notes.md` for future reference impact.
+Use `backfill-with-context` directly only when intentionally reconstructing
+context from existing work, and `checkpoint-context` when intentionally
+validating state. The planning, devil, dive, and project-profile skills remain
+advanced direct entry points.
+
+Legacy initiatives without lifecycle markers stay on their existing workflow
+and are not migrated automatically.

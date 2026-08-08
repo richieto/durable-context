@@ -534,7 +534,8 @@
         <p>
           Install:
           <code>npx durable-context init --project-name "My App"</code>.
-          Invocation-only skills: <code>project-profile-baseline</code>,
+          Recommended invocation-only front door: <code>durable-context</code>.
+          Advanced skills: <code>project-profile-baseline</code>,
           <code>project-profile-refresh</code>, <code>plan-with-context</code>,
           <code>devils-advocate</code>,
           <code>dive-into-plan</code>.
@@ -590,14 +591,15 @@
     <section id="lifecycle">
       <h2>Lifecycle</h2>
       <p class="section-intro">
-        Work moves from a messy bench to durable artifacts. The planning skills
-        are invocation-only &mdash; they run when you ask for them by name.
+        Work moves from a messy bench to a PR-ready snapshot. Invoke
+        <code>durable-context</code> with an explicit initiative name; the
+        specialist skills remain invocation-only advanced entry points.
       </p>
       <div class="timeline" aria-label="Context lifecycle">
         <div class="step">
           <span class="step-number">1</span>
           <h3>Start an initiative</h3>
-          <p>Copy the initiative template into <code>context/initiatives/&lt;slug&gt;/</code>.</p>
+          <p>Create only <code>README.md</code> and <code>plan.md</code>, with lifecycle state and a concrete next action.</p>
         </div>
         <div class="step">
           <span class="step-number">2</span>
@@ -606,18 +608,18 @@
         </div>
         <div class="step">
           <span class="step-number">3</span>
-          <h3>Grill and distribute</h3>
-          <p>Use <code>dive-into-plan</code> to fan settled truth into the per-concern docs.</p>
+          <h3>Review and route</h3>
+          <p>Optionally pressure-test the plan, then agree which concerns are local, external, hybrid, or not applicable.</p>
         </div>
         <div class="step">
           <span class="step-number">4</span>
-          <h3>Promote decisions</h3>
-          <p>Accepted ADRs move out of the initiative into the <code>decisions/</code> log.</p>
+          <h3>Implement and verify</h3>
+          <p>Create only applicable concern docs, implement the settled work, and preserve verification evidence.</p>
         </div>
         <div class="step">
           <span class="step-number">5</span>
-          <h3>Archive the bench</h3>
-          <p>Once the durable truth is extracted, the initiative can be archived freely.</p>
+          <h3>Prepare the PR snapshot</h3>
+          <p>Resolve blocking challenges, disposition follow-ups, and promote self-contained accepted ADRs.</p>
         </div>
       </div>
     </section>
@@ -637,6 +639,11 @@
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td><code>durable-context</code></td>
+            <td>Resume a named initiative and advance it to the next meaningful boundary.</td>
+            <td>Recommended front door for the complete lifecycle.</td>
+          </tr>
           <tr>
             <td><code>project-profile-baseline</code></td>
             <td>Establish stable repo-wide operating facts.</td>
@@ -659,8 +666,18 @@
           </tr>
           <tr>
             <td><code>dive-into-plan</code></td>
-            <td>Interrogate gaps, distribute truth, and record or promote ADRs.</td>
+            <td>Interrogate gaps, route concerns, distribute truth, and record or promote ADRs.</td>
             <td>After the plan is settled enough to distribute.</td>
+          </tr>
+          <tr>
+            <td><code>backfill-with-context</code></td>
+            <td>Reconstruct observed and confirmed context from existing work.</td>
+            <td>When an ordinary change grows into an initiative before its PR.</td>
+          </tr>
+          <tr>
+            <td><code>checkpoint-context</code></td>
+            <td>Validate lifecycle consistency and record the next action.</td>
+            <td>At meaningful boundaries and substantial session endings.</td>
           </tr>
         </tbody>
       </table>
@@ -714,8 +731,9 @@
     <section id="files">
       <h2>Initiative Files</h2>
       <p class="section-intro">
-        <code>plan.md</code> is the working surface. The other files are where
-        stable conclusions belong.
+        <code>README.md</code> and <code>plan.md</code> are the initial working
+        surface. Create the other files only after their local or hybrid route
+        is confirmed.
       </p>
       <table class="matrix">
         <thead>
@@ -728,7 +746,7 @@
         <tbody>
           <tr>
             <td><code>README.md</code></td>
-            <td>Entry point, status, scope, touched areas, and links.</td>
+            <td>Lifecycle state, artifact routes, checkpoints, decisions, and open questions.</td>
             <td>Stable summary</td>
           </tr>
           <tr>

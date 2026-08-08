@@ -43,6 +43,7 @@ Package: `durable-context` · installs `context/` and `decisions/`.
 - [Durable Context: The Rationale](durable-context/rationale.md)
 - [Durable Context: The Model](durable-context/model.md)
 - [Durable Context: Limitations, Anti-Patterns, and When Not To Use It](durable-context/limitations.md)
+- [Durable Context 1.2.0: Release Notes And Decision Record](durable-context/release-notes.md)
 
 Practitioner brief (HTML): [Durable Context Brief](durable-context/brief.html)
 

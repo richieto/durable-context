@@ -23,8 +23,7 @@ npx reference-docs init --project-name "My App" --reference-root Reference
 Planning:
 
 ```text
-Plan with durable context: <what you want to build>
-Dive into the plan.
+Use durable-context for initiative <name>.
 ```
 
 Reference (after a release tag):
@@ -47,7 +46,9 @@ project-owned authoring overlays and reference content.
 
 ## Skills
 
-**durable-context:** `plan-with-context`, `dive-into-plan`
+**durable-context:** `durable-context` (recommended front door); advanced
+`plan-with-context`, `devils-advocate`, `dive-into-plan`,
+`backfill-with-context`, and `checkpoint-context`
 
 **reference-docs:** `reference-from-tags`, `reference-baseline`
 

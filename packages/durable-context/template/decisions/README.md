@@ -4,7 +4,9 @@ This is the durable, append-only decision log for PROJECT_NAME.
 
 Working context under [`context/`](../context/) is a disposable bench and will
 be archived over time. Architecture and design decisions must outlive it, so
-accepted decisions are promoted here where they stay findable.
+accepted decisions are promoted here where they stay findable. Every promoted
+ADR must remain understandable without its disposable initiative and include a
+stable PR, commit, or release-tag origin.
 
 ## How It Works
 
@@ -45,7 +47,9 @@ The `dive-into-plan` skill promotes accepted decisions out of an
 initiative's scratch `context/initiatives/<slug>/decisions/` folder into this
 log when the decision is accepted and implemented, or when a human explicitly
 says it is ready for root history. On promotion, assign the next number,
-preserve or complete metadata, update indexes, and link back to the origin.
+preserve or complete metadata, update indexes, and record stable origin. An
+initiative link is optional provenance, never a dependency. Review transcripts
+and backfill evidence stay in `context/`.
 
 ## Secondary Indexes
 

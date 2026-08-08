@@ -41,6 +41,14 @@ and nothing forces a team to wrap trivial work in process.
   file. An initiative padded with empty `infrastructure.md` and `operations.md`
   stubs trains everyone to ignore them. Tune the template down to what the work
   actually needs.
+- **Treating lifecycle states as management approval.** The framework records
+  evidence and human conclusions; it cannot authenticate titles, authority, or
+  team roles. A persuasive adversarial review is still advice until a human
+  resolves it.
+- **Using the merged initiative as a post-merge tracker.** The initiative is a
+  PR-time snapshot. Transfer later work to its real destination, explicitly
+  waive that transfer, or create a new code-changing initiative when the system
+  changes again. Avoid documentation-only status PRs.
 - **Letting `context/` be the only home for decisions.** The bench is
   disposable; it gets archived. If accepted architecture and design decisions
   are never promoted into the durable `decisions/` log, the rationale dies with
@@ -63,6 +71,9 @@ and nothing forces a team to wrap trivial work in process.
   `delivery.md`, and `operations.md` templates carry a redaction reminder for
   exactly this — reference secret names and vault paths, never values — and
   reviewers should treat these files as public.
+- **False certainty during backfill.** A diff can establish behavior but rarely
+  intent. Keep observed, confirmed, inferred, and unknown information separate
+  so reconstructed context does not become invented history.
 
 ## The Honest Framing
 

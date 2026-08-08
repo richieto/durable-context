@@ -22,6 +22,7 @@ Package: `durable-context` · installs `context/` and `decisions/`.
 1. [Rationale](durable-context/rationale.md)
 2. [Model](durable-context/model.md)
 3. [Limitations](durable-context/limitations.md)
+4. [1.2.0 Release Notes And Decision Record](durable-context/release-notes.md)
 
 HTML: [Brief](durable-context/brief.html)
 

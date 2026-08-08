@@ -1,0 +1,6 @@
+interface:
+  display_name: "Checkpoint Context"
+  short_description: "Validate and record durable initiative state"
+  default_prompt: "Use $checkpoint-context to validate and checkpoint a named durable initiative."
+policy:
+  allow_implicit_invocation: false
