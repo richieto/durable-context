@@ -47,6 +47,15 @@ Package: `durable-context` · installs `context/` and `decisions/`.
 
 Practitioner brief (HTML): [Durable Context Brief](durable-context/brief.html)
 
+## Durable Context Solo
+
+The same repository-owned planning, concern decomposition, and decision
+principles for one accountable human working across agents and sessions,
+without collaborative lifecycle governance. Package: `durable-context-solo`.
+
+- [Durable Context Solo: The Model And Rationale](durable-context-solo/model.md)
+- [Durable Context Solo: Limitations And Feedback Questions](durable-context-solo/limitations.md)
+
 ## Reference Docs
 
 Shipped-behavior documentation anchored to the code that was released.

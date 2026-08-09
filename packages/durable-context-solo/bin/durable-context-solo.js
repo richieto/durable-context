@@ -6,18 +6,18 @@ import { fileURLToPath } from 'node:url';
 
 import { runCli, reportError } from '../lib/installer.js';
 
-const cliName = 'durable-context';
+const cliName = 'durable-context-solo';
 const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const packageJson = JSON.parse(await readFile(path.join(packageRoot, 'package.json'), 'utf8'));
 
-const agentsStart = '<!-- durable-context:start -->';
-const agentsEnd = '<!-- durable-context:end -->';
+const agentsStart = '<!-- durable-context-solo:start -->';
+const agentsEnd = '<!-- durable-context-solo:end -->';
 
 const skills = [
   {
-    name: 'durable-context',
+    name: 'durable-context-solo',
     readmeEntry:
-      '- `durable-context` - recommended front door; continue a named initiative to its next meaningful boundary.'
+      '- `durable-context-solo` - recommended front door for focused repository-owned planning across sessions.'
   },
   {
     name: 'project-profile-baseline',
@@ -47,25 +47,20 @@ const skills = [
   {
     name: 'backfill-with-context',
     readmeEntry:
-      '- `backfill-with-context` - advanced entry point to reconstruct a named initiative from existing branch work.'
-  },
-  {
-    name: 'checkpoint-context',
-    readmeEntry:
-      '- `checkpoint-context` - advanced entry point to validate and record initiative lifecycle state.'
+      '- `backfill-with-context` - reconstruct a named initiative after ordinary work grows beyond its original plan.'
   }
 ];
 
 function renderAgentSection(projectName) {
   return `${agentsStart}
-## Durable Context
+## Durable Context Solo
 
 Working context under [\`context/\`](context/); durable decisions under [\`decisions/\`](decisions/).
 Initiatives under [\`context/initiatives/\`](context/initiatives/) are disposable; promote accepted decisions to [\`decisions/\`](decisions/).
 
 Recommended invocation-only front door:
 
-- [\`.agents/skills/durable-context/SKILL.md\`](.agents/skills/durable-context/SKILL.md) — continue a named initiative to its next meaningful boundary.
+- [\`.agents/skills/durable-context-solo/SKILL.md\`](.agents/skills/durable-context-solo/SKILL.md) — resume a named initiative and continue to its next meaningful boundary.
 
 Advanced direct entry points:
 
@@ -74,10 +69,9 @@ Advanced direct entry points:
 - [\`.agents/skills/plan-with-context/SKILL.md\`](.agents/skills/plan-with-context/SKILL.md) — draft a plan in \`plan.md\`.
 - [\`.agents/skills/devils-advocate/SKILL.md\`](.agents/skills/devils-advocate/SKILL.md) — critique a draft plan before distribution.
 - [\`.agents/skills/dive-into-plan/SKILL.md\`](.agents/skills/dive-into-plan/SKILL.md) — interrogate gaps, distribute into per-concern docs, promote to [\`decisions/\`](decisions/).
-- [\`.agents/skills/backfill-with-context/SKILL.md\`](.agents/skills/backfill-with-context/SKILL.md) — reconstruct context after existing work grows into an initiative.
-- [\`.agents/skills/checkpoint-context/SKILL.md\`](.agents/skills/checkpoint-context/SKILL.md) — validate and record lifecycle state.
+- [\`.agents/skills/backfill-with-context/SKILL.md\`](.agents/skills/backfill-with-context/SKILL.md) — reconstruct context from existing work.
 
-[\`context/project-profile.md\`](context/project-profile.md) — repo-wide stack, commands, and test facts when populated.
+[\`context/project-profile.md\`](context/project-profile.md) — source-backed capabilities, concern inventory, commands, and operating facts.
 ${agentsEnd}`;
 }
 
@@ -85,10 +79,10 @@ const config = {
   cliName,
   packageRoot,
   packageJson,
-  summaryLabel: 'Durable Context',
-  metadataPath: '.durable-context/install.json',
+  summaryLabel: 'Durable Context Solo',
+  metadataPath: '.durable-context-solo/install.json',
   incompatibleInstallations: [
-    { packageName: 'durable-context-solo', metadataPath: '.durable-context-solo/install.json' }
+    { packageName: 'durable-context', metadataPath: '.durable-context/install.json' }
   ],
   skills,
   agents: {
@@ -97,8 +91,8 @@ const config = {
     render: renderAgentSection
   },
   nextSteps: [
-    'Optional: invoke .agents/skills/project-profile-baseline/SKILL.md to populate context/project-profile.md.',
-    'Then: invoke .agents/skills/durable-context/SKILL.md with a named initiative.'
+    'First: invoke .agents/skills/project-profile-baseline/SKILL.md to inventory stable repository capabilities.',
+    'Then: invoke .agents/skills/durable-context-solo/SKILL.md with a named meaningful initiative.'
   ]
 };
 

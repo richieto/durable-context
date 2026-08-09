@@ -20,7 +20,7 @@ on top of it.
 
 ## When Not To Use It
 
-- **Small or solo projects.** The overhead dwarfs the benefit. Start with
+- **Small or simple projects.** The overhead dwarfs the benefit. Start with
   something lean like spec-driven development or OpenSpec, and grow into this
   only when complexity demands it.
 - **Pre-product-market-fit churn.** When architecture changes weekly, durable
@@ -31,6 +31,11 @@ on top of it.
 Use it for large, long-lived initiatives where the reasoning is expensive and
 the system has to survive many hands. It is opt-in: small fixes still just ship,
 and nothing forces a team to wrap trivial work in process.
+
+Solo ownership is not the same as low complexity. A single accountable human
+working across a substantial system and many agent sessions may prefer the
+lighter governance of [`durable-context-solo`](../durable-context-solo/model.md)
+while retaining repository-owned planning, concern decomposition, and ADRs.
 
 ## Anti-Patterns
 

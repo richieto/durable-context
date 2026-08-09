@@ -1,18 +1,26 @@
-# durable-context · reference-docs
+# durable-context · durable-context-solo · reference-docs
 
-Two independent npm packages for keeping agent context close to the code:
+Three npm packages for keeping agent context close to the code:
 
-- **durable-context** — plan in `context/`, promote decisions to `decisions/`
+- **durable-context** — collaborative initiative lifecycle, planning, and decisions
+- **durable-context-solo** — focused planning and continuity for one accountable human
 - **reference-docs** — keep `reference/` accurate from release tag diffs
 
-Adopt either or both. No hard dependency between them.
+Choose one Durable Context edition; they are mutually exclusive because both
+own the same `context/`, `decisions/`, and skill paths. Either edition can be
+used independently from `reference-docs`.
 
 ## Quick Start
 
 ```bash
 npx durable-context init --project-name "My App"
+npx durable-context-solo init --project-name "My App"
 npx reference-docs init --project-name "My App"
 ```
+
+Use `durable-context` when several people need explicit lifecycle, review, and
+handoff state. Use `durable-context-solo` when one accountable human still needs
+repository-owned reasoning across large initiatives, agents, and sessions.
 
 Projects that require another reference root can configure one at install time:
 
@@ -24,6 +32,12 @@ Planning:
 
 ```text
 Use durable-context for initiative <name>.
+```
+
+Solo planning:
+
+```text
+Use durable-context-solo for initiative <name>.
 ```
 
 Reference (after a release tag):
@@ -40,8 +54,8 @@ project-owned authoring overlays and reference content.
 
 | Folder | Meaning | Lifetime | Package |
 | --- | --- | --- | --- |
-| `context/` | What you are planning and building | Disposable bench | durable-context |
-| `decisions/` | Why the system is the way it is | Durable log | durable-context |
+| `context/` | What you are planning and building | Disposable bench | one Durable Context edition |
+| `decisions/` | Why the system is the way it is | Durable log | one Durable Context edition |
 | `reference/` | What the system does as of a release | Per-release refresh | reference-docs |
 
 ## Skills
@@ -49,6 +63,10 @@ project-owned authoring overlays and reference content.
 **durable-context:** `durable-context` (recommended front door); advanced
 `plan-with-context`, `devils-advocate`, `dive-into-plan`,
 `backfill-with-context`, and `checkpoint-context`
+
+**durable-context-solo:** `durable-context-solo` (recommended front door);
+advanced `plan-with-context`, `devils-advocate`, `dive-into-plan`, and
+`backfill-with-context`
 
 **reference-docs:** `reference-from-tags`, `reference-baseline`
 
@@ -58,6 +76,7 @@ All invocation-only — ask by name; they do not auto-run.
 
 ```text
 packages/durable-context/   npm: durable-context
+packages/durable-context-solo/ npm: durable-context-solo
 packages/reference-docs/    npm: reference-docs
 writing/                    maintainer narrative (not installed)
 ```

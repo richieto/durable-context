@@ -1,0 +1,6 @@
+interface:
+  display_name: "Plan With Context"
+  short_description: "Plan across every profiled project concern"
+  default_prompt: "Use $plan-with-context to plan a named Solo initiative across its profiled concerns."
+policy:
+  allow_implicit_invocation: false

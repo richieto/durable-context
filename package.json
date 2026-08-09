@@ -2,7 +2,7 @@
   "name": "durable-context-monorepo",
   "version": "0.0.0",
   "private": true,
-  "description": "Monorepo for durable-context and reference-docs — agent skills and scaffolds for planning and release-anchored documentation.",
+  "description": "Monorepo for Durable Context editions and reference-docs — agent skills and scaffolds for planning and release-anchored documentation.",
   "license": "MIT",
   "type": "module",
   "workspaces": [
@@ -11,7 +11,9 @@
   "scripts": {
     "test": "npm test --workspaces --if-present",
     "publish:dry-run": "npm publish --dry-run --workspace durable-context && npm publish --dry-run --workspace reference-docs",
-    "publish:packages": "npm publish --workspace durable-context && npm publish --workspace reference-docs"
+    "publish:packages": "npm publish --workspace durable-context && npm publish --workspace reference-docs",
+    "publish:dry-run:solo": "npm publish --dry-run --workspace durable-context-solo",
+    "publish:solo": "npm publish --workspace durable-context-solo"
   },
   "engines": {
     "node": ">=18"

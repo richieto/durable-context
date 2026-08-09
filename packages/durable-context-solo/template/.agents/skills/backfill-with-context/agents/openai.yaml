@@ -1,0 +1,6 @@
+interface:
+  display_name: "Backfill With Context"
+  short_description: "Reconstruct context from existing solo work"
+  default_prompt: "Use $backfill-with-context to reconstruct a named initiative from existing work."
+policy:
+  allow_implicit_invocation: false

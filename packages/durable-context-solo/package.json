@@ -1,0 +1,33 @@
+{
+  "name": "durable-context-solo",
+  "version": "0.1.0",
+  "description": "Focused repository-owned planning for one human working across coding agents and sessions.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "durable-context-solo": "bin/durable-context-solo.js"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "template/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "agents",
+    "ai",
+    "planning",
+    "solo-developer",
+    "project-profile",
+    "working-context",
+    "adr",
+    "decisions"
+  ]
+}
