@@ -5,16 +5,24 @@ Area-specific `AGENTS.md` files layer on top of this one.
 <!-- durable-context-solo:start -->
 ## Durable Context Solo
 
-Working context under [`context/`](context/); durable decisions under [`decisions/`](decisions/).
-Initiatives under [`context/initiatives/`](context/initiatives/) are disposable; promote accepted decisions to [`decisions/`](decisions/).
+Use [`context/`](context/) for disposable planning and [`decisions/`](decisions/)
+for self-contained accepted architectural decisions. Read
+[`context/project-profile.md`](context/project-profile.md) instead of
+rediscovering stable repository capabilities for each initiative.
 
-Invocation-only skills — ask by name:
+Recommended invocation-only front door:
 
-- [`project-profile-baseline`](.agents/skills/project-profile-baseline/SKILL.md) — populate [`context/project-profile.md`](context/project-profile.md).
-- [`project-profile-refresh`](.agents/skills/project-profile-refresh/SKILL.md) — refresh stable repo-wide profile facts.
-- [`plan-with-context`](.agents/skills/plan-with-context/SKILL.md) — draft a plan in `plan.md`.
-- [`devils-advocate`](.agents/skills/devils-advocate/SKILL.md) — critique a draft plan before distribution.
-- [`dive-into-plan`](.agents/skills/dive-into-plan/SKILL.md) — interrogate gaps, distribute into per-concern docs, promote to [`decisions/`](decisions/).
+- [`durable-context-solo`](.agents/skills/durable-context-solo/SKILL.md) — continue a named meaningful initiative to its next boundary.
 
-[`context/project-profile.md`](context/project-profile.md) — repo-wide stack, commands, and test facts when populated.
+Advanced direct entry points:
+
+- [`project-profile-baseline`](.agents/skills/project-profile-baseline/SKILL.md) — establish the repository concern inventory.
+- [`project-profile-refresh`](.agents/skills/project-profile-refresh/SKILL.md) — refresh stable capabilities that changed.
+- [`plan-with-context`](.agents/skills/plan-with-context/SKILL.md) — evaluate every profiled concern and draft `plan.md`.
+- [`devils-advocate`](.agents/skills/devils-advocate/SKILL.md) — optionally challenge a recommendation.
+- [`dive-into-plan`](.agents/skills/dive-into-plan/SKILL.md) — work through Material concerns one at a time.
+- [`backfill-with-context`](.agents/skills/backfill-with-context/SKILL.md) — reconstruct context from existing work.
+
+Small fixes use normal agent planning. Meaningful initiatives distribute
+Material concerns before implementation.
 <!-- durable-context-solo:end -->

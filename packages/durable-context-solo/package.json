@@ -1,7 +1,7 @@
 {
   "name": "durable-context-solo",
   "version": "0.1.0",
-  "description": "Invocation-only skills and scaffold for durable planning: initiatives in context/, decisions in an append-only log.",
+  "description": "Focused repository-owned planning for one human working across coding agents and sessions.",
   "license": "MIT",
   "type": "module",
   "bin": {
@@ -24,6 +24,8 @@
     "agents",
     "ai",
     "planning",
+    "solo-developer",
+    "project-profile",
     "working-context",
     "adr",
     "decisions"

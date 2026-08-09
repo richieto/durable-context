@@ -15,6 +15,11 @@ const agentsEnd = '<!-- durable-context-solo:end -->';
 
 const skills = [
   {
+    name: 'durable-context-solo',
+    readmeEntry:
+      '- `durable-context-solo` - recommended front door for focused repository-owned planning across sessions.'
+  },
+  {
     name: 'project-profile-baseline',
     readmeEntry:
       '- `project-profile-baseline` - invoke explicitly to populate `context/project-profile.md` from source-backed repo facts.'
@@ -38,6 +43,11 @@ const skills = [
     name: 'dive-into-plan',
     readmeEntry:
       '- `dive-into-plan` - invoke explicitly to interrogate a settled plan, distribute it into initiative docs, and promote decisions.'
+  },
+  {
+    name: 'backfill-with-context',
+    readmeEntry:
+      '- `backfill-with-context` - reconstruct a named initiative after ordinary work grows beyond its original plan.'
   }
 ];
 
@@ -48,15 +58,20 @@ function renderAgentSection(projectName) {
 Working context under [\`context/\`](context/); durable decisions under [\`decisions/\`](decisions/).
 Initiatives under [\`context/initiatives/\`](context/initiatives/) are disposable; promote accepted decisions to [\`decisions/\`](decisions/).
 
-Invocation-only skills — ask by name:
+Recommended invocation-only front door:
+
+- [\`.agents/skills/durable-context-solo/SKILL.md\`](.agents/skills/durable-context-solo/SKILL.md) — resume a named initiative and continue to its next meaningful boundary.
+
+Advanced direct entry points:
 
 - [\`.agents/skills/project-profile-baseline/SKILL.md\`](.agents/skills/project-profile-baseline/SKILL.md) — populate \`context/project-profile.md\`.
 - [\`.agents/skills/project-profile-refresh/SKILL.md\`](.agents/skills/project-profile-refresh/SKILL.md) — refresh stable repo-wide profile facts.
 - [\`.agents/skills/plan-with-context/SKILL.md\`](.agents/skills/plan-with-context/SKILL.md) — draft a plan in \`plan.md\`.
 - [\`.agents/skills/devils-advocate/SKILL.md\`](.agents/skills/devils-advocate/SKILL.md) — critique a draft plan before distribution.
 - [\`.agents/skills/dive-into-plan/SKILL.md\`](.agents/skills/dive-into-plan/SKILL.md) — interrogate gaps, distribute into per-concern docs, promote to [\`decisions/\`](decisions/).
+- [\`.agents/skills/backfill-with-context/SKILL.md\`](.agents/skills/backfill-with-context/SKILL.md) — reconstruct context from existing work.
 
-[\`context/project-profile.md\`](context/project-profile.md) — repo-wide stack, commands, and test facts when populated.
+[\`context/project-profile.md\`](context/project-profile.md) — source-backed capabilities, concern inventory, commands, and operating facts.
 ${agentsEnd}`;
 }
 
@@ -66,6 +81,9 @@ const config = {
   packageJson,
   summaryLabel: 'Durable Context Solo',
   metadataPath: '.durable-context-solo/install.json',
+  incompatibleInstallations: [
+    { packageName: 'durable-context', metadataPath: '.durable-context/install.json' }
+  ],
   skills,
   agents: {
     start: agentsStart,
@@ -73,8 +91,8 @@ const config = {
     render: renderAgentSection
   },
   nextSteps: [
-    'Optional: invoke .agents/skills/project-profile-baseline/SKILL.md to populate context/project-profile.md.',
-    'Then: invoke .agents/skills/plan-with-context/SKILL.md when you start planning an initiative.'
+    'First: invoke .agents/skills/project-profile-baseline/SKILL.md to inventory stable repository capabilities.',
+    'Then: invoke .agents/skills/durable-context-solo/SKILL.md with a named meaningful initiative.'
   ]
 };
 

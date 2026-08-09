@@ -1,29 +1,26 @@
 ---
 name: project-profile-refresh
-description: Refresh context/project-profile.md from source-backed repository changes. Use ONLY when the human explicitly asks to update the project profile, refresh the repository baseline, or when a release documentation refresh such as reference-from-tags needs profile-relevant changes checked.
+description: Refresh stable Solo project-profile facts and the concern inventory when repository capabilities or their evidence change. Use ONLY when the human explicitly invokes project-profile-refresh or durable-context-solo detects a recorded refresh trigger; do not rescan the repository for every initiative.
 ---
 
 # Project Profile Refresh
 
-Invocation-only except as a pre-check during release documentation refreshes.
-Update `context/project-profile.md` only for stable repo-wide operating facts.
+Update stable facts selectively. Prefer `durable-context-solo` unless the human
+intentionally enters profile maintenance directly.
 
 ## Workflow
 
-1. Read nearest `AGENTS.md`, existing `context/project-profile.md`, and `context/current.md` when present.
-2. If release tags are known, inspect profile-relevant changes:
+1. Read the nearest `AGENTS.md`, current profile, and the change that triggered
+   refresh.
+2. Inspect only affected evidence paths and directly related manifests,
+   commands, CI/CD, IaC, operations, generated artifacts, or documentation
+   boundaries. Expand the scan only when evidence is missing or contradictory.
+3. Update Concern Inventory presence and evidence when a capability was added,
+   removed, externalized, or made uncertain.
+4. Update stable commands and operating facts that actually changed. Preserve
+   useful existing facts and explicit unknowns.
+5. Do not copy initiative-specific decisions or transient scaffolding into the
+   profile.
 
-```bash
-git diff --name-status <base>..<target> -- <profile-relevant-paths>
-```
-
-3. Check manifests, lockfiles, runtime files, package scripts, test config, CI/CD, deploy scripts, IaC, observability config, generated artifacts, and documentation boundaries.
-4. Update only stable facts that changed. Preserve useful existing context.
-5. Do not update the profile for initiative-specific details, transient scaffolding, or unverified guesses.
-6. Mark unknowns explicitly and cite source paths where useful.
-
-## Done When
-
-- Stable repo-wide operating facts are current.
-- Initiative-specific and speculative details remain out of the profile.
-- Documentation refreshes can rely on the profile for source roots, commands, delivery, infrastructure, and generated artifacts.
+Done when the profile again supports concern evaluation without routine
+repository rediscovery.

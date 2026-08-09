@@ -41,11 +41,11 @@ entries with status `Accepted`.
 
 ## Promotion From Initiatives
 
-The `dive-into-plan` skill promotes accepted decisions out of an
-initiative's scratch `context/initiatives/<slug>/decisions/` folder into this
-log when the decision is accepted and implemented, or when a human explicitly
-says it is ready for root history. On promotion, assign the next number,
-preserve or complete metadata, update indexes, and link back to the origin.
+Keep unsettled alternatives in `plan.md` or the focused concern document. When
+the human accepts an architecturally significant decision and it is implemented
+or ready to govern the work, `dive-into-plan` records it directly here using the
+next number. Complete metadata, make the ADR understandable without disposable
+initiative context, update indexes, and link stable origin.
 
 ## Secondary Indexes
 

@@ -5,9 +5,10 @@ by either npm package; adopters never see these files.
 
 **Start here:** [Agent-Agnostic Engineering](index.md)
 
-Two practices, independent products:
+Two practices, with two Durable Context editions:
 
 - [Durable Context](durable-context/rationale.md) — npm: `durable-context`
+- [Durable Context Solo](durable-context-solo/model.md) — npm: `durable-context-solo`
 - [Reference Docs](reference-docs/model.md) — npm: `reference-docs`
 
 ## Shared
@@ -25,6 +26,14 @@ Package: `durable-context` · installs `context/` and `decisions/`.
 4. [1.2.0 Release Notes And Decision Record](durable-context/release-notes.md)
 
 HTML: [Brief](durable-context/brief.html)
+
+## Durable Context Solo
+
+Package: `durable-context-solo` · installs `context/` and `decisions/` as an
+alternative, mutually exclusive edition.
+
+1. [Model And Rationale](durable-context-solo/model.md)
+2. [Limitations And Feedback Questions](durable-context-solo/limitations.md)
 
 ## Reference Docs
 

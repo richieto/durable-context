@@ -1,43 +1,32 @@
 ---
 name: plan-with-context
-description: Draft a durable plan in an initiative plan.md covering the full change surface. Use ONLY when the human explicitly invokes it ("plan with context", "plan with durable context", "durable plan"). Do not trigger for ordinary planning or small tasks.
+description: Draft or refine a named Solo initiative plan using the stable project profile, explicitly evaluating every known concern before implementation. Use ONLY when the human explicitly invokes plan-with-context or durable-context-solo routes an initiative into planning; do not trigger for ordinary plans or small fixes.
 ---
 
 # Plan With Context
 
-Invocation-only. Produces `plan.md` for a later `dive-into-plan` pass.
-
-## Boundary
-
-Use the coding agent's native planning mode or planning capabilities to reason
-through the work. This skill does not replace that planning behavior; it
-extends it by grounding the plan in repository context and materializing the
-result in `context/initiatives/<slug>/plan.md`.
+Use native agent planning, then preserve it in repository-owned documents.
+Prefer `durable-context-solo` unless the human intentionally enters planning.
 
 ## Workflow
 
-1. Read nearest `AGENTS.md` and `context/project-profile.md` when it exists.
-2. Find or create `context/initiatives/<slug>/` (copy `context/_templates/initiative/`). Update `README.md`, then work in `plan.md`. Skip initiatives for tiny fixes.
-3. Draft in `plan.md`: alignment, options, open questions. For each applicable surface, plan the work or mark N/A with reason:
-   - Application code · unit/integration tests · e2e · IaC · CI/CD · config/secrets (names only) · observability/rollback · security/data · reference impact
-4. Ground items in real repo tooling (profile or direct inspection). Do not guess.
-5. For architectural decisions, consult `decisions/README.md`, relevant `decisions/indexes/`, and local `context/**/decisions/` when present. Use metadata such as Area, Scope, Tags, and supersession links to avoid loading every ADR.
-6. Iterate with the human until direction is settled. Do not distribute yet.
+1. Require an initiative name; never infer it from the branch. Read the nearest
+   `AGENTS.md`, project profile, relevant accepted decisions, initiative README,
+   and plan.
+2. If the Concern Inventory is materially Unknown, establish or refresh the
+   profile instead of rediscovering capabilities only for this initiative.
+3. Settle goal, success criteria, scope, constraints, recommendation, options,
+   trade-offs, open questions, and implementation outline in `plan.md`.
+4. Copy profile presence into the initiative Concern Evaluation. Evaluate every
+   Present or External concern; check whether the initiative Introduces any
+   Absent concern. Use Material, No impact, External, Introduced, or TBD with
+   evidence or reason.
+5. Propose focused documents for Material and Introduced concerns. Discuss the
+   proposed decomposition with the human before creating files. Do not use plan
+   length as the only signal.
+6. Keep unsettled architectural choices in the plan. Consult root decisions to
+   avoid contradicting accepted constraints.
+7. Do not begin implementation or silently flatten TBD concerns into a generic
+   checklist. Hand Material concerns to `dive-into-plan` for separate passes.
 
-## ADR Guidance
-
-Consider an ADR only when a decision is architecturally significant: it crosses
-team boundaries, has multiple credible options, or is costly to reverse.
-Routine technical choices belong in `plan.md`, specs, or notes.
-
-## Handoff
-
-When a recommendation is ready, invoke `devils-advocate` if the human wants a
-challenge pass. When settled, invoke `dive-into-plan`.
-
-## Done when
-
-- Initiative exists (or reason given why not).
-- `plan.md` covers every applicable surface.
-- Existing accepted and local ADRs were consulted where relevant.
-- Open questions visible; settled truth not frozen in `plan.md` alone.
+Update the lightweight resume block before handoff.

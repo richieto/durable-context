@@ -10,6 +10,7 @@ import assert from 'node:assert/strict';
 const execFileAsync = promisify(execFile);
 const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const cliPath = path.join(packageRoot, 'bin/durable-context-solo.js');
+const collaborativeCliPath = path.join(packageRoot, '../durable-context/bin/durable-context.js');
 const packageJson = JSON.parse(await readFile(path.join(packageRoot, 'package.json'), 'utf8'));
 
 test('init installs the flat planning scaffold and decision log', async () => {
@@ -33,6 +34,10 @@ test('init installs the flat planning scaffold and decision log', async () => {
   assert.equal(await exists(path.join(target, 'decisions/0000-template.md')), true);
   assert.equal(await exists(path.join(target, 'decisions/indexes/by-area.md')), true);
   assert.equal(
+    await exists(path.join(target, '.agents/skills/durable-context-solo/SKILL.md')),
+    true
+  );
+  assert.equal(
     await exists(path.join(target, '.agents/skills/project-profile-baseline/SKILL.md')),
     true
   );
@@ -52,6 +57,14 @@ test('init installs the flat planning scaffold and decision log', async () => {
     await exists(path.join(target, '.agents/skills/dive-into-plan/SKILL.md')),
     true
   );
+  assert.equal(
+    await exists(path.join(target, '.agents/skills/backfill-with-context/SKILL.md')),
+    true
+  );
+  assert.equal(
+    await exists(path.join(target, 'context/_templates/initiative/decisions/ADR-0000-template.md')),
+    false
+  );
 
   assert.equal(await exists(path.join(target, 'context/current.md')), false);
   assert.equal(await exists(path.join(target, 'context/releases')), false);
@@ -59,15 +72,33 @@ test('init installs the flat planning scaffold and decision log', async () => {
   const agents = await readFile(path.join(target, 'AGENTS.md'), 'utf8');
   assert.match(agents, /# Agent Guidance - Planning App/);
   assert.match(agents, /<!-- durable-context-solo:start -->/);
+  assert.match(agents, /\.agents\/skills\/durable-context-solo\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/project-profile-baseline\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/project-profile-refresh\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/plan-with-context\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/devils-advocate\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/dive-into-plan\/SKILL\.md/);
+  assert.match(agents, /\.agents\/skills\/backfill-with-context\/SKILL\.md/);
 
   const profile = await readFile(path.join(target, 'context/project-profile.md'), 'utf8');
   assert.match(profile, /Project: Planning App/);
+  assert.match(profile, /## Concern Inventory/);
+  assert.match(profile, /Every Present or External concern/);
   assert.doesNotMatch(profile, /PROJECT_NAME/);
+
+  const initiativeTemplate = await readFile(
+    path.join(target, 'context/_templates/initiative/README.md'),
+    'utf8'
+  );
+  assert.match(initiativeTemplate, /<!-- durable-context-solo:resume:start -->/);
+  assert.match(initiativeTemplate, /## Concern Evaluation/);
+  assert.equal(
+    initiativeTemplate,
+    await readFile(
+      path.join(target, '.agents/skills/durable-context-solo/assets/initiative/README.md'),
+      'utf8'
+    )
+  );
 
   const metadata = JSON.parse(
     await readFile(path.join(target, '.durable-context-solo/install.json'), 'utf8')
@@ -75,18 +106,20 @@ test('init installs the flat planning scaffold and decision log', async () => {
   assert.equal(metadata.installedVersion, packageJson.version);
   assert.equal(metadata.projectName, 'Planning App');
   assert.deepEqual(metadata.installedSkills, [
+    'durable-context-solo',
     'project-profile-baseline',
     'project-profile-refresh',
     'plan-with-context',
     'devils-advocate',
-    'dive-into-plan'
+    'dive-into-plan',
+    'backfill-with-context'
   ]);
 
   const status = await execFileAsync(process.execPath, [cliPath, 'status', '--target', target]);
   assert.match(status.stdout, new RegExp(`Installed version: ${escapeRegExp(packageJson.version)}`));
   assert.match(
     status.stdout,
-    /Installed skills: project-profile-baseline, project-profile-refresh, plan-with-context, devils-advocate, dive-into-plan/
+    /Installed skills: durable-context-solo, project-profile-baseline, project-profile-refresh, plan-with-context, devils-advocate, dive-into-plan, backfill-with-context/
   );
 });
 
@@ -202,7 +235,7 @@ test('update refreshes managed agent assets without replacing project work', asy
     'utf8'
   );
   assert.match(updatedSkill, /# Plan With Context/);
-  assert.match(updatedSkill, /native planning mode/);
+  assert.match(updatedSkill, /native agent planning/);
   assert.doesNotMatch(updatedSkill, /Locally edited/);
   assert.equal(await exists(path.join(target, '.agents/skills/devils-advocate/SKILL.md')), true);
 
@@ -228,11 +261,13 @@ test('update refreshes managed agent assets without replacing project work', asy
   assert.equal(metadata.firstInstalledVersion, '1.0.0');
   assert.equal(metadata.firstInstalledAt, '2026-01-01T00:00:00.000Z');
   assert.deepEqual(metadata.installedSkills, [
+    'durable-context-solo',
     'project-profile-baseline',
     'project-profile-refresh',
     'plan-with-context',
     'devils-advocate',
-    'dive-into-plan'
+    'dive-into-plan',
+    'backfill-with-context'
   ]);
 
   await writeFile(
@@ -252,6 +287,69 @@ test('update refreshes managed agent assets without replacing project work', asy
     await readFile(path.join(target, '.agents/skills/plan-with-context/SKILL.md'), 'utf8'),
     '# Dry-run local edit\n'
   );
+});
+
+test('solo and collaborative editions refuse to manage the same project', async () => {
+  const collaborativeTarget = await mkdtemp(path.join(tmpdir(), 'durable-context-edition-'));
+  await execFileAsync(process.execPath, [
+    collaborativeCliPath,
+    'init',
+    '--target',
+    collaborativeTarget,
+    '--project-name',
+    'Collaborative App'
+  ]);
+
+  await assert.rejects(
+    execFileAsync(process.execPath, [
+      cliPath,
+      'init',
+      '--target',
+      collaborativeTarget,
+      '--project-name',
+      'Collaborative App'
+    ]),
+    /cannot manage a project initialized by durable-context/
+  );
+
+  const soloTarget = await mkdtemp(path.join(tmpdir(), 'durable-context-edition-'));
+  await execFileAsync(process.execPath, [
+    cliPath,
+    'init',
+    '--target',
+    soloTarget,
+    '--project-name',
+    'Solo App'
+  ]);
+
+  await assert.rejects(
+    execFileAsync(process.execPath, [
+      collaborativeCliPath,
+      'init',
+      '--target',
+      soloTarget,
+      '--project-name',
+      'Solo App'
+    ]),
+    /cannot manage a project initialized by durable-context-solo/
+  );
+});
+
+test('skills preserve profiling, focused distribution, lightweight state, and direct decisions', async () => {
+  const skillsRoot = path.join(packageRoot, 'template/.agents/skills');
+  const frontDoor = await readFile(path.join(skillsRoot, 'durable-context-solo/SKILL.md'), 'utf8');
+  const planning = await readFile(path.join(skillsRoot, 'plan-with-context/SKILL.md'), 'utf8');
+  const dive = await readFile(path.join(skillsRoot, 'dive-into-plan/SKILL.md'), 'utf8');
+  const backfill = await readFile(path.join(skillsRoot, 'backfill-with-context/SKILL.md'), 'utf8');
+
+  assert.match(frontDoor, /Do not rediscover known/);
+  assert.match(frontDoor, /Do not add phases/);
+  assert.match(planning, /every\s+Present or External concern/);
+  assert.match(planning, /Do not begin implementation/);
+  assert.match(dive, /one concern at a time/);
+  assert.match(dive, /synthesis pass/);
+  assert.match(dive, /directly as the next self-contained root ADR/);
+  assert.match(backfill, /Observed, Human-confirmed, Inferred, and Unknown/);
 });
 
 async function exists(filePath) {

@@ -3,7 +3,28 @@
 Project: PROJECT_NAME
 Last reviewed: Not recorded
 
-Repo-wide operating facts for agents. Initiative-specific detail lives under `context/initiatives/`. Record source-backed facts only; use `Unknown` when not yet reviewed.
+Source-backed stable repository facts for agents. Initiative detail belongs
+under `context/initiatives/`. Use `Unknown` rather than guessing.
+
+## Concern Inventory
+
+Presence values: `Present`, `External`, `Absent`, or `Unknown`.
+
+Every Present or External concern must be evaluated for each meaningful
+initiative. An Absent concern must still be checked for whether the initiative
+introduces it.
+
+| Concern | Presence | Evidence | Initiative rule | Default focus artifact |
+| --- | --- | --- | --- | --- |
+| Product behavior | Unknown | | Always evaluate | `spec.md` |
+| Interface | Unknown | | Always evaluate | `interface.md` |
+| Architecture and data | Unknown | | Always evaluate | `architecture.md` |
+| Testing | Unknown | | Always evaluate | `testing.md` |
+| Delivery | Unknown | | Always evaluate | `delivery.md` |
+| Infrastructure and configuration | Unknown | | Always evaluate | `infrastructure.md` |
+| Operations | Unknown | | Always evaluate | `operations.md` or external destination |
+| Backlog tracking | Unknown | | Evaluate when work spans several slices | `backlog.md` |
+| Release documentation | Unknown | | Evaluate shipped-behavior impact | `release-doc-notes.md` or external destination |
 
 ## Repository Shape
 
@@ -12,10 +33,11 @@ Repo-wide operating facts for agents. Initiative-specific detail lives under `co
 | Application or package code | Unknown | |
 | Tests | Unknown | |
 | CI/CD and delivery | Unknown | |
-| Infrastructure and config | Unknown | |
+| Infrastructure and configuration | Unknown | |
+| Operations or observability | Unknown | |
 | Generated artifacts | Unknown | |
-| Reference material | `reference/` | If reference-docs is installed |
-| Decision log | `decisions/` | Append-only |
+| Reference material | Unknown | |
+| Decision log | `decisions/` | Append-only, self-contained accepted decisions |
 | Working context | `context/` | Disposable initiatives |
 
 ## Stack And Runtime
@@ -56,12 +78,21 @@ Repo-wide operating facts for agents. Initiative-specific detail lives under `co
 
 ## Infrastructure And Configuration
 
-- IaC or config roots: Unknown.
+- IaC or configuration roots: Unknown.
 - Managed services: Unknown.
-- Secrets references (names only): Unknown.
+- Secret references (names only): Unknown.
 - Environment dependencies: Unknown.
 
 ## Operations Profile
 
-- Logs, metrics, alerts: Unknown.
+- Logs, metrics, traces, dashboards, and alerts: Unknown.
 - Rollback and repair tooling: Unknown.
+- External operations destination: Unknown.
+
+## Profile Refresh Triggers
+
+- A recorded evidence path disappears or materially changes.
+- An initiative introduces or removes a repository capability.
+- Commands, delivery, infrastructure, operations, or documentation boundaries
+  change.
+- The human explicitly requests a refresh.

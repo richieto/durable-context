@@ -1,45 +1,27 @@
 ---
 name: devils-advocate
-description: Critique-only adversarial review of plan-with-context plans. Use ONLY when the human explicitly asks for "devil's advocate", "challenge the plan", "red-team the plan", or adversarial planning review before dive-into-plan; rerun after dive-into-plan only when a materially new decision appears.
+description: Perform an optional adversarial review of a meaningful Solo recommendation before focused distribution or implementation. Use ONLY when the human explicitly asks for devil's advocate, challenge the plan, red-team the plan, or durable-context-solo offers and the human accepts the review.
 ---
 
 # Devil's Advocate
 
-Invocation-only. Challenge a draft plan before it hardens. Do not edit files
-unless the human explicitly asks for changes.
+Pressure-test a meaningful commitment. Prefer `durable-context-solo` unless the
+human intentionally invokes this pass.
 
 ## Workflow
 
-1. Read the initiative `README.md`, `plan.md`, nearest `AGENTS.md`, and `context/project-profile.md` when useful.
-2. Identify the commitment being challenged: recommendation, approach, or decision.
-3. If there is no meaningful decision, or the current plan is the best clear alternative, say so briefly and stop.
-4. Otherwise give a concise adversarial pass:
-   - strongest objection
-   - hidden assumption
-   - non-obvious failure mode
-   - cheaper, simpler, or more reversible alternative
-   - required plan adjustment, open question, or explicit accept-risk decision
+1. Read the named initiative plan, relevant focus documents, project profile,
+   accepted decisions, and repository evidence.
+2. Identify the exact recommendation being challenged.
+3. Present the strongest objection, hidden assumption, non-obvious failure
+   mode, and cheaper, simpler, or more reversible alternative.
+4. If there is no material challenge, explain why briefly.
+5. If material, discuss the impact with the human. The critique is advice, not
+   authority.
+6. After the human concludes, record the challenge, chosen response, rationale,
+   and accepted trade-offs in `plan.md` or the affected focus document. Revise
+   those artifacts when the direction changes.
 
-## Output
-
-```markdown
-## Decision
-[What commitment is being challenged.]
-
-## Challenge
-- **Strongest objection:** ...
-- **Hidden assumption:** ...
-- **Non-obvious failure mode:** ...
-- **Alternative:** ...
-- **Plan impact:** ...
-```
-
-When there is no material challenge, use:
-
-```markdown
-## Decision
-[What was reviewed.]
-
-## Challenge
-No material challenge. The current plan appears to be the best available option because ...
-```
+Do not create review-state files, reviewer roles, resolution gates, or root
+ADRs containing the review transcript. Create an ADR only if the resulting
+accepted architectural decision independently meets the durable threshold.

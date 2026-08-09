@@ -87,6 +87,9 @@ const config = {
   packageJson,
   summaryLabel: 'Durable Context',
   metadataPath: '.durable-context/install.json',
+  incompatibleInstallations: [
+    { packageName: 'durable-context-solo', metadataPath: '.durable-context-solo/install.json' }
+  ],
   skills,
   agents: {
     start: agentsStart,

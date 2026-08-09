@@ -7,7 +7,7 @@ import path from 'node:path';
 const agentsSkillsRelative = '.agents/skills';
 
 /**
- * Generic installer shared by durable-context-solo and reference-docs packages.
+ * Generic installer shared by the repository packages.
  *
  * Each package supplies a `config` describing its payload:
  *   - cliName:        bin name, used in help and error text
@@ -16,6 +16,7 @@ const agentsSkillsRelative = '.agents/skills';
  *   - skills:         [{ name, readmeEntry }] copied into .agents/skills
  *   - agents:         { start, end, render(projectName) } AGENTS.md section
  *   - metadataPath:   relative path of the install metadata file in the target
+ *   - incompatibleInstallations: optional [{ packageName, metadataPath }]
  *   - payloadRoot:    optional configurable template-to-target payload root
  *   - managedFiles:   optional file-level update manifest with conflict checks
  *   - projectFiles:   optional user-owned files created only when absent
@@ -46,6 +47,7 @@ export async function runCli(config, argv) {
   }
 
   const targetRoot = path.resolve(args.target);
+  await assertNoIncompatibleInstallations(config, targetRoot);
   const previousMetadata = await readOptionalJson(path.join(targetRoot, config.metadataPath));
   const payloadRoot = await resolvePayloadRoot(config, args, targetRoot, previousMetadata);
   const projectName = await resolveProjectName(config, args, targetRoot);
@@ -65,6 +67,18 @@ export async function runCli(config, argv) {
   }
 
   await installer.update();
+}
+
+async function assertNoIncompatibleInstallations(config, targetRoot) {
+  for (const incompatible of config.incompatibleInstallations ?? []) {
+    const metadata = await readOptionalJson(path.join(targetRoot, incompatible.metadataPath));
+    if (metadata) {
+      throw new Error(
+        `${config.packageJson.name} cannot manage a project initialized by ${incompatible.packageName}; ` +
+          `remove or migrate that installation explicitly before continuing.`
+      );
+    }
+  }
 }
 
 function parseArgs(argv, config) {

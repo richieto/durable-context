@@ -1,33 +1,38 @@
 ---
 name: dive-into-plan
-description: Interrogate a settled initiative plan for gaps, distribute into per-concern docs, create local ADRs for active work, and promote approved implemented ADRs into decisions/. Use ONLY when the human explicitly invokes it ("dive into the plan", "distribute the plan"). Do not trigger automatically.
+description: Interrogate each Material Solo concern in a separate focused pass, distribute settled truth into project-owned documents, and synthesize cross-concern consistency before implementation. Use ONLY when the human explicitly invokes dive-into-plan, distribute the plan, or durable-context-solo routes a settled plan into focused analysis.
 ---
 
 # Dive Into Plan
 
-Second half of durable planning, after `plan-with-context`. Requires a settled `plan.md`.
+Protect reasoning focus by working one concern at a time. Prefer
+`durable-context-solo` unless the human intentionally enters this pass.
 
 ## Workflow
 
-1. Read initiative `README.md`, `plan.md`, nearest `AGENTS.md`, `context/project-profile.md` when present, root `decisions/README.md` and relevant `decisions/indexes/` when present, and relevant local `context/**/decisions/`.
-2. **Interrogate** — ask pointed questions for surfaces the plan skipped (behavior, interface, architecture, tests, e2e, IaC, CI/CD, config, ops, rollback, security, data, ADRs, project profile impact, reference impact). Record answers in `plan.md`; note deferred surfaces with reason.
-3. **Distribute** — move settled truth from `plan.md` into initiative files (see templates under `context/_templates/initiative/` for each file's role):
-   `spec.md`, `interface.md`, `architecture.md`, `testing.md`, `delivery.md`, `infrastructure.md`, `operations.md` (only when actionable), `backlog.md`, `release-doc-notes.md`. Mark N/A files explicitly.
-4. **Record ADRs** — create ADRs only for architecturally significant decisions: choices that cross team boundaries, have multiple credible options, or are costly to reverse. Keep proposed, recommended, planned, or in-progress ADRs under the relevant initiative `decisions/` folder.
-5. **Promote decisions** — move ADRs to root `decisions/` only when approved and implemented/accepted, or when the human explicitly says they are ready for root history. Assign the next `NNNN`, preserve or complete metadata (`Area`, `Scope`, `Tags`, `Supersedes`, `Superseded by`), update `decisions/README.md` and relevant `decisions/indexes/*.md`, and link back from the initiative.
-6. Update initiative `README.md` (status, decisions, implementation state).
+1. Read the named initiative README and plan, project profile, relevant accepted
+   decisions, and project-owned concern templates.
+2. Confirm that every profiled concern has Material, No impact, External, or
+   Introduced disposition. Return TBD and unexplained Unknown entries to
+   planning.
+3. For each Material or Introduced concern, create its focused document and
+   interrogate it separately: behavior, interface, architecture/data, testing,
+   delivery, infrastructure/configuration, operations, backlog, or release-doc
+   impact. Ground conclusions in repository evidence.
+4. For No impact, preserve the concise reason in the README. For External,
+   record the stable destination and the local implication without inventing
+   external completion.
+5. Link focus documents from README and `plan.md`. Keep settled details in the
+   owning document rather than duplicating them across every file.
+6. Perform a synthesis pass across all selected documents. Resolve conflicting
+   assumptions, sequencing, contracts, failure behavior, verification gaps,
+   and implementation dependencies.
+7. Keep unsettled architectural options in planning. Once the human accepts an
+   architecturally significant decision that is implemented or ready to govern
+   the work, record it directly as the next self-contained root ADR and update
+   indexes. Do not require an initiative-local ADR staging directory.
+8. Update the resume block with the next concrete action.
 
-## Boundary
-
-Use this after the agent's native planning is settled; it does not replace the
-agent's planning capability, but interrogates, distributes, and records durable
-artifacts from that plan.
-Do not edit `reference/`. Capture future reference impact in `release-doc-notes.md` only.
-Do not create ADRs for routine daily technical choices.
-
-## Done when
-
-- Applicable surfaces grilled; answers in `plan.md`.
-- Settled truth not living only in `plan.md`.
-- ADR candidates were recorded locally, promoted to root `decisions/`, or left as normal initiative notes.
-- Promoted ADRs have complete metadata and current indexes.
+Do not create empty N/A files, ownership routing, review gates, or PR-readiness
+state. Do not edit shipped-behavior reference docs during feature work; capture
+their impact locally or at the external destination.

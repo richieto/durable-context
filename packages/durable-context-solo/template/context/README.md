@@ -1,28 +1,34 @@
 # context/
 
-Working bench for PROJECT_NAME — disposable planning context for work in progress.
-
-Persists elsewhere: [`../decisions/`](../decisions/) (durable log); `reference/` if reference-docs is installed.
+Disposable planning bench for one accountable human working across agents and
+sessions in PROJECT_NAME. Durable accepted architectural decisions live in
+[`../decisions/`](../decisions/).
 
 ## Start Here
 
-- `initiatives/` — one folder per piece of work
-- `project-profile.md` — repo-wide stack, commands, tests, delivery (when populated)
-- `_templates/initiative/` — copy to start a new initiative
+- `project-profile.md` — source-backed capabilities and concern inventory
+- `initiatives/<slug>/` — explicitly named meaningful work
+- `_templates/initiative/` — project-owned focus-document library
 
-## Flow
+Invoke `durable-context-solo` with an initiative name. Small fixes should keep
+using the agent's ordinary planning behavior.
 
-```text
-project-profile-baseline/refresh -> project-profile.md
-plan-with-context                -> initiatives/<slug>/plan.md
-devils-advocate                  -> critique before distribution
-dive-into-plan                   -> per-concern docs + ../decisions/
-```
+For meaningful work:
 
-1. Copy `_templates/initiative/` to `initiatives/<slug>/`.
-2. Invoke `project-profile-baseline` when repo-wide commands and operating facts are not yet populated.
-3. Invoke `plan-with-context` to draft `plan.md`.
-4. Optionally invoke `devils-advocate` to challenge a meaningful recommendation.
-5. When settled, invoke `dive-into-plan` to distribute and promote decisions.
+1. Establish the project profile once and refresh it only when stable
+   capabilities change.
+2. Start an initiative with `README.md` and `plan.md`.
+3. Evaluate every Present or External profiled concern and whether the work
+   introduces an Absent concern.
+4. Discuss the decomposition with the human.
+5. Create and interrogate focused documents for Material concerns one at a
+   time.
+6. Synthesize cross-concern constraints before implementation.
+7. Update the compact resume block at substantial session boundaries.
+8. Record accepted decisions in root `decisions/` only when their rationale
+   must outlive the initiative.
 
-Settled truth must not live only in `plan.md`. Do not edit `reference/` from here — use `release-doc-notes.md` for future reference impact.
+The resume block is continuity, not governance. Solo has no lifecycle phases,
+review gates, ownership routing, transfer states, or PR-readiness validator.
+Its status is only `Active`, `Paused`, `Complete`, or `Abandoned`; the checkpoint
+and next action carry the useful detail.

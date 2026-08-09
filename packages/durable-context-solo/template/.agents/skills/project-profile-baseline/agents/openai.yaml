@@ -1,0 +1,6 @@
+interface:
+  display_name: "Project Profile Baseline"
+  short_description: "Inventory stable repository capabilities once"
+  default_prompt: "Use $project-profile-baseline to create a source-backed Solo project profile and concern inventory."
+policy:
+  allow_implicit_invocation: false

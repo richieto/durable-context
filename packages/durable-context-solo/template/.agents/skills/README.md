@@ -1,13 +1,18 @@
 # Project Skills
 
-Invocation-only - ask by name.
+Invocation-only — ask by name.
 
-<!-- durable-context:skills:start -->
-## Durable Context Skills
+<!-- durable-context-solo:skills:start -->
+## Durable Context Solo Skills
 
-- `project-profile-baseline` - invoke explicitly to populate `context/project-profile.md` from source-backed repo facts.
-- `project-profile-refresh` - invoke explicitly to refresh stable repo-wide facts in `context/project-profile.md`.
-- `plan-with-context` - invoke explicitly to draft a durable plan in an initiative `plan.md`.
-- `devils-advocate` - invoke explicitly to challenge a draft plan before distribution.
-- `dive-into-plan` - invoke explicitly to interrogate a settled plan, distribute it into initiative docs, and promote decisions.
-<!-- durable-context:skills:end -->
+- `durable-context-solo` - recommended front door for focused repository-owned planning across sessions.
+
+Advanced direct entry points:
+
+- `project-profile-baseline` - inventory stable repository capabilities once.
+- `project-profile-refresh` - refresh only stable capabilities that changed.
+- `plan-with-context` - plan a named initiative across every profiled concern.
+- `devils-advocate` - optionally challenge a meaningful recommendation.
+- `dive-into-plan` - interrogate Material concerns separately and synthesize them.
+- `backfill-with-context` - reconstruct a named initiative from existing work.
+<!-- durable-context-solo:skills:end -->
