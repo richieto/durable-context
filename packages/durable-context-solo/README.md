@@ -1,0 +1,40 @@
+# durable-context-solo
+
+Invocation-only skills and scaffold for durable planning in the repo.
+
+Install into a project:
+
+```bash
+npx durable-context-solo init --project-name "My App"
+```
+
+Adds `context/`, `decisions/`, and invocation-only skills:
+
+- `project-profile-baseline`
+- `project-profile-refresh`
+- `plan-with-context`
+- `devils-advocate`
+- `dive-into-plan`
+
+## Use
+
+```text
+Plan with durable context: <what you want to build>
+Devil's advocate.
+Dive into the plan.
+```
+
+Skills are invocation-only — they do not run automatically.
+Use `project-profile-baseline` once to populate repo-wide commands and
+operating facts; use `project-profile-refresh` when those stable facts change.
+
+Update managed agent assets without replacing project work:
+
+```bash
+npx durable-context-solo@latest update
+```
+
+Commands/options: `update`, `status`, `--target`, `--dry-run`, and `--force`
+for `init`.
+
+For release-anchored documentation, see the `reference-docs` package.
