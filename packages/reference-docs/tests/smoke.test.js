@@ -31,10 +31,26 @@ test('init installs schema-v2 reference scaffold, managed files, and project ove
     path.join(target, '.agents/skills/reference-baseline/SKILL.md'),
     'utf8'
   );
+  const refreshSkill = await readFile(
+    path.join(target, '.agents/skills/reference-from-tags/SKILL.md'),
+    'utf8'
+  );
+  const workflow = await readFile(
+    path.join(target, 'reference/_authoring/workflow.md'),
+    'utf8'
+  );
   assert.match(agents, /\[`reference\/`\]\(reference\/\)/);
   assert.match(readme, /Reference App/);
   assert.match(skill, /reference\/_authoring\/project\.md/);
-  assert.doesNotMatch(`${agents}\n${readme}\n${skill}`, /PROJECT_NAME|REFERENCE_ROOT/);
+  assert.match(refreshSkill, /transient impact map/);
+  assert.match(refreshSkill, /Continue\s+with verified work without requesting approval/);
+  assert.match(refreshSkill, /retain every evidence pointer/);
+  assert.match(workflow, /## Multi-Area Impact Preview/);
+  assert.match(workflow, /Do not silently choose/);
+  assert.doesNotMatch(
+    `${agents}\n${readme}\n${skill}\n${refreshSkill}\n${workflow}`,
+    /PROJECT_NAME|REFERENCE_ROOT/
+  );
 
   const metadata = await readMetadata(target);
   assert.equal(metadata.schemaVersion, 2);
@@ -88,6 +104,13 @@ test('custom reference roots preserve case, support nesting, and reject unsafe v
       'utf8'
     ),
     /Reference\/releases\/index\.md/
+  );
+  assert.match(
+    await readFile(
+      path.join(pascalTarget, '.agents/skills/reference-from-tags/SKILL.md'),
+      'utf8'
+    ),
+    /transient impact map/
   );
 
   await expectCliFailure(

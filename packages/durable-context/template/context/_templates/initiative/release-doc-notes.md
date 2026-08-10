@@ -9,12 +9,13 @@ explicitly asks for a reference refresh or a specific reference fix.
 
 ## Product Behavior Changes
 
-- None yet.
+Record observable behavior, retain source-backed evidence, and surface
+uncertainty instead of resolving it silently. Allowed dispositions are
+`Candidate`, `Unresolved`, and `Excluded`.
 
-## Candidate Reference Areas
-
-- `reference/<Area>/README.md`
-- `reference/<Area>/features/<feature>.md`
+| Observable behavior | Source, test, or configuration evidence | Candidate reference page | Disposition |
+| --- | --- | --- | --- |
+| None yet | — | — | — |
 
 ## QA Or Support Notes
 
@@ -22,9 +23,9 @@ explicitly asks for a reference refresh or a specific reference fix.
 
 ## Exclusions
 
-Record details that were considered but should not be documented because
-they are internal implementation details, temporary scaffolding, or did not
-ship.
+Explain `Excluded` rows that were considered but should not be documented
+because they are internal implementation details, temporary scaffolding, or
+did not ship.
 
 ## Release-Time Checklist
 

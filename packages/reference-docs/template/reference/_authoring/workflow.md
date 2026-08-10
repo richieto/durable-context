@@ -33,6 +33,9 @@ point. Use `.agents/skills/reference-baseline/SKILL.md`.
 Release-forward reference may begin sparse and become complete around behavior
 the team changes. Use `.agents/skills/reference-from-tags/SKILL.md` at explicit
 release-refresh time. The resolved tag diff remains the source of truth.
+Optional release notes are hints: combine duplicate descriptions of the same
+behavior while retaining all cited evidence, then verify them against the
+release state.
 
 ## Cadence And Versioning
 
@@ -113,16 +116,36 @@ Use sources in this order, skipping optional sources that are absent:
 reference-docs does not require durable-context and does not invoke its skills.
 Alternate planning or decision paths belong in `project.md`.
 
+When source, tests, configuration, or IaC disagree about observable behavior,
+surface the conflict. Do not silently choose the most convenient source and do
+not publish unresolved behavior as accepted reference.
+
+## Multi-Area Impact Preview
+
+Before editing a release refresh that affects more than one reference area,
+present a transient impact map:
+
+| Area or page | Evidence | Proposed action | State |
+| --- | --- | --- | --- |
+| `Area/features/example.md` | Source, test, config, or IaC paths | `Update`, `Create`, `No change`, or `Investigate` | `Verified`, `Uncertain`, or `Conflicting` |
+
+The preview is informational. Continue verified updates without asking for
+blanket approval. Pause only when uncertain or conflicting evidence materially
+changes the documentation scope or claim. Do not save the map under
+`REFERENCE_ROOT/` or anywhere else in the repository.
+
 ## Release Refresh Checklist
 
 1. Resolve and report the base and target tags.
-2. Work one documented area at a time using its authoring guide.
-3. Update the area README only when its high-level picture changed.
-4. Update feature pages for material behavior changes.
-5. Ignore formatting, lint, internal refactors, test-only changes, and
+2. Deduplicate release-note signals while retaining every evidence pointer.
+3. For a multi-area refresh, present the transient impact map before edits.
+4. Work one documented area at a time using its authoring guide.
+5. Update the area README only when its high-level picture changed.
+6. Update feature pages for material behavior changes.
+7. Ignore formatting, lint, internal refactors, test-only changes, and
    dependency bumps without observable impact.
-6. Append or update the release row in `REFERENCE_ROOT/releases/index.md`.
-7. Run `git diff --check`, inspect changed paths, and run project validation.
+8. Append or update the release row in `REFERENCE_ROOT/releases/index.md`.
+9. Run `git diff --check`, inspect changed paths, and run project validation.
 
 ## What Not To Document
 
@@ -137,5 +160,6 @@ Alternate planning or decision paths belong in `project.md`.
 
 A reference task is complete when its scope and reference point are recorded,
 claims are source-backed, existing project work is preserved, open questions
-are not presented as accepted behavior, release history is current when
-applicable, and the final summary reports pages changed and validation run.
+and conflicting evidence are not presented as accepted behavior, release
+history is current when applicable, and the final summary reports pages
+changed and validation run.

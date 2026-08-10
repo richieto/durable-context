@@ -113,6 +113,16 @@ test('init installs the flat planning scaffold and decision log', async () => {
     )
   );
 
+  const releaseNotesTemplate = await readFile(
+    path.join(target, 'context/_templates/initiative/release-doc-notes.md'),
+    'utf8'
+  );
+  assert.match(
+    releaseNotesTemplate,
+    /\| Observable behavior \| Source, test, or configuration evidence \| Candidate reference page \| Disposition \|/
+  );
+  assert.match(releaseNotesTemplate, /`Candidate`, `Unresolved`, and `Excluded`/);
+
   const profile = await readFile(path.join(target, 'context/project-profile.md'), 'utf8');
   assert.match(profile, /Project: Planning App/);
   assert.doesNotMatch(profile, /PROJECT_NAME/);
