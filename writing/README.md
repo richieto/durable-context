@@ -34,6 +34,7 @@ alternative, mutually exclusive edition.
 
 1. [Model And Rationale](durable-context-solo/model.md)
 2. [Limitations And Feedback Questions](durable-context-solo/limitations.md)
+3. [0.1.1 Initial Release Notes](durable-context-solo/release-notes.md)
 
 ## Reference Docs
 

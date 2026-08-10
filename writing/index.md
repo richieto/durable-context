@@ -55,6 +55,7 @@ without collaborative lifecycle governance. Package: `durable-context-solo`.
 
 - [Durable Context Solo: The Model And Rationale](durable-context-solo/model.md)
 - [Durable Context Solo: Limitations And Feedback Questions](durable-context-solo/limitations.md)
+- [Durable Context Solo 0.1.1: Initial Release Notes](durable-context-solo/release-notes.md)
 
 ## Reference Docs
 
