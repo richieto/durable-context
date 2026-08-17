@@ -1,6 +1,6 @@
 {
   "name": "durable-context-solo",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Focused repository-owned planning for one human working across coding agents and sessions.",
   "license": "MIT",
   "type": "module",
