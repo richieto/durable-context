@@ -1,0 +1,6 @@
+interface:
+  display_name: "Challenge"
+  short_description: "Challenge a meaningful Solo recommendation"
+  default_prompt: "Use $challenge to challenge the current recommendation in a named Solo initiative."
+policy:
+  allow_implicit_invocation: false

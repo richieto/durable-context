@@ -19,7 +19,9 @@ intentionally enters profile maintenance directly.
    removed, externalized, or made uncertain.
 4. Update stable commands and operating facts that actually changed. Preserve
    useful existing facts and explicit unknowns.
-5. Do not copy initiative-specific decisions or transient scaffolding into the
+5. Preserve the complete marked Cycle Policy And State section. Change cycle
+   policy or Current cycle only when the human directs it.
+6. Do not copy initiative-specific decisions or transient scaffolding into the
    profile.
 
 Done when the profile again supports concern evaluation without routine

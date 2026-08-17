@@ -48,6 +48,10 @@ Confirm this table during detailed design. Create local documents only for
 Allowed routes: `Local`, `External`, `Hybrid`, `Not applicable`, or `TBD` while
 routing is pending.
 
+`Backlog` means the bounded implementation trace for this initiative. Project
+prioritization, capacity, scheduling, and post-handover tracking stay in the
+named external system.
+
 ## Decisions
 
 Keep proposed ADRs under this initiative. Promote only approved and implemented

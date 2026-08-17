@@ -40,6 +40,17 @@ project-specific sources or commands that should be checked. The inventory is
 refreshed when the repository's stable shape changes, not merely because a new
 initiative begins.
 
+The profile also contains the project-owned Cycle Policy And State section.
+Cycles are generic initiative containers, not prescribed sprints or releases.
+Fresh installations select `default`, while projects may later point to any
+locally meaningful cycle ID. An omitted cycle uses the current pointer.
+Pre-cycle flat initiatives remain implicit members of `default` and are not
+moved automatically.
+
+No cycle plan, goal, capacity, schedule, or project backlog is maintained here;
+those belong in Jira, GitHub, or the project's equivalent. An initiative-local
+`backlog.md` remains useful as a bounded trace of its implementation state.
+
 For a meaningful initiative, every `Present` and `External` concern is
 evaluated. An `Absent` concern is checked for whether the work introduces it.
 The initiative records one of:
@@ -99,7 +110,8 @@ analysis apply to the remaining work.
 The architectural threshold does not become lower because one person owns the
 work. A self-contained accepted decision that future maintainers or agents need
 to understand belongs in root `decisions/`, with stable commit, PR, or release
-provenance when available.
+provenance when available. It must remain understandable after the initiative
+and its disposable cycle are deleted.
 
 What changes is the route. Unsettled alternatives stay in `plan.md` or a focus
 document. Once the owner accepts a significant conclusion, it can be written

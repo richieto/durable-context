@@ -24,6 +24,7 @@
     "agents",
     "ai",
     "planning",
+    "cycles",
     "working-context",
     "adr",
     "decisions"

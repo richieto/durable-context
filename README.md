@@ -32,13 +32,19 @@ Planning:
 
 ```text
 Use durable-context for initiative <name>.
+Use durable-context for initiative <cycle>/<name>.
 ```
 
 Solo planning:
 
 ```text
 Use durable-context-solo for initiative <name>.
+Use durable-context-solo for initiative <cycle>/<name>.
 ```
+
+Both editions provision `context/cycles/default/initiatives/` and make
+`default` current. Projects may map later cycles to any meaningful cadence;
+project-level scheduling and backlog management stay in external tools.
 
 Reference (after a release tag):
 
@@ -54,18 +60,18 @@ project-owned authoring overlays and reference content.
 
 | Folder | Meaning | Lifetime | Package |
 | --- | --- | --- | --- |
-| `context/` | What you are planning and building | Disposable bench | one Durable Context edition |
+| `context/` | Cycle-grouped planning and delivery memory | Disposable bench | one Durable Context edition |
 | `decisions/` | Why the system is the way it is | Durable log | one Durable Context edition |
 | `reference/` | What the system does as of a release | Per-release refresh | reference-docs |
 
 ## Skills
 
 **durable-context:** `durable-context` (recommended front door); advanced
-`plan-with-context`, `devils-advocate`, `dive-into-plan`,
+`plan-with-context`, `challenge`, `dive-into-plan`,
 `backfill-with-context`, and `checkpoint-context`
 
 **durable-context-solo:** `durable-context-solo` (recommended front door);
-advanced `plan-with-context`, `devils-advocate`, `dive-into-plan`, and
+advanced `plan-with-context`, `challenge`, `dive-into-plan`, and
 `backfill-with-context`
 
 **reference-docs:** `reference-from-tags`, `reference-baseline`

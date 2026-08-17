@@ -1,5 +1,5 @@
 import { execFile } from 'node:child_process';
-import { mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -13,7 +13,7 @@ const cliPath = path.join(packageRoot, 'bin/durable-context-solo.js');
 const collaborativeCliPath = path.join(packageRoot, '../durable-context/bin/durable-context.js');
 const packageJson = JSON.parse(await readFile(path.join(packageRoot, 'package.json'), 'utf8'));
 
-test('init installs the flat planning scaffold and decision log', async () => {
+test('init installs the default cycle scaffold and decision log', async () => {
   const target = await mkdtemp(path.join(tmpdir(), 'durable-context-solo-'));
 
   const { stdout } = await execFileAsync(process.execPath, [
@@ -27,7 +27,11 @@ test('init installs the flat planning scaffold and decision log', async () => {
 
   assert.match(stdout, /Durable Context Solo ready for Planning App/);
 
-  assert.equal(await exists(path.join(target, 'context/initiatives/.gitkeep')), true);
+  assert.equal(
+    await exists(path.join(target, 'context/cycles/default/initiatives/.gitkeep')),
+    true
+  );
+  assert.equal(await exists(path.join(target, 'context/initiatives')), false);
   assert.equal(await exists(path.join(target, 'context/_templates/initiative/plan.md')), true);
   assert.equal(await exists(path.join(target, 'context/project-profile.md')), true);
   assert.equal(await exists(path.join(target, 'decisions/README.md')), true);
@@ -50,7 +54,7 @@ test('init installs the flat planning scaffold and decision log', async () => {
     true
   );
   assert.equal(
-    await exists(path.join(target, '.agents/skills/devils-advocate/SKILL.md')),
+    await exists(path.join(target, '.agents/skills/challenge/SKILL.md')),
     true
   );
   assert.equal(
@@ -76,15 +80,26 @@ test('init installs the flat planning scaffold and decision log', async () => {
   assert.match(agents, /\.agents\/skills\/project-profile-baseline\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/project-profile-refresh\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/plan-with-context\/SKILL\.md/);
-  assert.match(agents, /\.agents\/skills\/devils-advocate\/SKILL\.md/);
+  assert.match(agents, /\.agents\/skills\/challenge\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/dive-into-plan\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/backfill-with-context\/SKILL\.md/);
 
   const profile = await readFile(path.join(target, 'context/project-profile.md'), 'utf8');
   assert.match(profile, /Project: Planning App/);
+  assert.match(profile, /<!-- durable-context:cycle:start -->/);
+  assert.match(profile, /- Current cycle: default/);
+  assert.match(profile, /- Naming: Project-defined/);
+  assert.equal(profile.match(/^- Current cycle:/gm)?.length, 1);
   assert.match(profile, /## Concern Inventory/);
   assert.match(profile, /Every Present or External concern/);
   assert.doesNotMatch(profile, /PROJECT_NAME/);
+
+  const backlog = await readFile(
+    path.join(target, 'context/_templates/initiative/backlog.md'),
+    'utf8'
+  );
+  assert.match(backlog, /bounded trace of implementation state/);
+  assert.match(backlog, /not the project backlog/);
 
   const initiativeTemplate = await readFile(
     path.join(target, 'context/_templates/initiative/README.md'),
@@ -120,7 +135,7 @@ test('init installs the flat planning scaffold and decision log', async () => {
     'project-profile-baseline',
     'project-profile-refresh',
     'plan-with-context',
-    'devils-advocate',
+    'challenge',
     'dive-into-plan',
     'backfill-with-context'
   ]);
@@ -129,7 +144,7 @@ test('init installs the flat planning scaffold and decision log', async () => {
   assert.match(status.stdout, new RegExp(`Installed version: ${escapeRegExp(packageJson.version)}`));
   assert.match(
     status.stdout,
-    /Installed skills: durable-context-solo, project-profile-baseline, project-profile-refresh, plan-with-context, devils-advocate, dive-into-plan, backfill-with-context/
+    /Installed skills: durable-context-solo, project-profile-baseline, project-profile-refresh, plan-with-context, challenge, dive-into-plan, backfill-with-context/
   );
 });
 
@@ -181,7 +196,12 @@ test('update refreshes managed agent assets without replacing project work', asy
     path.join(target, '.agents/skills/plan-with-context/SKILL.md'),
     '# Locally edited skill\n'
   );
-  await rm(path.join(target, '.agents/skills/devils-advocate'), { recursive: true, force: true });
+  await rm(path.join(target, '.agents/skills/challenge'), { recursive: true, force: true });
+  await mkdir(path.join(target, '.agents/skills/devils-advocate'), { recursive: true });
+  await writeFile(
+    path.join(target, '.agents/skills/devils-advocate/SKILL.md'),
+    '# Retired managed skill\n'
+  );
   await writeFile(
     path.join(target, '.agents/skills/README.md'),
     [
@@ -212,6 +232,17 @@ test('update refreshes managed agent assets without replacing project work', asy
   );
   await writeFile(path.join(target, 'context/README.md'), '# User Context\n');
   await writeFile(path.join(target, 'decisions/README.md'), '# User Decisions\n');
+  const profilePath = path.join(target, 'context/project-profile.md');
+  const customizedProfile = (await readFile(profilePath, 'utf8')).replace(
+    '- Current cycle: default',
+    '- Current cycle: sprint-12'
+  );
+  await writeFile(profilePath, customizedProfile);
+  await mkdir(path.join(target, 'context/initiatives/legacy-work'), { recursive: true });
+  await writeFile(
+    path.join(target, 'context/initiatives/legacy-work/README.md'),
+    '# Legacy Work\n\nStatus: In progress\n'
+  );
   await writeFile(
     path.join(target, '.durable-context-solo/install.json'),
     JSON.stringify(
@@ -223,7 +254,7 @@ test('update refreshes managed agent assets without replacing project work', asy
         firstInstalledAt: '2026-01-01T00:00:00.000Z',
         lastUpdatedAt: '2026-01-02T00:00:00.000Z',
         projectName: 'Update App',
-        installedSkills: ['plan-with-context']
+        installedSkills: ['plan-with-context', 'devils-advocate']
       },
       null,
       2
@@ -238,6 +269,7 @@ test('update refreshes managed agent assets without replacing project work', asy
   ]);
 
   assert.match(stdout, /update AGENTS\.md Durable Context Solo section/);
+  assert.match(stdout, /remove retired skill \.agents\/skills\/devils-advocate/);
   assert.match(stdout, /replace \.agents\/skills\/plan-with-context/);
 
   const updatedSkill = await readFile(
@@ -247,7 +279,8 @@ test('update refreshes managed agent assets without replacing project work', asy
   assert.match(updatedSkill, /# Plan With Context/);
   assert.match(updatedSkill, /native agent planning/);
   assert.doesNotMatch(updatedSkill, /Locally edited/);
-  assert.equal(await exists(path.join(target, '.agents/skills/devils-advocate/SKILL.md')), true);
+  assert.equal(await exists(path.join(target, '.agents/skills/challenge/SKILL.md')), true);
+  assert.equal(await exists(path.join(target, '.agents/skills/devils-advocate')), false);
 
   const skillsReadme = await readFile(path.join(target, '.agents/skills/README.md'), 'utf8');
   assert.match(skillsReadme, /User notes stay here/);
@@ -262,6 +295,11 @@ test('update refreshes managed agent assets without replacing project work', asy
 
   assert.equal(await readFile(path.join(target, 'context/README.md'), 'utf8'), '# User Context\n');
   assert.equal(await readFile(path.join(target, 'decisions/README.md'), 'utf8'), '# User Decisions\n');
+  assert.match(await readFile(profilePath, 'utf8'), /- Current cycle: sprint-12/);
+  assert.equal(
+    await readFile(path.join(target, 'context/initiatives/legacy-work/README.md'), 'utf8'),
+    '# Legacy Work\n\nStatus: In progress\n'
+  );
 
   const metadata = JSON.parse(
     await readFile(path.join(target, '.durable-context-solo/install.json'), 'utf8')
@@ -275,7 +313,7 @@ test('update refreshes managed agent assets without replacing project work', asy
     'project-profile-baseline',
     'project-profile-refresh',
     'plan-with-context',
-    'devils-advocate',
+    'challenge',
     'dive-into-plan',
     'backfill-with-context'
   ]);

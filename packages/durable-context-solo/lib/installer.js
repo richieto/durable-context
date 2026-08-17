@@ -14,6 +14,7 @@ const agentsSkillsRelative = '.agents/skills';
  *   - packageRoot:    absolute path to the package directory
  *   - packageJson:    parsed package.json of the package
  *   - skills:         [{ name, readmeEntry }] copied into .agents/skills
+ *   - retiredSkills:  optional package-managed skill names removed on update
  *   - agents:         { start, end, render(projectName) } AGENTS.md section
  *   - metadataPath:   relative path of the install metadata file in the target
  *   - incompatibleInstallations: optional [{ packageName, metadataPath }]
@@ -374,6 +375,7 @@ class Installer {
     }
 
     await this.installAgentsFile();
+    await this.retireSkills();
     await this.updateSkills();
     await this.writeMetadata();
 
@@ -682,6 +684,21 @@ class Installer {
     }
 
     await this.upsertSkillsReadme();
+  }
+
+  async retireSkills() {
+    const previouslyInstalled = new Set(this.previousMetadata?.installedSkills ?? []);
+
+    for (const skillName of this.config.retiredSkills ?? []) {
+      if (!previouslyInstalled.has(skillName)) {
+        continue;
+      }
+
+      const target = await this.findExistingTargetPath(`${agentsSkillsRelative}/${skillName}`);
+      if (target.exists) {
+        await this.removePath(target.path, `remove retired skill ${target.display}`);
+      }
+    }
   }
 
   async upsertSkillsReadme() {

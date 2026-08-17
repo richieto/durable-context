@@ -17,6 +17,20 @@ Small fixes keep using the agent's normal planning behavior. Meaningful
 initiatives preserve their reasoning in `context/` and accepted architectural
 decisions in `decisions/`.
 
+## Cycles
+
+Initiatives live under `context/cycles/<cycle-id>/initiatives/`. A cycle is a
+generic container: each project may map it to a sprint, release, milestone,
+quarter, or another meaningful cadence. Fresh installations provision and
+select `default`; an omitted cycle resolves to the current cycle recorded with
+project-owned policy in `context/project-profile.md`.
+
+Pre-cycle `context/initiatives/` folders remain in place and are treated as
+implicit members of `default`. The package does not create cycle plans,
+capacity, schedules, or project backlogs; those remain in Jira, GitHub, or the
+project's equivalent. An initiative-local `backlog.md` remains a bounded work
+trace rather than a replacement for that external system.
+
 ## Profile Once, Evaluate Every Initiative
 
 `context/project-profile.md` records source-backed capabilities such as public
@@ -50,7 +64,7 @@ initiative, separating Observed, Human-confirmed, Inferred, and Unknown facts.
 - `project-profile-baseline`
 - `project-profile-refresh`
 - `plan-with-context`
-- `devils-advocate`
+- `challenge`
 - `dive-into-plan`
 - `backfill-with-context`
 
@@ -58,7 +72,11 @@ initiative, separating Observed, Human-confirmed, Inferred, and Unknown facts.
 
 Project profiles, initiatives, concern templates, and decisions are
 project-owned after initialization. Package update refreshes managed skills and
-marked guidance without replacing them.
+marked guidance without replacing them. It retires the former package-managed
+`devils-advocate` skill in favor of `challenge`.
+
+Accepted root decisions must remain understandable after disposable cycles are
+deleted.
 
 `durable-context-solo` and `durable-context` are alternative editions that use
 the same repository roots and cannot manage the same project concurrently.

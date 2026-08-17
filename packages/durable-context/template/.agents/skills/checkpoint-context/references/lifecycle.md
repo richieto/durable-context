@@ -113,6 +113,10 @@ Waived. A transfer waiver requires human rationale in Reason, Resolver, and
 Resolved date and satisfies validation without another warning. The merged
 file is disclosure, not a post-merge tracker.
 
+`backlog.md` is a separate bounded trace of implementation state within the
+initiative. It is not the project backlog. After a follow-up is transferred,
+the named Jira, GitHub, or equivalent destination owns its continuing state.
+
 ## Durable decisions
 
 Root decisions must explain their context, choice, consequences, alternatives,

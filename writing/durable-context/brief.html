@@ -479,7 +479,7 @@
         <div class="stack">
           <div class="node release">
             <strong>context/</strong>
-            <span>Disposable working bench &middot; flat initiatives</span>
+            <span>Disposable working bench &middot; cycle-grouped initiatives</span>
           </div>
           <div class="connector">promote accepted decisions to</div>
           <div class="node program">
@@ -537,7 +537,7 @@
           Recommended invocation-only front door: <code>durable-context</code>.
           Advanced skills: <code>project-profile-baseline</code>,
           <code>project-profile-refresh</code>, <code>plan-with-context</code>,
-          <code>devils-advocate</code>,
+          <code>challenge</code>,
           <code>dive-into-plan</code>.
         </p>
       </div>
@@ -553,7 +553,7 @@
         <div class="tile accent-release">
           <h3>Working context</h3>
           <p>Disposable bench, one folder per piece of work in progress. Drifts by design; archived when the work ships.</p>
-          <code class="path">context/initiatives/&lt;slug&gt;/</code>
+          <code class="path">context/cycles/&lt;cycle-id&gt;/initiatives/&lt;slug&gt;/</code>
         </div>
         <div class="tile accent-program">
           <h3>Durable decisions</h3>
@@ -572,7 +572,7 @@
       <div class="decision">
         <div class="question">Is this work in progress right now?</div>
         <div class="answer">Use an initiative on the working bench. One folder per piece of work.</div>
-        <div class="target"><code>context/initiatives/&lt;slug&gt;/</code></div>
+        <div class="target"><code>context/cycles/&lt;cycle-id&gt;/initiatives/&lt;slug&gt;/</code></div>
       </div>
 
       <div class="decision">
@@ -584,7 +584,7 @@
       <div class="decision">
         <div class="question">Is it optional notes for shipped-behavior docs later?</div>
         <div class="answer">Leave it in the initiative. Reference Docs may use it when refreshing from tags.</div>
-        <div class="target"><code>context/initiatives/&lt;slug&gt;/release-doc-notes.md</code></div>
+        <div class="target"><code>context/cycles/&lt;cycle-id&gt;/initiatives/&lt;slug&gt;/release-doc-notes.md</code></div>
       </div>
     </section>
 
@@ -660,7 +660,7 @@
             <td>For meaningful work that deserves durable planning.</td>
           </tr>
           <tr>
-            <td><code>devils-advocate</code></td>
+            <td><code>challenge</code></td>
             <td>Challenge a draft plan before it hardens.</td>
             <td>Before distribution, when a decision needs pressure-testing.</td>
           </tr>
@@ -839,7 +839,7 @@
           <tr>
             <td>Promoted from work</td>
             <td>Accepted decisions move out of an initiative's local ADR drafts.</td>
-            <td><code>context/initiatives/&lt;slug&gt;/decisions/</code></td>
+            <td><code>context/cycles/&lt;cycle-id&gt;/initiatives/&lt;slug&gt;/decisions/</code></td>
           </tr>
         </tbody>
       </table>

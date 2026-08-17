@@ -14,7 +14,10 @@ operating facts.
 2. Inspect source-backed facts: manifests, lockfiles, runtime files, package scripts, test config, CI/CD, deploy scripts, IaC, observability config, generated-artifact owners, and documentation boundaries.
 3. Record repository shape, stack/runtime, commands, verification, delivery, infrastructure/configuration, operations, generated artifacts, docs boundaries, and known unknowns.
 4. Cite source paths where useful. Mark unknowns explicitly. Do not invent hidden commands or external pipeline behavior.
-5. Keep initiative-specific details out of the profile.
+5. Preserve the marked Cycle Policy And State section. If it is absent, add it
+   with `default` as Current cycle and project-defined policy defaults. Change
+   cycle policy or the pointer only when the human directs it.
+6. Keep initiative-specific details out of the profile.
 
 ## Done When
 

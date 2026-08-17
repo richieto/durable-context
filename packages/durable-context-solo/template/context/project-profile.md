@@ -3,8 +3,28 @@
 Project: PROJECT_NAME
 Last reviewed: Not recorded
 
-Source-backed stable repository facts for agents. Initiative detail belongs
-under `context/initiatives/`. Use `Unknown` rather than guessing.
+Source-backed stable repository facts and project-owned cycle policy for agents.
+Initiative detail belongs under `context/cycles/<cycle-id>/initiatives/`. Use
+`Unknown` rather than guessing.
+
+## Cycle Policy And State
+
+The package treats a cycle only as an initiative container. This project may
+map it to a sprint, release, milestone, quarter, or another meaningful cadence.
+
+<!-- durable-context:cycle:start -->
+- Current cycle: default
+- Naming: Project-defined
+- Retention: Project-defined
+- Local validation: None
+- Repository rules: None
+<!-- durable-context:cycle:end -->
+
+Use one safe path segment for a cycle ID. An omitted cycle resolves to the
+single current-cycle field. Fresh installations start in `default`; change the
+pointer when the project adopts a more meaningful cycle. The project backlog,
+prioritization, capacity, and scheduling remain in Jira, GitHub, or the
+project's equivalent.
 
 ## Concern Inventory
 
@@ -38,7 +58,7 @@ introduces it.
 | Generated artifacts | Unknown | |
 | Reference material | Unknown | |
 | Decision log | `decisions/` | Append-only, self-contained accepted decisions |
-| Working context | `context/` | Disposable initiatives |
+| Working context | `context/` | Disposable cycle and initiative context |
 
 ## Stack And Runtime
 

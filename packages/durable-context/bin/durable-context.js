@@ -35,9 +35,9 @@ const skills = [
       '- `plan-with-context` - invoke explicitly to draft a durable plan in an initiative `plan.md`.'
   },
   {
-    name: 'devils-advocate',
+    name: 'challenge',
     readmeEntry:
-      '- `devils-advocate` - invoke explicitly to challenge a draft plan before distribution.'
+      '- `challenge` - invoke explicitly to challenge a draft plan before distribution.'
   },
   {
     name: 'dive-into-plan',
@@ -61,7 +61,7 @@ function renderAgentSection(projectName) {
 ## Durable Context
 
 Working context under [\`context/\`](context/); durable decisions under [\`decisions/\`](decisions/).
-Initiatives under [\`context/initiatives/\`](context/initiatives/) are disposable; promote accepted decisions to [\`decisions/\`](decisions/).
+Initiatives under \`context/cycles/<cycle-id>/initiatives/\` are disposable; promote accepted decisions to [\`decisions/\`](decisions/). Read the current cycle and local policy from [\`context/project-profile.md\`](context/project-profile.md). Pre-cycle \`context/initiatives/\` folders are implicit members of \`default\` and are not moved automatically.
 
 Recommended invocation-only front door:
 
@@ -72,12 +72,12 @@ Advanced direct entry points:
 - [\`.agents/skills/project-profile-baseline/SKILL.md\`](.agents/skills/project-profile-baseline/SKILL.md) — populate \`context/project-profile.md\`.
 - [\`.agents/skills/project-profile-refresh/SKILL.md\`](.agents/skills/project-profile-refresh/SKILL.md) — refresh stable repo-wide profile facts.
 - [\`.agents/skills/plan-with-context/SKILL.md\`](.agents/skills/plan-with-context/SKILL.md) — draft a plan in \`plan.md\`.
-- [\`.agents/skills/devils-advocate/SKILL.md\`](.agents/skills/devils-advocate/SKILL.md) — critique a draft plan before distribution.
+- [\`.agents/skills/challenge/SKILL.md\`](.agents/skills/challenge/SKILL.md) — critique a draft plan before distribution.
 - [\`.agents/skills/dive-into-plan/SKILL.md\`](.agents/skills/dive-into-plan/SKILL.md) — interrogate gaps, distribute into per-concern docs, promote to [\`decisions/\`](decisions/).
 - [\`.agents/skills/backfill-with-context/SKILL.md\`](.agents/skills/backfill-with-context/SKILL.md) — reconstruct context after existing work grows into an initiative.
 - [\`.agents/skills/checkpoint-context/SKILL.md\`](.agents/skills/checkpoint-context/SKILL.md) — validate and record lifecycle state.
 
-[\`context/project-profile.md\`](context/project-profile.md) — repo-wide stack, commands, and test facts when populated.
+[\`context/project-profile.md\`](context/project-profile.md) — repo-wide facts plus project-owned cycle policy and current-cycle state.
 ${agentsEnd}`;
 }
 
@@ -91,13 +91,15 @@ const config = {
     { packageName: 'durable-context-solo', metadataPath: '.durable-context-solo/install.json' }
   ],
   skills,
+  retiredSkills: ['devils-advocate'],
   agents: {
     start: agentsStart,
     end: agentsEnd,
     render: renderAgentSection
   },
   nextSteps: [
-    'Optional: invoke .agents/skills/project-profile-baseline/SKILL.md to populate context/project-profile.md.',
+    'Starter cycle: default. Edit the marked section in context/project-profile.md when the project adopts another cycle.',
+    'Optional: invoke .agents/skills/project-profile-baseline/SKILL.md to populate the remaining project profile.',
     'Then: invoke .agents/skills/durable-context/SKILL.md with a named initiative.'
   ]
 };

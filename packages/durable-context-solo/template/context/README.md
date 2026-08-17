@@ -6,9 +6,18 @@ sessions in PROJECT_NAME. Durable accepted architectural decisions live in
 
 ## Start Here
 
-- `project-profile.md` — source-backed capabilities and concern inventory
-- `initiatives/<slug>/` — explicitly named meaningful work
+- `project-profile.md` — source-backed capabilities plus cycle policy and state
+- `cycles/<cycle-id>/initiatives/<slug>/` — explicitly named meaningful work
 - `_templates/initiative/` — project-owned focus-document library
+
+A cycle is only a container. This package does not decide whether it represents
+a sprint, release, milestone, quarter, or something else. Fresh installations
+start with current cycle `default`. An initiative name without an explicit cycle
+uses the current cycle. Project backlog, prioritization, capacity, and scheduling
+belong in Jira, GitHub, or the project's equivalent.
+The directory path is the cycle allocation; do not duplicate it in the resume
+marker. Closed cycles may be deleted once their decisions and reference outputs
+are self-contained.
 
 Invoke `durable-context-solo` with an initiative name. Small fixes should keep
 using the agent's ordinary planning behavior.
@@ -32,3 +41,7 @@ The resume block is continuity, not governance. Solo has no lifecycle phases,
 review gates, ownership routing, transfer states, or PR-readiness validator.
 Its status is only `Active`, `Paused`, `Complete`, or `Abandoned`; the checkpoint
 and next action carry the useful detail.
+
+Pre-cycle folders under `initiatives/` are treated as members of `default`
+without being moved. `backlog.md` remains a bounded trace of implementation
+state inside an initiative; it does not replace the project's external backlog.

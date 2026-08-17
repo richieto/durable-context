@@ -12,7 +12,7 @@ Advanced direct entry points:
 - `project-profile-baseline` - inventory stable repository capabilities once.
 - `project-profile-refresh` - refresh only stable capabilities that changed.
 - `plan-with-context` - plan a named initiative across every profiled concern.
-- `devils-advocate` - optionally challenge a meaningful recommendation.
+- `challenge` - optionally challenge a meaningful recommendation.
 - `dive-into-plan` - interrogate Material concerns separately and synthesize them.
 - `backfill-with-context` - reconstruct a named initiative from existing work.
 <!-- durable-context-solo:skills:end -->

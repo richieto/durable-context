@@ -10,7 +10,9 @@ Prefer `durable-context` unless the human intentionally enters this stage.
 
 ## Workflow
 
-1. Require the initiative name. Do not infer it from the branch.
+1. Require the initiative name. Do not infer it from the branch. Resolve an
+   explicit cycle or the project profile's Current cycle. A flat pre-cycle
+   folder is the fallback for `default/<slug>` and is never moved implicitly.
 2. Read [the lifecycle protocol](references/lifecycle.md) completely.
 3. If lifecycle markers are absent, report a legacy initiative and do not
    insert or migrate state.
@@ -18,7 +20,7 @@ Prefer `durable-context` unless the human intentionally enters this stage.
 
    ```bash
    node .agents/skills/checkpoint-context/scripts/validate-initiative.mjs \
-     context/initiatives/<slug>
+     context/cycles/<cycle-id>/initiatives/<slug>
    ```
 
    Before moving into another phase, add `--advance "<phase>"`. This checks

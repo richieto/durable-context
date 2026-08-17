@@ -12,12 +12,16 @@ enters backfill directly.
 ## Workflow
 
 1. Require the initiative name. Treat the branch as evidence, never identity.
+   Resolve an explicit cycle or the profile's Current cycle, using `default`
+   when an upgraded profile has no cycle section. Treat a flat pre-cycle folder
+   as the fallback for `default/<slug>` and never move it implicitly.
 2. Read `context/project-profile.md`, relevant accepted decisions, and
    [the evidence rules](references/evidence.md).
 3. Establish the comparison base from explicit human direction or repository
    upstream/default-branch evidence. Inspect the merge-base, committed and
    uncommitted diff, tests, configuration, infrastructure, and relevant history.
-4. Create `README.md`, `plan.md`, and `backfill.md` from the Solo templates.
+4. Create `README.md`, `plan.md`, and `backfill.md` from the Solo templates under
+   `context/cycles/<cycle-id>/initiatives/<slug>/`.
 5. Separate Observed, Human-confirmed, Inferred, and Unknown claims. Cite paths,
    commits, diffs, tests, or commands for observed claims; never infer why code
    changed merely from what changed.

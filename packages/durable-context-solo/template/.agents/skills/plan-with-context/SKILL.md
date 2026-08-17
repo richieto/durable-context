@@ -10,9 +10,14 @@ Prefer `durable-context-solo` unless the human intentionally enters planning.
 
 ## Workflow
 
-1. Require an initiative name; never infer it from the branch. Read the nearest
-   `AGENTS.md`, project profile, relevant accepted decisions, initiative README,
-   and plan.
+1. Require an initiative name; never infer it from the branch. Resolve
+   `<cycle-id>/<initiative-slug>` using an explicit cycle or the profile's
+   Current cycle, falling back to `default` when the section is absent. A flat
+   `context/initiatives/<slug>/` is the fallback for `default/<slug>` and is
+   never moved implicitly. When creating the first cycle-contained initiative
+   for an upgraded profile, add the starter cycle section with Current cycle
+   `default`. Read the nearest `AGENTS.md`, project profile,
+   relevant accepted decisions, initiative README, and plan.
 2. If the Concern Inventory is materially Unknown, establish or refresh the
    profile instead of rediscovering capabilities only for this initiative.
 3. Settle goal, success criteria, scope, constraints, recommendation, options,

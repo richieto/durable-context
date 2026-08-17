@@ -41,10 +41,12 @@ test('init installs schema-v2 reference scaffold, managed files, and project ove
   );
   assert.match(agents, /\[`reference\/`\]\(reference\/\)/);
   assert.match(readme, /Reference App/);
+  assert.match(readme, /understandable after disposable planning\s+context/);
   assert.match(skill, /reference\/_authoring\/project\.md/);
   assert.match(refreshSkill, /transient impact map/);
   assert.match(refreshSkill, /Continue\s+with verified work without requesting approval/);
   assert.match(refreshSkill, /retain every evidence pointer/);
+  assert.match(refreshSkill, /understandable without `context\/`/);
   assert.match(workflow, /## Multi-Area Impact Preview/);
   assert.match(workflow, /Do not silently choose/);
   assert.doesNotMatch(

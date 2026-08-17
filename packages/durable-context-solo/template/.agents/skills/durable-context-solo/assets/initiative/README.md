@@ -32,6 +32,10 @@ impacts: `Material`, `No impact`, `External`, `Introduced`, or `TBD`.
 | Backlog | Unknown | TBD | TBD | `backlog.md` |
 | Release documentation | Unknown | TBD | TBD | `release-doc-notes.md` or external destination |
 
+`Backlog` means the bounded implementation trace for this initiative. Project
+prioritization, capacity, scheduling, and handed-off work stay in the named
+external system.
+
 ## Focus Documents
 
 - None selected yet.

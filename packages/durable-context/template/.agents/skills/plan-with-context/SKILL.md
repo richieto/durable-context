@@ -12,14 +12,21 @@ human intentionally enters Planning directly.
 
 1. Read the nearest `AGENTS.md`, `context/project-profile.md` when present, and
    relevant accepted and initiative-local decisions.
-2. Require an initiative name; never infer it from the branch. For work that
+2. Resolve `<cycle-id>/<initiative-slug>` using an explicit cycle or the
+   profile's Current cycle, falling back to `default` for an upgraded profile
+   without the cycle section. A flat `context/initiatives/<slug>/` is the
+   fallback for `default/<slug>` and is never moved implicitly. When creating
+   the first cycle-contained initiative for an upgraded profile, add the
+   starter cycle section with Current cycle `default`.
+3. Require an initiative name; never infer it from the branch. For work that
    remains small, recommend native agent planning and create no initiative
    unless the human explicitly opts in.
-3. For a new initiative, create only `README.md` and `plan.md`. Prefer a
+4. For a new initiative, create only `README.md` and `plan.md` under
+   `context/cycles/<cycle-id>/initiatives/<slug>/`. Prefer a
    project-owned template whose README has lifecycle markers; otherwise use the
    managed `durable-context` skill assets. Do not copy the whole initiative
    template directory or overwrite project-owned templates.
-4. If the README lacks lifecycle markers, continue the legacy workflow without
+5. If the README lacks lifecycle markers, continue the legacy workflow without
    inserting or migrating lifecycle state.
 
 ## Plan
@@ -39,5 +46,5 @@ human intentionally enters Planning directly.
 ## Handoff
 
 For lifecycle-managed work, checkpoint at the Planning boundary and return
-control. The human may use the advisory `devils-advocate` review or proceed to
+control. The human may use the advisory `challenge` review or proceed to
 Detailed Design through `durable-context`.

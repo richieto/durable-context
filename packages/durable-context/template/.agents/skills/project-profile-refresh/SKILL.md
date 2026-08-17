@@ -10,7 +10,8 @@ Update `context/project-profile.md` only for stable repo-wide operating facts.
 
 ## Workflow
 
-1. Read nearest `AGENTS.md`, existing `context/project-profile.md`, and `context/current.md` when present.
+1. Read nearest `AGENTS.md` and existing `context/project-profile.md`, including
+   its marked Cycle Policy And State section.
 2. If release tags are known, inspect profile-relevant changes:
 
 ```bash
@@ -18,7 +19,9 @@ git diff --name-status <base>..<target> -- <profile-relevant-paths>
 ```
 
 3. Check manifests, lockfiles, runtime files, package scripts, test config, CI/CD, deploy scripts, IaC, observability config, generated artifacts, and documentation boundaries.
-4. Update only stable facts that changed. Preserve useful existing context.
+4. Update only stable facts that changed. Preserve useful existing context and
+   the complete cycle section. Change cycle policy or Current cycle only when
+   the human directs it.
 5. Do not update the profile for initiative-specific details, transient scaffolding, or unverified guesses.
 6. Mark unknowns explicitly and cite source paths where useful.
 

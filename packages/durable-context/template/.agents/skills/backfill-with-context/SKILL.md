@@ -11,15 +11,19 @@ intentionally enters this stage directly.
 
 ## Workflow
 
-1. Require the initiative name; never derive it from the branch name.
+1. Require the initiative name; never derive it from the branch name. Resolve
+   an explicit cycle or the profile's Current cycle, using `default` when an
+   upgraded profile has no cycle section. Treat a flat pre-cycle folder as the
+   fallback for `default/<slug>` and never move it implicitly.
 2. Read the nearest `AGENTS.md`, project profile, relevant accepted decisions,
    and the lifecycle protocol at
    `../checkpoint-context/references/lifecycle.md`.
 3. Establish the comparison base from explicit user direction or repository
    upstream/default-branch evidence. Inspect the merge-base, committed and
    uncommitted diff, tests, configuration, infrastructure, and relevant history.
-4. Create a new lifecycle-managed initiative with only `README.md`, `plan.md`,
-   and this skill's `assets/backfill.md`. Use a project-owned lifecycle template
+4. Create a new lifecycle-managed initiative under
+   `context/cycles/<cycle-id>/initiatives/<slug>/` with only `README.md`,
+   `plan.md`, and this skill's `assets/backfill.md`. Use a project-owned lifecycle template
    when available and the `durable-context` skill assets otherwise. If the named
    initiative is legacy, report it and do not migrate it.
 5. Separate evidence rigorously:

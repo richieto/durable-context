@@ -1,6 +1,0 @@
-interface:
-  display_name: "Devil's Advocate"
-  short_description: "Challenge a meaningful Solo recommendation"
-  default_prompt: "Use $devils-advocate to challenge the current recommendation in a named Solo initiative."
-policy:
-  allow_implicit_invocation: false

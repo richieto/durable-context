@@ -19,6 +19,8 @@ Documentation only. Do not change executable behavior.
   but retain every evidence pointer. Surface conflicts between source, tests,
   configuration, and IaC instead of choosing an interpretation silently.
 - Extend and correct existing pages. Do not wipe project reference material.
+- Keep every resulting reference page understandable without `context/`;
+  release-note hints may disappear when closed cycles are deleted.
 
 ## Workflow
 

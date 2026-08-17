@@ -10,13 +10,16 @@ the human intentionally enters Detailed Design directly.
 
 ## Interrogate
 
-1. Read the initiative README and plan, nearest `AGENTS.md`, project profile,
+1. Resolve an explicit cycle or the project profile's Current cycle, using
+   `default` when an upgraded profile has no cycle section. Treat a flat
+   pre-cycle folder as the fallback for `default/<slug>` without moving it.
+2. Read the initiative README and plan, nearest `AGENTS.md`, project profile,
    relevant accepted/local decisions, and the lifecycle protocol at
    `../checkpoint-context/references/lifecycle.md` when lifecycle-managed.
-2. Ask pointed questions for applicable behavior, interface, architecture,
+3. Ask pointed questions for applicable behavior, interface, architecture,
    tests/e2e, data/security, IaC, CI/CD, configuration, operations, rollback,
    project-profile impact, decision impact, and reference/release impact.
-3. Record answers in `plan.md`; do not manufacture answers for unavailable
+4. Record answers in `plan.md`; do not manufacture answers for unavailable
    external systems or people.
 
 ## Route Before Scaffolding

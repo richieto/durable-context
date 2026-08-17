@@ -23,7 +23,8 @@ rejected.
 
 The package works independently of any planning workflow. A tag diff is the
 source of truth; `context/` and `decisions/` are optional enrichment when they
-exist.
+exist. Reference pages must remain understandable after disposable planning
+context and closed cycles are deleted.
 
 ## Use
 

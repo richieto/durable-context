@@ -21,7 +21,10 @@ human intentionally enters profiling directly.
    infrastructure/configuration, operations, and refresh triggers.
 5. Mark unavailable external behavior and unknowns explicitly. Never invent
    hidden commands, pipelines, or operations.
-6. Keep initiative-specific facts out of the profile.
+6. Preserve the marked Cycle Policy And State section. If it is absent, add it
+   with `default` as Current cycle and project-defined policy defaults. Change
+   cycle policy or the pointer only when the human directs it.
+7. Keep initiative-specific facts out of the profile.
 
 Done when future agents can evaluate the full known project surface and choose
 targeted source paths and commands without rescanning the repository.

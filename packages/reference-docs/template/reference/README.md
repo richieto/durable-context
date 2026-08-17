@@ -7,6 +7,10 @@ explicit baseline. It is not the place for in-progress planning,
 implementation notes, or draft architecture decisions. Put that work in
 `context/`.
 
+Every reference page must remain understandable after disposable planning
+context, including closed cycles, is deleted. Context is an optional discovery
+hint; released source and explicit baselines remain the authority.
+
 ## Start Here
 
 - `releases/index.md` records release or baseline reference refreshes.

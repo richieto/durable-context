@@ -3,7 +3,28 @@
 Project: PROJECT_NAME
 Last reviewed: Not recorded
 
-Repo-wide operating facts for agents. Initiative-specific detail lives under `context/initiatives/`. Record source-backed facts only; use `Unknown` when not yet reviewed.
+Repo-wide operating facts and project-owned cycle policy for agents.
+Initiative-specific detail lives under `context/cycles/<cycle-id>/initiatives/`.
+Record source-backed facts only; use `Unknown` when not yet reviewed.
+
+## Cycle Policy And State
+
+The package treats a cycle only as an initiative container. This project may
+map it to a sprint, release, milestone, quarter, or another meaningful cadence.
+
+<!-- durable-context:cycle:start -->
+- Current cycle: default
+- Naming: Project-defined
+- Retention: Project-defined
+- Local validation: None
+- Repository rules: None
+<!-- durable-context:cycle:end -->
+
+Use one safe path segment for a cycle ID. An omitted cycle resolves to the
+single current-cycle field. Fresh installations start in `default`; change the
+pointer when the project adopts a more meaningful cycle. The project backlog,
+prioritization, capacity, and scheduling remain in Jira, GitHub, or the
+project's equivalent.
 
 ## Repository Shape
 
@@ -16,7 +37,7 @@ Repo-wide operating facts for agents. Initiative-specific detail lives under `co
 | Generated artifacts | Unknown | |
 | Reference material | `reference/` | If reference-docs is installed |
 | Decision log | `decisions/` | Append-only |
-| Working context | `context/` | Disposable initiatives |
+| Working context | `context/` | Disposable cycle and initiative context |
 
 ## Stack And Runtime
 

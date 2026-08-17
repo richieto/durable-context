@@ -63,9 +63,11 @@ Reference Docs works with zero adoption of
 [Durable Context](../durable-context/model.md). Release tags are the source of
 truth. Planning artifacts, when present, are optional enrichment.
 
-When `context/initiatives/*/release-doc-notes.md` exists, it can make the
-refresh sharper by pointing at behavior that should become docs later. Those
-notes are hints, not authority; verify them against the tag diff.
+When `context/cycles/*/initiatives/*/release-doc-notes.md` or a pre-cycle
+`context/initiatives/*/release-doc-notes.md` exists, it can make the refresh
+sharper by pointing at behavior that should become docs later. Those notes are
+hints, not authority; verify them against the tag diff. Reference pages remain
+self-contained after disposable context is deleted.
 
 ## Install
 

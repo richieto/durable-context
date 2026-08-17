@@ -5,6 +5,9 @@ This is the durable, append-only decision log for PROJECT_NAME.
 Working context under [`context/`](../context/) is a disposable bench and will
 be archived over time. Architecture and design decisions must outlive it, so
 accepted decisions are promoted here where they stay findable.
+Every root ADR must remain understandable after its disposable initiative and
+cycle are deleted and must link stable commit, PR, or release provenance when
+available.
 
 ## How It Works
 
