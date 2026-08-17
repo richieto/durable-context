@@ -14,10 +14,10 @@ human intentionally enters Planning directly.
    relevant accepted and initiative-local decisions.
 2. Resolve `<cycle-id>/<initiative-slug>` using an explicit cycle or the
    profile's Current cycle, falling back to `default` for an upgraded profile
-   without the cycle section. A flat `context/initiatives/<slug>/` is the
-   fallback for `default/<slug>` and is never moved implicitly. When creating
-   the first cycle-contained initiative for an upgraded profile, add the
-   starter cycle section with Current cycle `default`.
+   without the cycle section. Use only the canonical cycle path. If
+   `context/initiatives/` exists, stop and ask the human to run the latest
+   package `update`. When creating the first cycle-contained initiative for an
+   upgraded profile, add the starter cycle section with Current cycle `default`.
 3. Require an initiative name; never infer it from the branch. For work that
    remains small, recommend native agent planning and create no initiative
    unless the human explicitly opts in.
@@ -31,17 +31,21 @@ human intentionally enters Planning directly.
 
 ## Plan
 
-1. Use the agent's native planning capability and ground claims in repository
+1. Read [the intent and record protocol](../durable-context/references/intent-and-records.md).
+   Use the agent's native planning capability and ground claims in repository
    evidence. Do not guess.
-2. Settle the goal, success criteria, audience, in/out scope, constraints,
-   options, trade-offs, and open questions with the human.
+2. When intent is unsettled, interview the human before recommending a
+   direction. Settle the goal, success criteria, audience, in/out scope,
+   constraints, options, trade-offs, and open questions. Reflect the emerging
+   interpretation for correction and ask only decision-bearing questions.
 3. Cover or disposition the applicable change surface: application code,
    tests/e2e, interfaces, data/security, IaC, CI/CD, configuration, operations,
    rollback, project-profile impact, ADR impact, and reference/release impact.
 4. Consider an ADR only for architecturally significant choices crossing
    boundaries, having credible alternatives, or being costly to reverse.
-5. Keep settled planning truth in `plan.md`; do not create concern documents
-   until artifact routing is confirmed during `dive-into-plan`.
+5. Keep the minimum sufficient settled planning truth in `plan.md`; preserve
+   conclusions rather than the interview transcript. Do not create concern
+   documents until artifact routing is confirmed during `dive-into-plan`.
 
 ## Handoff
 

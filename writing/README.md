@@ -23,7 +23,8 @@ Package: `durable-context` · installs `context/` and `decisions/`.
 1. [Rationale](durable-context/rationale.md)
 2. [Model](durable-context/model.md)
 3. [Limitations](durable-context/limitations.md)
-4. [1.2.0 Release Notes And Decision Record](durable-context/release-notes.md)
+4. [2.0 Release Notes And Migration Record](durable-context/release-notes-2.0.md)
+5. [1.2.0 Release Notes And Decision Record](durable-context/release-notes.md)
 
 HTML: [Brief](durable-context/brief.html)
 
@@ -34,7 +35,8 @@ alternative, mutually exclusive edition.
 
 1. [Model And Rationale](durable-context-solo/model.md)
 2. [Limitations And Feedback Questions](durable-context-solo/limitations.md)
-3. [0.1.1 Initial Release Notes](durable-context-solo/release-notes.md)
+3. [1.0 Stable Release Notes](durable-context-solo/release-notes-1.0.md)
+4. [0.1.1 Initial Release Notes](durable-context-solo/release-notes.md)
 
 ## Reference Docs
 

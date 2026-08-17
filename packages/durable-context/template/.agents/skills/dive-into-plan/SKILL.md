@@ -11,15 +11,21 @@ the human intentionally enters Detailed Design directly.
 ## Interrogate
 
 1. Resolve an explicit cycle or the project profile's Current cycle, using
-   `default` when an upgraded profile has no cycle section. Treat a flat
-   pre-cycle folder as the fallback for `default/<slug>` without moving it.
+   `default` when an upgraded profile has no cycle section. Use only the
+   canonical cycle path; if `context/initiatives/` exists, stop and ask the
+   human to run the latest package `update`.
 2. Read the initiative README and plan, nearest `AGENTS.md`, project profile,
    relevant accepted/local decisions, and the lifecycle protocol at
    `../checkpoint-context/references/lifecycle.md` when lifecycle-managed.
-3. Ask pointed questions for applicable behavior, interface, architecture,
-   tests/e2e, data/security, IaC, CI/CD, configuration, operations, rollback,
-   project-profile impact, decision impact, and reference/release impact.
-4. Record answers in `plan.md`; do not manufacture answers for unavailable
+3. Read [the intent and record protocol](../durable-context/references/intent-and-records.md).
+   Return to Planning if goal or intent is still unsettled. Otherwise ask
+   pointed, decision-bearing questions only for material or ambiguous behavior,
+   interface, architecture, tests/e2e, data/security, IaC, CI/CD,
+   configuration, operations, rollback, project-profile, decision, and
+   reference/release impact. Do not turn the whole change surface into a
+   questionnaire.
+4. Record conclusions and unresolved questions in their owning artifacts, not
+   the interview transcript. Do not manufacture answers for unavailable
    external systems or people.
 
 ## Route Before Scaffolding

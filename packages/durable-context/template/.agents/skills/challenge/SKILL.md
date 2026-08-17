@@ -11,14 +11,20 @@ unless the human intentionally enters Plan Review directly.
 ## Review
 
 1. Resolve an explicit cycle or the project profile's Current cycle, using
-   `default` when an upgraded profile has no cycle section. Treat a flat
-   pre-cycle folder as the fallback for `default/<slug>` without moving it.
+   `default` when an upgraded profile has no cycle section. Use only the
+   canonical cycle path; if `context/initiatives/` exists, stop and ask the
+   human to run the latest package `update`.
 2. Read the named initiative README, plan, relevant concern documents, nearest
    `AGENTS.md`, project profile, decisions, and the lifecycle protocol at
    `../checkpoint-context/references/lifecycle.md` when lifecycle-managed.
-3. Identify the exact recommendation or decision being challenged.
-4. Test its strongest objection, hidden assumption, non-obvious failure mode,
-   and cheaper, simpler, or more reversible alternative.
+3. Read [the intent and record protocol](../durable-context/references/intent-and-records.md).
+   Identify and steelman the exact recommendation or decision being challenged,
+   including its rationale and constraints. Ask focused clarification questions
+   first when the target is ambiguous; return to Planning when human intent is
+   not settled enough to challenge fairly.
+4. Use decision-bearing questions to expose its strongest objection, hidden
+   assumption, non-obvious failure mode, and cheaper, simpler, or more
+   reversible alternative before stating the critique.
 5. If there is no material challenge, explain why the current direction is the
    best available option. For lifecycle-managed work, set Plan review to
    `No material challenge` and checkpoint.
@@ -40,5 +46,6 @@ unless the human intentionally enters Plan Review directly.
 - Continue unrelated work while a challenge is open; block only its declared
   dependent phases.
 
-Keep full reviews in disposable initiative context. Promote only a resulting,
-self-contained architectural conclusion to root `decisions/`.
+Keep only the minimum sufficient material review in disposable initiative
+context, not the interview transcript. Promote only a resulting, self-contained
+architectural conclusion to root `decisions/`.

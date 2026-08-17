@@ -1,6 +1,6 @@
 import { execPath } from 'node:process';
 import { constants as fsConstants } from 'node:fs';
-import { access, mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises';
+import { access, mkdir, readFile, readdir, rename, rm, stat, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 
@@ -18,6 +18,7 @@ const agentsSkillsRelative = '.agents/skills';
  *   - agents:         { start, end, render(projectName) } AGENTS.md section
  *   - metadataPath:   relative path of the install metadata file in the target
  *   - incompatibleInstallations: optional [{ packageName, metadataPath }]
+ *   - cycle:          optional generic cycle profile and initiative paths
  *   - payloadRoot:    optional configurable template-to-target payload root
  *   - managedFiles:   optional file-level update manifest with conflict checks
  *   - projectFiles:   optional user-owned files created only when absent
@@ -43,7 +44,7 @@ export async function runCli(config, argv) {
     return;
   }
 
-  if (args.command !== 'init' && args.command !== 'update') {
+  if (args.command !== 'init' && args.command !== 'update' && args.command !== 'cycle') {
     throw new Error(`Unknown command "${args.command}". Run "${config.cliName} --help".`);
   }
 
@@ -61,6 +62,15 @@ export async function runCli(config, argv) {
     force: args.force,
     dryRun: args.dryRun
   });
+
+  if (args.command === 'cycle') {
+    if (!previousMetadata) {
+      throw new Error(`No installation metadata found at ${config.metadataPath}; run ${config.cliName} init first.`);
+    }
+
+    await installer.initCycle(args.cycleId);
+    return;
+  }
 
   if (args.command === 'init') {
     await installer.init();
@@ -161,6 +171,20 @@ function parseArgs(argv, config) {
     positionals.push(arg);
   }
 
+  if (positionals[0] === 'cycle') {
+    if (!config.cycle) {
+      throw new Error(`Unknown command "cycle". Run "${config.cliName} --help".`);
+    }
+
+    if (positionals[1] !== 'init' || positionals.length !== 3) {
+      throw new Error(`Usage: ${config.cliName} cycle init <cycle-id> [options]`);
+    }
+
+    options.command = 'cycle';
+    options.cycleId = positionals[2];
+    return options;
+  }
+
   if (positionals.length > 1) {
     throw new Error(`Unexpected arguments: ${positionals.slice(1).join(' ')}`);
   }
@@ -195,6 +219,7 @@ Usage:
   ${config.cliName} init [options]
   ${config.cliName} update [options]
   ${config.cliName} status [options]
+${config.cycle ? `  ${config.cliName} cycle init <cycle-id> [options]` : ''}
 
 Options:
   --target <path>          Project root to install into. Defaults to cwd.
@@ -209,9 +234,10 @@ Examples:
   npx ${config.packageJson.name}@latest update
   npx ${config.packageJson.name}@${config.packageJson.version} init --project-name "My App"
   npx ${config.packageJson.name} status --target ../existing-project
+${config.cycle ? `  npx ${config.packageJson.name} cycle init release-2` : ''}
 
 The update command refreshes managed files without replacing project work.
-The status command reads ${config.metadataPath} from an initialized project.
+${config.cycle ? 'It also moves pre-cycle initiatives into the default cycle.\nThe cycle init command creates or selects the sole current cycle.\n' : ''}The status command reads ${config.metadataPath} from an initialized project.
 `);
 }
 
@@ -233,7 +259,7 @@ async function resolvePayloadRoot(config, args, targetRoot, metadata) {
       config.payloadRoot.defaultValue;
   }
 
-  if (args.command === 'update') {
+  if (args.command === 'update' || args.command === 'cycle') {
     if (!metadata) {
       throw new Error(`No installation metadata found at ${config.metadataPath}; run ${config.cliName} init first.`);
     }
@@ -374,12 +400,220 @@ class Installer {
       return;
     }
 
+    if (this.config.cycle) {
+      await this.preflightCycleState();
+      await this.normalizeCycleState();
+    }
+
     await this.installAgentsFile();
     await this.retireSkills();
     await this.updateSkills();
     await this.writeMetadata();
 
     this.printSummary();
+  }
+
+  async initCycle(cycleId) {
+    if (!this.config.cycle) {
+      throw new Error(`${this.config.cliName} does not manage cycles.`);
+    }
+
+    validateCycleId(cycleId);
+    await this.preflightCycleState();
+    await this.normalizeCycleState({ currentCycle: cycleId });
+    this.printCycleSummary(cycleId);
+  }
+
+  async preflightCycleState() {
+    const state = await this.readCycleState();
+
+    if (state.currentCycle) {
+      validateCycleId(state.currentCycle);
+    }
+
+    const legacyRoot = path.join(this.targetRoot, this.config.cycle.legacyInitiativesPath);
+    const entries = await readdir(legacyRoot, { withFileTypes: true }).catch(() => []);
+    const unexpected = entries.filter((entry) => !entry.isDirectory() && entry.name !== '.gitkeep');
+
+    if (unexpected.length > 0) {
+      throw new Error(
+        `Cannot migrate ${this.config.cycle.legacyInitiativesPath}: expected initiative directories, found ${unexpected.map((entry) => entry.name).join(', ')}.`
+      );
+    }
+
+    const collisions = [];
+    for (const entry of entries.filter((candidate) => candidate.isDirectory())) {
+      const destination = path.join(
+        this.targetRoot,
+        this.config.cycle.cyclesPath,
+        'default',
+        'initiatives',
+        entry.name
+      );
+      if (await exists(destination)) {
+        collisions.push(entry.name);
+      }
+    }
+
+    if (collisions.length > 0) {
+      throw new Error(
+        `Cannot migrate flat initiatives because default already contains: ${collisions.join(', ')}. Rename or remove one copy, then retry.`
+      );
+    }
+
+    return state;
+  }
+
+  async normalizeCycleState({ currentCycle } = {}) {
+    const state = await this.readCycleState();
+    const selectedCycle = currentCycle ?? state.currentCycle ?? 'default';
+    validateCycleId(selectedCycle);
+
+    await this.ensureCycleProfile(state, selectedCycle);
+    await this.ensureDirectory(
+      path.join(this.targetRoot, this.config.cycle.cyclesPath, selectedCycle, 'initiatives'),
+      `ensure current cycle ${selectedCycle}`
+    );
+    await this.migrateFlatInitiatives();
+  }
+
+  async readCycleState() {
+    const profilePath = path.join(this.targetRoot, this.config.cycle.profilePath);
+    if (!(await exists(profilePath))) {
+      return { profilePath, contents: undefined, currentCycle: undefined, section: undefined };
+    }
+
+    const contents = await readFile(profilePath, 'utf8');
+    const start = '<!-- durable-context:cycle:start -->';
+    const end = '<!-- durable-context:cycle:end -->';
+    const starts = [...contents.matchAll(new RegExp(escapeRegExp(start), 'g'))];
+    const ends = [...contents.matchAll(new RegExp(escapeRegExp(end), 'g'))];
+
+    if (starts.length === 0 && ends.length === 0) {
+      return { profilePath, contents, currentCycle: undefined, section: undefined };
+    }
+
+    if (starts.length !== 1 || ends.length !== 1 || starts[0].index >= ends[0].index) {
+      throw new Error(`${this.config.cycle.profilePath} must contain exactly one complete cycle section.`);
+    }
+
+    const sectionStart = starts[0].index;
+    const sectionEnd = ends[0].index + end.length;
+    const section = contents.slice(sectionStart, sectionEnd);
+    const currentFields = [...section.matchAll(/^- Current cycle:\s*(.*?)\s*$/gm)];
+
+    if (currentFields.length !== 1 || !currentFields[0][1]) {
+      throw new Error(`${this.config.cycle.profilePath} must contain exactly one non-empty Current cycle field.`);
+    }
+
+    return {
+      profilePath,
+      contents,
+      currentCycle: currentFields[0][1],
+      section: { start: sectionStart, end: sectionEnd, contents: section }
+    };
+  }
+
+  async ensureCycleProfile(state, currentCycle) {
+    if (state.contents === undefined) {
+      const template = this.transformText(
+        await readFile(path.join(this.templateDir, this.config.cycle.profilePath), 'utf8')
+      );
+      const updated = template.replace(/^- Current cycle:\s*.*$/m, `- Current cycle: ${currentCycle}`);
+      await this.writeFile(state.profilePath, updated, `create ${this.config.cycle.profilePath}`);
+      return;
+    }
+
+    if (!state.section) {
+      const separator = state.contents.endsWith('\n') ? '\n' : '\n\n';
+      await this.writeFile(
+        state.profilePath,
+        `${state.contents}${separator}${renderCycleSection(currentCycle)}\n`,
+        `add cycle policy to ${this.config.cycle.profilePath}`
+      );
+      return;
+    }
+
+    if (state.currentCycle === currentCycle) {
+      this.note(`${this.config.cycle.profilePath} already selects cycle ${currentCycle}`);
+      return;
+    }
+
+    const updatedSection = state.section.contents.replace(
+      /^- Current cycle:\s*.*$/m,
+      `- Current cycle: ${currentCycle}`
+    );
+    const updated =
+      state.contents.slice(0, state.section.start) +
+      updatedSection +
+      state.contents.slice(state.section.end);
+    await this.writeFile(
+      state.profilePath,
+      updated,
+      `set current cycle to ${currentCycle} in ${this.config.cycle.profilePath}`
+    );
+  }
+
+  async migrateFlatInitiatives() {
+    const legacyRelative = this.config.cycle.legacyInitiativesPath;
+    const legacyRoot = path.join(this.targetRoot, legacyRelative);
+    const entries = await readdir(legacyRoot, { withFileTypes: true }).catch(() => []);
+    const initiatives = entries.filter((entry) => entry.isDirectory());
+
+    if (entries.length === 0) {
+      return;
+    }
+
+    const destinationRoot = path.join(
+      this.targetRoot,
+      this.config.cycle.cyclesPath,
+      'default',
+      'initiatives'
+    );
+    await this.ensureDirectory(destinationRoot);
+
+    for (const entry of initiatives) {
+      await this.movePath(
+        path.join(legacyRoot, entry.name),
+        path.join(destinationRoot, entry.name),
+        `move ${legacyRelative}/${entry.name} to ${this.config.cycle.cyclesPath}/default/initiatives/${entry.name}`
+      );
+    }
+
+    await this.rewriteMigratedInitiativeLinks(initiatives.map((entry) => entry.name));
+    await this.removePath(legacyRoot, `remove migrated ${legacyRelative}/`);
+  }
+
+  async rewriteMigratedInitiativeLinks(slugs) {
+    if (slugs.length === 0) {
+      return;
+    }
+
+    for (const markdownPath of await listMarkdownFiles(this.targetRoot)) {
+      const current = await readFile(markdownPath, 'utf8');
+      let updated = current;
+
+      for (const slug of slugs) {
+        updated = updated.replaceAll(
+          `${this.config.cycle.legacyInitiativesPath}/${slug}`,
+          `${this.config.cycle.cyclesPath}/default/initiatives/${slug}`
+        );
+      }
+
+      if (updated !== current) {
+        const display = path.relative(this.targetRoot, markdownPath).split(path.sep).join('/');
+        await this.writeFile(markdownPath, updated, `rewrite migrated initiative links in ${display}`);
+      }
+    }
+  }
+
+  async movePath(source, destination, message) {
+    this.note(message);
+
+    if (!this.dryRun) {
+      await mkdir(path.dirname(destination), { recursive: true });
+      await rename(source, destination);
+    }
   }
 
   async initManagedInstallation() {
@@ -938,6 +1172,16 @@ class Installer {
       }
     }
   }
+
+  printCycleSummary(cycleId) {
+    const prefix = this.dryRun ? '[dry-run] ' : '';
+
+    for (const action of this.actions) {
+      console.log(`${prefix}${action}`);
+    }
+
+    console.log(`${prefix}${this.config.summaryLabel} current cycle: ${cycleId}.`);
+  }
 }
 
 async function printStatus(config, target) {
@@ -1052,6 +1296,55 @@ async function listFiles(root) {
   }
 
   return files;
+}
+
+async function listMarkdownFiles(root) {
+  const entries = await readdir(root, { withFileTypes: true }).catch(() => []);
+  const files = [];
+  const ignoredDirectories = new Set(['.git', 'node_modules']);
+
+  for (const entry of entries) {
+    if (entry.isDirectory() && ignoredDirectories.has(entry.name)) {
+      continue;
+    }
+
+    const child = path.join(root, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...await listMarkdownFiles(child));
+    } else if (entry.isFile() && entry.name.endsWith('.md')) {
+      files.push(child);
+    }
+  }
+
+  return files;
+}
+
+function validateCycleId(value) {
+  if (typeof value !== 'string' || !/^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(value)) {
+    throw new Error('Cycle ID must be one safe path segment using letters, numbers, dots, underscores, or hyphens.');
+  }
+
+  return value;
+}
+
+function renderCycleSection(currentCycle) {
+  return [
+    '## Cycle Policy And State',
+    '',
+    'The package treats a cycle only as an initiative container. This project may',
+    'map it to a sprint, release, milestone, quarter, or another meaningful cadence.',
+    '',
+    '<!-- durable-context:cycle:start -->',
+    `- Current cycle: ${currentCycle}`,
+    '- Naming: Project-defined',
+    '- Retention: Project-defined',
+    '- Local validation: None',
+    '- Repository rules: None',
+    '<!-- durable-context:cycle:end -->',
+    '',
+    'Use one safe path segment for a cycle ID. Project backlog, prioritization,',
+    "capacity, and scheduling remain in Jira, GitHub, or the project's equivalent."
+  ].join('\n');
 }
 
 function hash(contents) {

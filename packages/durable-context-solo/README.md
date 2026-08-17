@@ -25,11 +25,11 @@ quarter, or another meaningful cadence. Fresh installations provision and
 select `default`; an omitted cycle resolves to the current cycle recorded with
 project-owned policy in `context/project-profile.md`.
 
-Pre-cycle `context/initiatives/` folders remain in place and are treated as
-implicit members of `default`. The package does not create cycle plans,
-capacity, schedules, or project backlogs; those remain in Jira, GitHub, or the
-project's equivalent. An initiative-local `backlog.md` remains a bounded work
-trace rather than a replacement for that external system.
+On update, pre-cycle `context/initiatives/` folders move into `default` after a
+collision check. Their resume metadata is not changed. The package does not
+create cycle plans, capacity, schedules, or project backlogs; those remain in
+Jira, GitHub, or the project's equivalent. An initiative-local `backlog.md`
+remains a bounded work trace rather than a replacement for that external system.
 
 ## Profile Once, Evaluate Every Initiative
 
@@ -58,6 +58,12 @@ routing, transfer states, or PR-readiness validator.
 `backfill-with-context` reconstructs planning when ordinary work grows into an
 initiative, separating Observed, Human-confirmed, Inferred, and Unknown facts.
 
+When repository evidence cannot settle human intent, the skills ask focused,
+decision-bearing questions before choosing a direction. They preserve the
+result, not the conversation: artifacts keep the minimum information needed to
+resume or understand the work—conclusions, rationale and constraints, evidence,
+material unknowns, and the next action—without transcripts or routine narration.
+
 ## Invocation-Only Skills
 
 - `durable-context-solo` — recommended front door
@@ -72,8 +78,9 @@ initiative, separating Observed, Human-confirmed, Inferred, and Unknown facts.
 
 Project profiles, initiatives, concern templates, and decisions are
 project-owned after initialization. Package update refreshes managed skills and
-marked guidance without replacing them. It retires the former package-managed
-`devils-advocate` skill in favor of `challenge`.
+marked guidance, moves flat initiatives into the canonical `default` cycle,
+and preserves their contents and legacy status. It retires the former
+package-managed `devils-advocate` skill in favor of `challenge`.
 
 Accepted root decisions must remain understandable after disposable cycles are
 deleted.
@@ -85,5 +92,8 @@ the same repository roots and cannot manage the same project concurrently.
 npx durable-context-solo@latest update
 ```
 
-Commands/options: `init`, `update`, `status`, `--target`, `--dry-run`, and
-`--force` for `init`.
+Use `npx durable-context-solo cycle init <cycle-id>` to create or select the sole
+current cycle.
+
+Commands/options: `init`, `update`, `status`, `cycle init`, `--target`,
+`--dry-run`, and `--force` for `init`.

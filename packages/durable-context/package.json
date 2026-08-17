@@ -1,6 +1,6 @@
 {
   "name": "durable-context",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "Durable initiative orchestration, lifecycle checkpoints, and an append-only architectural decision log.",
   "license": "MIT",
   "type": "module",

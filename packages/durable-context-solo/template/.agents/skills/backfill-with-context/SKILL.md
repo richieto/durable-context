@@ -13,8 +13,9 @@ enters backfill directly.
 
 1. Require the initiative name. Treat the branch as evidence, never identity.
    Resolve an explicit cycle or the profile's Current cycle, using `default`
-   when an upgraded profile has no cycle section. Treat a flat pre-cycle folder
-   as the fallback for `default/<slug>` and never move it implicitly.
+   when an upgraded profile has no cycle section. Use only the canonical cycle
+   path; if `context/initiatives/` exists, stop and ask the human to run the
+   latest package `update`.
 2. Read `context/project-profile.md`, relevant accepted decisions, and
    [the evidence rules](references/evidence.md).
 3. Establish the comparison base from explicit human direction or repository

@@ -13,8 +13,9 @@ intentionally enters this stage directly.
 
 1. Require the initiative name; never derive it from the branch name. Resolve
    an explicit cycle or the profile's Current cycle, using `default` when an
-   upgraded profile has no cycle section. Treat a flat pre-cycle folder as the
-   fallback for `default/<slug>` and never move it implicitly.
+   upgraded profile has no cycle section. Use only the canonical cycle path; if
+   `context/initiatives/` exists, stop and ask the human to run the latest
+   package `update`.
 2. Read the nearest `AGENTS.md`, project profile, relevant accepted decisions,
    and the lifecycle protocol at
    `../checkpoint-context/references/lifecycle.md`.

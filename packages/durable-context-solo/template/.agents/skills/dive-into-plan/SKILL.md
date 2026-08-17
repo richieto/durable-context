@@ -11,22 +11,27 @@ Protect reasoning focus by working one concern at a time. Prefer
 ## Workflow
 
 1. Resolve an explicit cycle or the project profile's Current cycle, using
-   `default` when an upgraded profile has no cycle section. Treat a flat
-   pre-cycle folder as the fallback for `default/<slug>` without moving it.
+   `default` when an upgraded profile has no cycle section. Use only the
+   canonical cycle path; if `context/initiatives/` exists, stop and ask the
+   human to run the latest package `update`.
 2. Read the named initiative README and plan, project profile, relevant accepted
    decisions, and project-owned concern templates.
 3. Confirm that every profiled concern has Material, No impact, External, or
    Introduced disposition. Return TBD and unexplained Unknown entries to
    planning.
-4. For each Material or Introduced concern, create its focused document and
-   interrogate it separately: behavior, interface, architecture/data, testing,
+4. Read [the intent and record protocol](../durable-context-solo/references/intent-and-records.md).
+   Return to planning if goal or intent remains unsettled. For each Material or
+   Introduced concern, create its focused document and interrogate only its
+   decision-bearing ambiguity: behavior, interface, architecture/data, testing,
    delivery, infrastructure/configuration, operations, backlog, or release-doc
-   impact. Ground conclusions in repository evidence.
+   impact. Ground conclusions in repository evidence; do not turn the concern
+   inventory into a questionnaire.
 5. For No impact, preserve the concise reason in the README. For External,
    record the stable destination and the local implication without inventing
    external completion.
-6. Link focus documents from README and `plan.md`. Keep settled details in the
-   owning document rather than duplicating them across every file.
+6. Link focus documents from README and `plan.md`. Keep the minimum sufficient
+   conclusions in the owning document rather than duplicating details or
+   preserving the interview transcript across files.
 7. Perform a synthesis pass across all selected documents. Resolve conflicting
    assumptions, sequencing, contracts, failure behavior, verification gaps,
    and implementation dependencies.

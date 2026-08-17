@@ -22,7 +22,8 @@ map it to a sprint, release, milestone, quarter, or another meaningful cadence.
 
 Use one safe path segment for a cycle ID. An omitted cycle resolves to the
 single current-cycle field. Fresh installations start in `default`; change the
-pointer when the project adopts a more meaningful cycle. The project backlog,
+pointer with `durable-context-solo cycle init <cycle-id>` when the project
+adopts a more meaningful cycle. The project backlog,
 prioritization, capacity, and scheduling remain in Jira, GitHub, or the
 project's equivalent.
 

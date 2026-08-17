@@ -6,7 +6,13 @@ Area-specific `AGENTS.md` files layer on top of this one.
 ## Durable Context
 
 Working context under [`context/`](context/); durable decisions under [`decisions/`](decisions/).
-Initiatives under `context/cycles/<cycle-id>/initiatives/` are disposable; promote accepted decisions to [`decisions/`](decisions/). Read the current cycle and local cycle policy from [`context/project-profile.md`](context/project-profile.md). Pre-cycle `context/initiatives/` folders are implicit members of `default` and are not moved automatically.
+Initiatives under `context/cycles/<cycle-id>/initiatives/` are disposable; promote accepted decisions to [`decisions/`](decisions/). Read the current cycle and local cycle policy from [`context/project-profile.md`](context/project-profile.md). The package updater moves pre-cycle `context/initiatives/` folders into `default`.
+
+For unclear intent, inspect repository evidence first and then interview the
+human with focused, decision-bearing questions. Keep artifacts to the minimum
+sufficient record: conclusions, decision-relevant rationale and constraints,
+evidence, unresolved material questions, and the next action. Omit transcripts,
+routine narration, generic advice, and duplicated facts.
 
 Recommended invocation-only front door:
 

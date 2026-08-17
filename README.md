@@ -46,6 +46,14 @@ Both editions provision `context/cycles/default/initiatives/` and make
 `default` current. Projects may map later cycles to any meaningful cadence;
 project-level scheduling and backlog management stay in external tools.
 
+```bash
+npx durable-context cycle init release-2
+npx durable-context-solo cycle init quarter-3
+```
+
+Initializing a cycle creates its initiative container and makes it the sole
+current cycle without defining what the cycle means.
+
 Reference (after a release tag):
 
 ```text

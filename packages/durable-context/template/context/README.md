@@ -40,11 +40,19 @@ validating state. The planning, challenge, dive, and project-profile skills rema
 advanced direct entry points.
 
 Legacy initiatives without lifecycle markers stay on their existing workflow
-and are not migrated automatically. Pre-cycle folders under `initiatives/` are
-treated as members of `default` without being moved; use `default/<slug>` to
-address one explicitly after another cycle becomes current.
+and are not given lifecycle metadata automatically. The package updater moves
+pre-cycle folders under `initiatives/` into the canonical `default` cycle.
 
 Both `backlog.md` and `follow-up.md` remain bounded initiative traces.
 `backlog.md` records the implementation state inside this initiative;
 `follow-up.md` records work handed to an external destination. Neither replaces
 the project's backlog or tracks transferred work after handover.
+
+## Writing Standard
+
+Use the minimum sufficient record. Preserve settled conclusions,
+decision-relevant rationale and constraints, evidence, unresolved material
+questions, and the next action. Ask focused questions when intent is unclear,
+but store conclusions rather than the interview transcript. Prefer links over
+duplicated facts and expand detail only in proportion to uncertainty, impact,
+risk, or cost of reversal.

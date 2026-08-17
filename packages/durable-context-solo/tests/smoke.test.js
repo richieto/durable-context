@@ -296,8 +296,9 @@ test('update refreshes managed agent assets without replacing project work', asy
   assert.equal(await readFile(path.join(target, 'context/README.md'), 'utf8'), '# User Context\n');
   assert.equal(await readFile(path.join(target, 'decisions/README.md'), 'utf8'), '# User Decisions\n');
   assert.match(await readFile(profilePath, 'utf8'), /- Current cycle: sprint-12/);
+  assert.equal(await exists(path.join(target, 'context/initiatives')), false);
   assert.equal(
-    await readFile(path.join(target, 'context/initiatives/legacy-work/README.md'), 'utf8'),
+    await readFile(path.join(target, 'context/cycles/default/initiatives/legacy-work/README.md'), 'utf8'),
     '# Legacy Work\n\nStatus: In progress\n'
   );
 
@@ -387,17 +388,92 @@ test('skills preserve profiling, focused distribution, lightweight state, and di
   const skillsRoot = path.join(packageRoot, 'template/.agents/skills');
   const frontDoor = await readFile(path.join(skillsRoot, 'durable-context-solo/SKILL.md'), 'utf8');
   const planning = await readFile(path.join(skillsRoot, 'plan-with-context/SKILL.md'), 'utf8');
+  const challenge = await readFile(path.join(skillsRoot, 'challenge/SKILL.md'), 'utf8');
   const dive = await readFile(path.join(skillsRoot, 'dive-into-plan/SKILL.md'), 'utf8');
   const backfill = await readFile(path.join(skillsRoot, 'backfill-with-context/SKILL.md'), 'utf8');
+  const intentProtocol = await readFile(
+    path.join(skillsRoot, 'durable-context-solo/references/intent-and-records.md'),
+    'utf8'
+  );
 
   assert.match(frontDoor, /Do not rediscover known/);
   assert.match(frontDoor, /Do not add phases/);
+  assert.match(frontDoor, /lacks the resume markers/);
+  assert.match(frontDoor, /legacy and leave it unchanged/);
+  assert.match(frontDoor, /focused intent interview/);
+  assert.match(frontDoor, /minimum sufficient record/);
+  assert.match(frontDoor, /omit narration, generic advice, transcripts, and duplication/);
   assert.match(planning, /every\s+Present or External concern/);
+  assert.match(planning, /intent and record protocol/);
+  assert.match(planning, /conclusions in the plan rather than the\s+interview transcript/);
   assert.match(planning, /Do not begin implementation/);
+  assert.match(challenge, /steelman the exact recommendation/);
   assert.match(dive, /one concern at a time/);
+  assert.match(dive, /do not turn the concern\s+inventory into a questionnaire/);
+  assert.match(intentProtocol, /Use a Socratic posture/);
   assert.match(dive, /synthesis pass/);
   assert.match(dive, /directly as the next self-contained root ADR/);
   assert.match(backfill, /Observed, Human-confirmed, Inferred, and Unknown/);
+});
+
+test('Solo update migrates a pre-cycle legacy initiative without adding resume metadata', async () => {
+  const target = await mkdtemp(path.join(tmpdir(), 'durable-context-solo-pre-cycle-'));
+  await mkdir(path.join(target, 'context/initiatives/legacy-work'), { recursive: true });
+  await mkdir(path.join(target, '.durable-context-solo'), { recursive: true });
+  await writeFile(
+    path.join(target, 'context/project-profile.md'),
+    '# Project Profile\n\nProject: Legacy Solo App\n'
+  );
+  await writeFile(
+    path.join(target, 'context/initiatives/legacy-work/README.md'),
+    '# Legacy Work\n\nUnstructured notes only.\n'
+  );
+  await writeFile(
+    path.join(target, '.durable-context-solo/install.json'),
+    `${JSON.stringify({
+      schemaVersion: 1,
+      packageName: 'durable-context-solo',
+      installedVersion: '0.1.1',
+      projectName: 'Legacy Solo App',
+      installedSkills: ['devils-advocate']
+    }, null, 2)}\n`
+  );
+
+  await execFileAsync(process.execPath, [cliPath, 'update', '--target', target]);
+
+  const migrated = await readFile(
+    path.join(target, 'context/cycles/default/initiatives/legacy-work/README.md'),
+    'utf8'
+  );
+  assert.equal(migrated, '# Legacy Work\n\nUnstructured notes only.\n');
+  assert.doesNotMatch(migrated, /durable-context-solo:resume/);
+  assert.equal(await exists(path.join(target, 'context/initiatives')), false);
+});
+
+test('Solo cycle init shares the generic current-cycle mechanics', async () => {
+  const target = await mkdtemp(path.join(tmpdir(), 'durable-context-solo-cycle-'));
+  await execFileAsync(process.execPath, [
+    cliPath,
+    'init',
+    '--target',
+    target,
+    '--project-name',
+    'Solo Cycle App'
+  ]);
+  await execFileAsync(process.execPath, [
+    cliPath,
+    'cycle',
+    'init',
+    'quarter-3',
+    '--target',
+    target
+  ]);
+
+  assert.equal(await exists(path.join(target, 'context/cycles/quarter-3/initiatives')), true);
+  assert.match(
+    await readFile(path.join(target, 'context/project-profile.md'), 'utf8'),
+    /- Current cycle: quarter-3/
+  );
 });
 
 async function exists(filePath) {

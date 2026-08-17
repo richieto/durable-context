@@ -42,6 +42,16 @@ review gates, ownership routing, transfer states, or PR-readiness validator.
 Its status is only `Active`, `Paused`, `Complete`, or `Abandoned`; the checkpoint
 and next action carry the useful detail.
 
-Pre-cycle folders under `initiatives/` are treated as members of `default`
-without being moved. `backlog.md` remains a bounded trace of implementation
-state inside an initiative; it does not replace the project's external backlog.
+The package updater moves pre-cycle folders under `initiatives/` into the
+canonical `default` cycle without adding resume metadata. `backlog.md` remains
+a bounded trace of implementation state inside an initiative; it does not
+replace the project's external backlog.
+
+## Writing Standard
+
+Use the minimum sufficient record. Preserve settled conclusions,
+decision-relevant rationale and constraints, evidence, unresolved material
+questions, and the next action. Ask focused questions when intent is unclear,
+but store conclusions rather than the interview transcript. Prefer links over
+duplicated facts and expand detail only in proportion to uncertainty, impact,
+risk, or cost of reversal.

@@ -59,7 +59,8 @@ makes decisions.
 project-owned cycle section. That section records at most one current cycle and
 local naming, retention, validation, and repository rules. Fresh installations
 start with `default`; an initiative without an explicit cycle uses the current
-cycle.
+cycle. `durable-context cycle init <cycle-id>` creates a cycle container and
+makes it the sole current cycle; the former cycle remains untouched.
 
 A cycle is only a namespace. The package does not decide whether it is a sprint,
 release, milestone, quarter, or another cadence, and it does not create cycle
@@ -93,6 +94,30 @@ The specialist names are advanced direct entry points. Most users need to
 remember only `durable-context`. For work that remains small, the front door
 recommends normal agent planning rather than scaffolding an initiative.
 
+## Clarifying Intent Without Inventing It
+
+Repository inspection answers factual questions; it cannot reliably answer
+what outcome a human wants or which trade-off they prefer. When that distinction
+could materially change scope, behavior, architecture, or acceptance criteria,
+the workflow remains at its current boundary and uses a focused intent
+interview. It states the ambiguity, separates evidence from interpretation and
+human choice, asks one decision-bearing question or one small coherent group,
+and reflects the emerging interpretation for correction.
+
+This is a Socratic technique inside planning, detailed design, and challenge—not
+a separate mandatory phase or a generic questionnaire. Questions stop when the
+next safe boundary is clear. The skills do not ask humans for facts available in
+the repository or delegate routine implementation choices that the agent can
+make within the accepted direction.
+
+Artifacts preserve conclusions rather than conversation. The minimum
+sufficient record includes the settled direction, rationale and material
+constraints, evidence or a stable link, unresolved material questions or risks,
+and the next action when continuity requires it. Transcripts, routine narration,
+generic advice, and duplicated background are omitted. Detail grows with
+uncertainty, impact, risk, and the cost of reversal—not with the length of the
+session.
+
 ## Initiative Lifecycle
 
 Lifecycle-managed initiatives move through six phases:
@@ -116,8 +141,9 @@ records rationale and trade-offs. Unrelated work can continue while review is
 waiting.
 
 Existing initiatives without lifecycle markers remain readable legacy context
-and are not migrated automatically. Pre-cycle `context/initiatives/<slug>/`
-folders are treated as implicit members of `default` without being moved.
+and are not given lifecycle metadata automatically. Package update moves
+pre-cycle `context/initiatives/<slug>/` folders into the canonical `default`
+cycle after checking for destination collisions.
 
 ## Initiatives
 

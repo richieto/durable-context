@@ -340,7 +340,7 @@
 
     .timeline {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(6, minmax(0, 1fr));
       gap: 10px;
       align-items: stretch;
     }
@@ -404,6 +404,75 @@
       margin: 0;
     }
 
+    .choice {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .choice-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.5rem;
+      font-weight: 750;
+    }
+
+    .flow-band {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .flow-band .tile strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 750;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .compact-list {
+      margin: 10px 0 0;
+      padding-left: 20px;
+    }
+
+    .compact-list li + li {
+      margin-top: 6px;
+    }
+
+    .boundary {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .boundary > div {
+      padding: 18px;
+    }
+
+    .boundary .working {
+      background: var(--green-soft);
+    }
+
+    .boundary .durable {
+      background: var(--violet-soft);
+    }
+
     footer {
       padding: 28px 0 40px;
       color: var(--muted);
@@ -415,8 +484,16 @@
       .grid.two,
       .grid.three,
       .grid.four,
-      .timeline {
+      .timeline,
+      .choice,
+      .flow-band,
+      .boundary {
         grid-template-columns: 1fr;
+      }
+
+      .choice-arrow {
+        transform: rotate(90deg);
+        justify-self: center;
       }
 
       .decision {
@@ -430,6 +507,47 @@
 
       .decision div:last-child {
         border-bottom: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .matrix,
+      .matrix tbody,
+      .matrix tr,
+      .matrix td {
+        display: block;
+        width: 100%;
+      }
+
+      .matrix {
+        border: 0;
+        background: transparent;
+      }
+
+      .matrix thead {
+        display: none;
+      }
+
+      .matrix tr {
+        margin-bottom: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        background: #ffffff;
+      }
+
+      .matrix td {
+        border: 0;
+        padding: 10px 12px;
+      }
+
+      .matrix td:first-child {
+        background: var(--soft);
+        font-weight: 700;
+      }
+
+      .matrix td + td {
+        border-top: 1px solid var(--line);
       }
     }
 
@@ -456,35 +574,38 @@
   <header>
     <div class="wrap hero">
       <div>
-        <p class="eyebrow">Durable Context &middot; Practitioner Brief</p>
-        <h1>How humans and agents keep planning context useful over time</h1>
+        <p class="eyebrow">Durable Context · Practitioner Brief</p>
+        <h1>Keep enough context to continue—and only what deserves to survive</h1>
         <p class="lead">
-          A scannable map of the working bench and the decision log &mdash; where
-          active work lives, how settled truth is promoted, and what becomes the
-          agent's context when implementation starts. For the sibling docs
-          practice, see
-          <a href="../reference-docs/brief.html">Reference Docs</a>.
+          A practical path from unclear intent to implemented work: choose a
+          cycle, clarify what matters, preserve the minimum sufficient record,
+          and promote durable conclusions before disposable context is deleted.
         </p>
         <div class="quick-links" aria-label="Primary links">
-          <a href="../README.md">Writing</a>
-          <a href="model.md">Model</a>
-          <a href="../../packages/durable-context/template/context/README.md">Context README</a>
-          <a href="../../packages/durable-context/template/decisions/README.md">Decision Log</a>
-          <a href="../../packages/durable-context/template/context/project-profile.md">Project Profile</a>
+          <a href="#adopt">Should I use it?</a>
+          <a href="#journey">The journey</a>
+          <a href="#clarify">Intent interviews</a>
+          <a href="#record">Writing standard</a>
+          <a href="model.md">Full model</a>
         </div>
       </div>
 
-      <aside class="map" aria-label="Context map">
-        <p class="map-title">Durable Context layout</p>
+      <aside class="map" aria-label="Durable Context lifecycle">
+        <p class="map-title">The lifetime boundary</p>
         <div class="stack">
           <div class="node release">
-            <strong>context/</strong>
-            <span>Disposable working bench &middot; cycle-grouped initiatives</span>
+            <strong>Current cycle</strong>
+            <span><code>default</code> or a project-defined cadence</span>
           </div>
-          <div class="connector">promote accepted decisions to</div>
+          <div class="connector">contains active initiatives</div>
+          <div class="node planned">
+            <strong>Clarify → plan → challenge → dive → deliver</strong>
+            <span>Keep conclusions and evidence, not the conversation</span>
+          </div>
+          <div class="connector">promote what must outlive the bench</div>
           <div class="node program">
-            <strong>decisions/</strong>
-            <span>Durable, append-only ADR log</span>
+            <strong>decisions/ and reference/</strong>
+            <span>Self-contained after cycle context is deleted</span>
           </div>
         </div>
       </aside>
@@ -493,380 +614,373 @@
 
   <nav aria-label="Page sections">
     <div class="wrap">
-      <a href="#why">Why</a>
-      <a href="#truth">Layout</a>
-      <a href="#decision-guide">Where It Goes</a>
-      <a href="#lifecycle">Lifecycle</a>
+      <a href="#adopt">Adopt</a>
+      <a href="#cycles">Cycles</a>
+      <a href="#journey">Journey</a>
+      <a href="#clarify">Clarify</a>
+      <a href="#record">Write Enough</a>
+      <a href="#boundaries">Boundaries</a>
       <a href="#skills">Skills</a>
-      <a href="#delivery-surface">Delivery Surface</a>
-      <a href="#files">Files</a>
-      <a href="#decision-log">Decision Log</a>
-      <a href="#navigation">Navigation</a>
+      <a href="#start">Start</a>
     </div>
   </nav>
 
   <main class="wrap">
-    <section id="why">
-      <h2>Why This Exists</h2>
+    <section id="adopt">
+      <p class="eyebrow">First decision</p>
+      <h2>Use durable context when the reasoning is expensive to lose</h2>
       <p class="section-intro">
-        <code>context/</code> is working development truth &mdash; disposable,
-        messy, allowed to drift. <code>decisions/</code> is the durable record
-        of why the system is the way it is. What you plan durably becomes the
-        agent's working context when implementation starts.
+        Durable Context is opt-in. It is for meaningful work whose intent,
+        trade-offs, delivery consequences, or architectural decisions must
+        survive sessions, agents, and handoffs.
       </p>
-      <div class="grid two">
+      <div class="choice">
         <div class="tile accent-release">
-          <h3>Use <code>context/</code> while work is forming</h3>
+          <span class="tag">Use native planning</span>
+          <h3>Small, routine, reversible</h3>
           <p>
-            Put plans, specs, ADR drafts, backlog, and optional release-doc notes
-            here during normal development. Archive the bench when done.
+            The change is well understood, locally contained, and cheap to
+            revisit. Ship it without creating an initiative.
           </p>
         </div>
+        <div class="choice-arrow" aria-hidden="true">or</div>
         <div class="tile accent-program">
-          <h3>Promote accepted choices to <code>decisions/</code></h3>
+          <span class="tag">Use Durable Context</span>
+          <h3>Meaningful, ambiguous, consequential</h3>
           <p>
-            The append-only ADR log outlives the bench, so the rationale behind
-            accepted decisions stays findable after an initiative is archived.
+            Intent needs clarification, several concerns interact, decisions
+            are costly to reverse, or another human or agent must continue.
           </p>
         </div>
       </div>
       <div class="note" style="margin-top: 16px;">
         <p>
-          Install:
-          <code>npx durable-context init --project-name "My App"</code>.
-          Recommended invocation-only front door: <code>durable-context</code>.
-          Advanced skills: <code>project-profile-baseline</code>,
-          <code>project-profile-refresh</code>, <code>plan-with-context</code>,
-          <code>challenge</code>,
-          <code>dive-into-plan</code>.
+          The goal is not more documentation. The goal is enough durable
+          reasoning to continue correctly without preserving chat history.
         </p>
       </div>
     </section>
 
-    <section id="truth">
-      <h2>The Layout</h2>
+    <section id="cycles">
+      <p class="eyebrow">Allocation, not methodology</p>
+      <h2>Put each initiative in one current cycle</h2>
       <p class="section-intro">
-        Put knowledge where its lifetime matches the work. Do not duplicate
-        active plans into area-local folders.
+        A cycle is a generic namespace. Your project may treat it as a release,
+        sprint, milestone, quarter, or any other meaningful cadence. Durable
+        Context does not add dates, goals, capacity, scheduling, or cycle status.
       </p>
-      <div class="grid two">
+      <div class="grid three">
         <div class="tile accent-release">
-          <h3>Working context</h3>
-          <p>Disposable bench, one folder per piece of work in progress. Drifts by design; archived when the work ships.</p>
-          <code class="path">context/cycles/&lt;cycle-id&gt;/initiatives/&lt;slug&gt;/</code>
+          <span class="tag">Start simply</span>
+          <h3><code>default</code></h3>
+          <p>Fresh installations always have a useful current cycle.</p>
+          <code class="path">context/cycles/default/initiatives/</code>
+        </div>
+        <div class="tile accent-planned">
+          <span class="tag">Adopt local meaning</span>
+          <h3>Initialize another cycle</h3>
+          <p>Create the container and make it the sole current cycle.</p>
+          <code class="path">npx durable-context cycle init release-2</code>
         </div>
         <div class="tile accent-program">
-          <h3>Durable decisions</h3>
-          <p>Append-only, numbered ADR log with statuses. Accepted decisions are promoted out of an initiative and kept here.</p>
-          <code class="path">decisions/&lt;NNNN&gt;-short-title.md</code>
+          <span class="tag">Keep policy local</span>
+          <h3>Project profile</h3>
+          <p>Naming, retention, validation, and repository rules belong to the project.</p>
+          <code class="path">context/project-profile.md</code>
         </div>
       </div>
+      <p class="section-intro" style="margin-top: 16px;">
+        Starting a new cycle only changes the current pointer. The former cycle
+        remains untouched. Closed cycles may eventually be deleted after their
+        durable outputs are self-contained.
+      </p>
     </section>
 
-    <section id="decision-guide">
-      <h2>Where Does It Go?</h2>
+    <section id="journey">
+      <p class="eyebrow">The working journey</p>
+      <h2>Move from unclear intent to a durable outcome</h2>
       <p class="section-intro">
-        Use this when deciding where new knowledge belongs.
+        Invoke <code>durable-context</code> with a named initiative. The front
+        door resumes recorded state and advances only to the next meaningful
+        boundary.
       </p>
-
-      <div class="decision">
-        <div class="question">Is this work in progress right now?</div>
-        <div class="answer">Use an initiative on the working bench. One folder per piece of work.</div>
-        <div class="target"><code>context/cycles/&lt;cycle-id&gt;/initiatives/&lt;slug&gt;/</code></div>
-      </div>
-
-      <div class="decision">
-        <div class="question">Is this an accepted architecture or design choice?</div>
-        <div class="answer">Promote it into the durable, append-only decision log so it outlives the bench.</div>
-        <div class="target"><code>decisions/&lt;NNNN&gt;-short-title.md</code></div>
-      </div>
-
-      <div class="decision">
-        <div class="question">Is it optional notes for shipped-behavior docs later?</div>
-        <div class="answer">Leave it in the initiative. Reference Docs may use it when refreshing from tags.</div>
-        <div class="target"><code>context/cycles/&lt;cycle-id&gt;/initiatives/&lt;slug&gt;/release-doc-notes.md</code></div>
-      </div>
-    </section>
-
-    <section id="lifecycle">
-      <h2>Lifecycle</h2>
-      <p class="section-intro">
-        Work moves from a messy bench to a PR-ready snapshot. Invoke
-        <code>durable-context</code> with an explicit initiative name; the
-        specialist skills remain invocation-only advanced entry points.
-      </p>
-      <div class="timeline" aria-label="Context lifecycle">
+      <div class="timeline" aria-label="Durable Context journey">
         <div class="step">
           <span class="step-number">1</span>
-          <h3>Start an initiative</h3>
-          <p>Create only <code>README.md</code> and <code>plan.md</code>, with lifecycle state and a concrete next action.</p>
+          <h3>Clarify</h3>
+          <p>Separate repository facts from the human choices that shape intent.</p>
         </div>
         <div class="step">
           <span class="step-number">2</span>
-          <h3>Plan with context</h3>
-          <p>Use <code>plan-with-context</code> to draft the durable plan in <code>plan.md</code> across the whole change surface.</p>
+          <h3>Plan</h3>
+          <p>Settle goals, success, scope, constraints, options, and open questions.</p>
         </div>
         <div class="step">
           <span class="step-number">3</span>
-          <h3>Review and route</h3>
-          <p>Optionally pressure-test the plan, then agree which concerns are local, external, hybrid, or not applicable.</p>
+          <h3>Challenge</h3>
+          <p>Optionally steelman and pressure-test a meaningful recommendation.</p>
         </div>
         <div class="step">
           <span class="step-number">4</span>
-          <h3>Implement and verify</h3>
-          <p>Create only applicable concern docs, implement the settled work, and preserve verification evidence.</p>
+          <h3>Dive</h3>
+          <p>Route material concerns and interrogate only decision-bearing gaps.</p>
         </div>
         <div class="step">
           <span class="step-number">5</span>
-          <h3>Prepare the PR snapshot</h3>
-          <p>Resolve blocking challenges, disposition follow-ups, and promote self-contained accepted ADRs.</p>
+          <h3>Deliver</h3>
+          <p>Implement, verify, checkpoint, and disclose transferred follow-ups.</p>
         </div>
+        <div class="step">
+          <span class="step-number">6</span>
+          <h3>Distill</h3>
+          <p>Promote self-contained decisions and released-behavior knowledge.</p>
+        </div>
+      </div>
+      <div class="flow-band">
+        <div class="tile">
+          <strong>Planning boundary</strong>
+          <p>Direction is clear enough to review or design.</p>
+        </div>
+        <div class="tile">
+          <strong>Detailed-design boundary</strong>
+          <p>Every material concern has an owner, route, and settled implication.</p>
+        </div>
+        <div class="tile">
+          <strong>PR boundary</strong>
+          <p>Evidence, decisions, and follow-up dispositions tell the final truth.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="clarify">
+      <p class="eyebrow">When intent is the unknown</p>
+      <h2>Interview the human instead of guessing</h2>
+      <p class="section-intro">
+        Repository evidence answers what exists. It cannot decide what outcome
+        the human values, which trade-off is acceptable, or whether the emerging
+        interpretation is actually the intended one.
+      </p>
+      <div class="grid two">
+        <div class="tile accent-release">
+          <span class="tag">Intent interview</span>
+          <h3>Clarify before recommending</h3>
+          <ul class="compact-list">
+            <li>State the ambiguity and why it changes the work.</li>
+            <li>Ask one decision-bearing question or one small group at a time.</li>
+            <li>Offer concrete options when they help expression, without assuming one.</li>
+            <li>Reflect the emerging interpretation back for correction.</li>
+            <li>Stop when direction is clear enough for the next boundary.</li>
+          </ul>
+        </div>
+        <div class="tile accent-planned">
+          <span class="tag">Do not interrogate by default</span>
+          <h3>Inspect first, ask selectively</h3>
+          <ul class="compact-list">
+            <li>Do not ask questions the repository can answer.</li>
+            <li>Do not transfer routine implementation choices to the human.</li>
+            <li>Do not turn every concern into a questionnaire.</li>
+            <li>Do not use challenge to invent a target when intent is unsettled.</li>
+            <li>Record conclusions and open questions—not the transcript.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note" style="margin-top: 16px;">
+        <p>
+          <strong>Planning</strong> interviews for goals and boundaries.
+          <strong>Dive</strong> interviews for material concern ambiguity.
+          <strong>Challenge</strong> first steelmans a settled recommendation,
+          then uses focused questions to expose assumptions and alternatives.
+        </p>
       </div>
     </section>
 
     <section id="skills">
-      <h2>Installed Skills</h2>
+      <p class="eyebrow">One front door, focused methods</p>
+      <h2>Remember <code>durable-context</code>; reach for specialists deliberately</h2>
       <p class="section-intro">
-        These skills are discoverable after install, but invocation-only. Ask
-        for them by name when the work needs that part of the model.
+        Skills are invocation-only and agent-agnostic Markdown instructions.
+        They shape repository artifacts and workflow boundaries, while the host
+        agent and the user's request still govern conversational style.
       </p>
       <table class="matrix">
         <thead>
           <tr>
             <th>Skill</th>
-            <th>Use it for</th>
-            <th>When</th>
+            <th>Responsibility</th>
+            <th>Human interaction</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><code>durable-context</code></td>
-            <td>Resume a named initiative and advance it to the next meaningful boundary.</td>
-            <td>Recommended front door for the complete lifecycle.</td>
-          </tr>
-          <tr>
-            <td><code>project-profile-baseline</code></td>
-            <td>Establish stable repo-wide operating facts.</td>
-            <td>Once, when adopting the practice.</td>
-          </tr>
-          <tr>
-            <td><code>project-profile-refresh</code></td>
-            <td>Update stable facts when repo behavior changes.</td>
-            <td>When commands, structure, delivery, or docs boundaries change.</td>
+            <td>Resume state and choose the next safe boundary.</td>
+            <td>Routes unclear intent back to planning.</td>
           </tr>
           <tr>
             <td><code>plan-with-context</code></td>
-            <td>Create or use an initiative and draft <code>plan.md</code>.</td>
-            <td>For meaningful work that deserves durable planning.</td>
+            <td>Settle direction and maintain the integration plan.</td>
+            <td>Intent interview when goals, scope, or trade-offs are unclear.</td>
           </tr>
           <tr>
             <td><code>challenge</code></td>
-            <td>Challenge a draft plan before it hardens.</td>
-            <td>Before distribution, when a decision needs pressure-testing.</td>
+            <td>Steelman and pressure-test a meaningful recommendation.</td>
+            <td>Clarifies the target, then exposes assumptions and alternatives.</td>
           </tr>
           <tr>
             <td><code>dive-into-plan</code></td>
-            <td>Interrogate gaps, route concerns, distribute truth, and record or promote ADRs.</td>
-            <td>After the plan is settled enough to distribute.</td>
+            <td>Route and resolve material concern-level consequences.</td>
+            <td>Asks only questions that can change a concern's design or route.</td>
           </tr>
           <tr>
             <td><code>backfill-with-context</code></td>
-            <td>Reconstruct observed and confirmed context from existing work.</td>
-            <td>When an ordinary change grows into an initiative before its PR.</td>
+            <td>Reconstruct evidence when ordinary work grows large.</td>
+            <td>Separates observed facts, confirmed intent, inference, and unknowns.</td>
           </tr>
           <tr>
             <td><code>checkpoint-context</code></td>
-            <td>Validate lifecycle consistency and record the next action.</td>
-            <td>At meaningful boundaries and substantial session endings.</td>
+            <td>Validate lifecycle consistency and record continuity.</td>
+            <td>Stops at human choices and records one concrete next action.</td>
           </tr>
         </tbody>
       </table>
+      <p class="section-intro" style="margin-top: 16px;">
+        Project-profile baseline and refresh remain advanced maintenance skills
+        for stable repository facts. Small changes continue to use normal agent
+        planning without Durable Context.
+      </p>
     </section>
 
-    <section id="delivery-surface">
-      <h2>Delivery Surface</h2>
+    <section id="record">
+      <p class="eyebrow">Artifact quality</p>
+      <h2>Write the minimum sufficient record</h2>
       <p class="section-intro">
-        Working context describes the whole delivery system, not only the
-        product code. The structure follows delivery concerns, not specific
-        technologies or vendors.
+        Completeness is semantic, not a word-count target. Another human or
+        agent should be able to continue correctly without reading the original
+        conversation.
       </p>
-      <div class="grid three">
+      <div class="grid two">
         <div class="tile accent-release">
-          <h3><code>testing.md</code></h3>
-          <p>
-            Verification strategy, automated and manual coverage, test data,
-            regression risk, and release gates.
+          <span class="tag">Keep</span>
+          <h3>Information that changes continuation</h3>
+          <ul class="compact-list">
+            <li>The settled conclusion or current direction.</li>
+            <li>Decision-relevant rationale, constraints, and accepted trade-offs.</li>
+            <li>Evidence or a stable link to the artifact that owns it.</li>
+            <li>Unresolved material questions, risks, and one concrete next action.</li>
+          </ul>
+        </div>
+        <div class="tile accent-backlog">
+          <span class="tag">Omit</span>
+          <h3>Volume without durable value</h3>
+          <ul class="compact-list">
+            <li>Conversation transcripts and narration of routine work.</li>
+            <li>Generic engineering advice or exhaustive hypothetical branches.</li>
+            <li>Repository facts already owned elsewhere.</li>
+            <li>Repeated conclusions copied into every document.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="flow-band">
+        <div class="tile">
+          <strong><code>README.md</code></strong>
+          <p>Compact state, routes, open material questions, and next action.</p>
+        </div>
+        <div class="tile">
+          <strong><code>plan.md</code></strong>
+          <p>Integration map: direction, scope, options, sequencing, and links.</p>
+        </div>
+        <div class="tile">
+          <strong>Concern documents</strong>
+          <p>Only independently material detail, stored once in its owning file.</p>
+        </div>
+      </div>
+      <div class="flow-band">
+        <div class="tile">
+          <strong><code>backlog.md</code></strong>
+          <p>Bounded implementation state inside this initiative—not project planning.</p>
+        </div>
+        <div class="tile">
+          <strong><code>follow-up.md</code></strong>
+          <p>Final disclosure of completed, transferred, or human-waived work.</p>
+        </div>
+        <div class="tile">
+          <strong>Root ADR</strong>
+          <p>Self-contained accepted decision with stable commit, PR, or release provenance.</p>
+        </div>
+      </div>
+      <div class="note" style="margin-top: 16px;">
+        <p>
+          Expand detail in proportion to uncertainty, impact, risk, and cost of
+          reversal. A concise <code>No impact — reason</code> or explicit
+          <code>Unknown</code> is better than defensive filler.
+        </p>
+      </div>
+    </section>
+
+    <section id="boundaries">
+      <p class="eyebrow">Lifetime determines location</p>
+      <h2>Distill before deleting disposable context</h2>
+      <p class="section-intro">
+        The initiative and its cycle may disappear. Anything required to
+        understand an accepted decision or released behavior must stand on its
+        own outside that working memory.
+      </p>
+      <div class="boundary">
+        <div class="working">
+          <span class="tag">Disposable working memory</span>
+          <h3><code>context/</code></h3>
+          <ul class="compact-list">
+            <li>Plans, interviews, alternatives, and open questions.</li>
+            <li>Challenge records, backfill evidence, and checkpoints.</li>
+            <li>Initiative backlog and follow-up disclosures.</li>
+            <li>Optional release-documentation hints.</li>
+          </ul>
+        </div>
+        <div class="durable">
+          <span class="tag">Must survive deletion</span>
+          <h3><code>decisions/</code> and <code>reference/</code></h3>
+          <ul class="compact-list">
+            <li>Accepted architectural and design conclusions.</li>
+            <li>Enough rationale and constraints to understand why.</li>
+            <li>Stable commit, PR, release, or source provenance.</li>
+            <li>Released behavior explained without context links as dependencies.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="decision" style="margin-top: 16px;">
+        <div class="question">Before deleting a closed cycle</div>
+        <div class="answer">Check that accepted decisions and shipped-behavior reference are self-contained and that transferred work has a stable destination.</div>
+        <div class="target"><code>context/</code> can then disappear without erasing durable truth.</div>
+      </div>
+    </section>
+
+    <section id="start">
+      <p class="eyebrow">Start here</p>
+      <h2>Adopt the practice without ceremony</h2>
+      <div class="grid two">
+        <div class="tile accent-release">
+          <h3>Install</h3>
+          <code class="path">npx durable-context init --project-name "My App"</code>
+          <p style="margin-top: 12px;">
+            Begin with current cycle <code>default</code>. Ask the agent to use
+            <code>durable-context</code> for a named meaningful initiative.
           </p>
         </div>
         <div class="tile accent-program">
-          <h3><code>delivery.md</code></h3>
-          <p>
-            CI/CD behavior, build gates, deployment flow, environment
-            promotion, release toggles, and delivery automation.
-          </p>
-        </div>
-        <div class="tile accent-planned">
-          <h3><code>infrastructure.md</code></h3>
-          <p>
-            Environment shape, IaC, resources, networking, identity, storage,
-            secrets, and environment dependencies.
-          </p>
+          <h3>Read deeper when needed</h3>
+          <ul class="compact-list">
+            <li><a href="model.md">Full model</a></li>
+            <li><a href="../../packages/durable-context/template/context/README.md">Installed context guidance</a></li>
+            <li><a href="../../packages/durable-context/template/decisions/README.md">Decision-log contract</a></li>
+            <li><a href="release-notes-2.0.md">2.0 release and migration record</a></li>
+          </ul>
         </div>
       </div>
       <div class="note" style="margin-top: 16px;">
         <p>
-          <code>operations.md</code> is optional. Use it only for actionable
-          runtime, support, observability, rollback, or repair context.
+          Small fixes still just ship. Durable Context earns its keep only when
+          the reasoning is important enough to preserve.
         </p>
-      </div>
-      <div class="note" style="margin-top: 16px;">
-        <p>
-          Mermaid diagrams are encouraged for flows and dependencies because
-          they remain readable Markdown for agents and render as visible
-          diagrams for humans.
-        </p>
-      </div>
-    </section>
-
-    <section id="files">
-      <h2>Initiative Files</h2>
-      <p class="section-intro">
-        <code>README.md</code> and <code>plan.md</code> are the initial working
-        surface. Create the other files only after their local or hybrid route
-        is confirmed.
-      </p>
-      <table class="matrix">
-        <thead>
-          <tr>
-            <th>File</th>
-            <th>Purpose</th>
-            <th>Stability</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>README.md</code></td>
-            <td>Lifecycle state, artifact routes, checkpoints, decisions, and open questions.</td>
-            <td>Stable summary</td>
-          </tr>
-          <tr>
-            <td><code>plan.md</code></td>
-            <td>Live alignment, questions, options, and notes to promote.</td>
-            <td>Messy by design</td>
-          </tr>
-          <tr>
-            <td><code>spec.md</code></td>
-            <td>What the system should do.</td>
-            <td>Stable behavior</td>
-          </tr>
-          <tr>
-            <td><code>interface.md</code></td>
-            <td>How humans, clients, APIs, config, reports, or tools interact.</td>
-            <td>Stable surface</td>
-          </tr>
-          <tr>
-            <td><code>architecture.md</code></td>
-            <td>Internal shape, boundaries, flows, contracts, and data.</td>
-            <td>Stable design</td>
-          </tr>
-          <tr>
-            <td><code>testing.md</code></td>
-            <td>Verification strategy, coverage, test data, and release gates.</td>
-            <td>Stable verification</td>
-          </tr>
-          <tr>
-            <td><code>delivery.md</code></td>
-            <td>CI/CD, build behavior, deployment flow, promotion, and toggles.</td>
-            <td>Stable delivery</td>
-          </tr>
-          <tr>
-            <td><code>infrastructure.md</code></td>
-            <td>Environment shape, IaC, resources, identity, storage, and secrets.</td>
-            <td>Stable environment</td>
-          </tr>
-          <tr>
-            <td><code>operations.md</code></td>
-            <td>Actionable runtime support: observability, failure modes, rollback, and repair.</td>
-            <td>Optional operations</td>
-          </tr>
-          <tr>
-            <td><code>release-doc-notes.md</code></td>
-            <td>Optional notes for shipped-behavior docs later.</td>
-            <td>Hint for Reference Docs</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="note" style="margin-top: 16px;">
-        <p>
-          Key rule: <code>plan.md</code> can be messy, but settled truth must
-          move into the stable files.
-        </p>
-      </div>
-    </section>
-
-    <section id="decision-log">
-      <h2>The Decision Log</h2>
-      <p class="section-intro">
-        <code>decisions/</code> is a top-level, append-only ADR log. The bench
-        is disposable, so accepted decisions are promoted here where they stay
-        findable. To see what is in force, read the entries marked
-        <code>Accepted</code>.
-      </p>
-      <table class="matrix">
-        <thead>
-          <tr>
-            <th>Rule</th>
-            <th>What it means</th>
-            <th>Where</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>One file per decision</td>
-            <td>Numbered in order; copy the template to start a new entry.</td>
-            <td><code>decisions/&lt;NNNN&gt;-short-title.md</code></td>
-          </tr>
-          <tr>
-            <td>Append-only</td>
-            <td>Do not rewrite history. When a decision changes, add a new entry.</td>
-            <td><code>Status: Superseded by NNNN</code></td>
-          </tr>
-          <tr>
-            <td>Status-driven</td>
-            <td>Each entry is Accepted, Superseded, or Deprecated.</td>
-            <td><code>Status: Accepted</code></td>
-          </tr>
-          <tr>
-            <td>Promoted from work</td>
-            <td>Accepted decisions move out of an initiative's local ADR drafts.</td>
-            <td><code>context/cycles/&lt;cycle-id&gt;/initiatives/&lt;slug&gt;/decisions/</code></td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section id="navigation">
-      <h2>Start Here</h2>
-      <p class="section-intro">
-        These are the first files a human or agent should open.
-      </p>
-      <div class="grid two">
-        <div class="tile">
-          <h3>For the working bench</h3>
-          <p><a href="../../packages/durable-context/template/context/README.md">context/README.md</a></p>
-        </div>
-        <div class="tile">
-          <h3>For durable decisions</h3>
-          <p><a href="../../packages/durable-context/template/decisions/README.md">decisions/README.md</a></p>
-        </div>
-        <div class="tile">
-          <h3>For repo-wide operating facts</h3>
-          <p><a href="../../packages/durable-context/template/context/project-profile.md">context/project-profile.md</a></p>
-        </div>
-        <div class="tile">
-          <h3>For the full article series</h3>
-          <p><a href="model.md">model.md</a> &mdash; principle, layout, and install</p>
-        </div>
       </div>
     </section>
   </main>

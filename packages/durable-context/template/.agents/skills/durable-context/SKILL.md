@@ -18,11 +18,12 @@ meaningful boundary without turning routine work into ceremony.
    starter section when creating the first cycle-contained initiative. Accept
    only a safe single path segment for each ID. Never infer either ID from the
    branch name.
-3. Treat an existing flat `context/initiatives/<slug>/` as
-   `default/<slug>` without moving it. Use that fallback only when the resolved
-   cycle is `default`. If no initiative was supplied, list managed initiatives
-   across cycles whose condition is Active, Paused, or Blocked, then list flat
-   default and legacy folders separately. Qualify duplicate slugs with cycle ID.
+3. Use only the canonical cycle path. If `context/initiatives/` still exists,
+   stop and ask the human to run the latest package `update`, which moves flat
+   initiatives into `default` after checking for collisions. If no initiative
+   was supplied, list managed initiatives across cycles whose condition is
+   Active, Paused, or Blocked, then list legacy folders separately. Qualify
+   duplicate slugs from different cycles with cycle ID.
 4. Require an initiative name after listing. If the work is still small,
    recommend the agent's native planning behavior. Invoking this router alone
    is not that second choice: create durable context only if the human
@@ -40,12 +41,16 @@ meaningful boundary without turning routine work into ceremony.
 
 ## Continue
 
-1. Read [the lifecycle protocol](references/lifecycle.md) completely.
+1. Read [the lifecycle protocol](references/lifecycle.md) and
+   [the intent and record protocol](references/intent-and-records.md) completely.
 2. Run the checkpoint validator before changing phases. Resolve hard errors;
    surface warnings without inventing work.
 3. Inspect the current phase, next action, blockers, applicable review records,
    follow-ups, plan, code, tests, and decisions.
-4. Continue work authorized by the user's request until the next human choice,
+4. Distinguish missing repository evidence from unsettled human intent. If
+   direction is unclear enough to change the plan, remain in Planning and use a
+   focused intent interview before challenge, design, or implementation.
+5. Continue work authorized by the user's request until the next human choice,
    unresolved dependency, external action, or major phase transition:
    - Planning: follow `plan-with-context`.
    - Plan Review: offer `challenge`; it remains advisory until a material
@@ -56,8 +61,8 @@ meaningful boundary without turning routine work into ceremony.
    - Verification: run applicable checks and reconcile known gaps.
    - PR Preparation: reconcile decisions, project-profile impact,
      release/reference impact, follow-ups, and PR evidence.
-5. Use `backfill-with-context` when the code predates the initiative.
-6. Use `checkpoint-context` at every meaningful boundary and before ending a
+6. Use `backfill-with-context` when the code predates the initiative.
+7. Use `checkpoint-context` at every meaningful boundary and before ending a
    substantial session.
 
 ## Boundaries
@@ -68,6 +73,9 @@ meaningful boundary without turning routine work into ceremony.
   capacity, schedules, or status metadata; those belong in the project's
   external planning system.
 - Do not promote review transcripts or reconstruction notes to root decisions.
+- Keep every artifact to the minimum sufficient record: preserve conclusions,
+  decision-relevant rationale, evidence, unresolved material questions, and the
+  next action; omit narration, generic advice, transcripts, and duplication.
 - Do not claim external work is complete without evidence or a human waiver.
 - Do not update merged initiatives merely to track post-merge progress; use the
   destination system or a new code-changing initiative.

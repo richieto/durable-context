@@ -15,15 +15,28 @@ const packageJson = JSON.parse(await readFile(path.join(packageRoot, 'package.js
 test('installed skills encode the front-door, backfill, review, and routing scenarios', async () => {
   const skillsRoot = path.join(packageRoot, 'template/.agents/skills');
   const frontDoor = await readFile(path.join(skillsRoot, 'durable-context/SKILL.md'), 'utf8');
+  const planning = await readFile(path.join(skillsRoot, 'plan-with-context/SKILL.md'), 'utf8');
   const backfill = await readFile(path.join(skillsRoot, 'backfill-with-context/SKILL.md'), 'utf8');
   const challenge = await readFile(path.join(skillsRoot, 'challenge/SKILL.md'), 'utf8');
   const dive = await readFile(path.join(skillsRoot, 'dive-into-plan/SKILL.md'), 'utf8');
+  const intentProtocol = await readFile(
+    path.join(skillsRoot, 'durable-context/references/intent-and-records.md'),
+    'utf8'
+  );
 
   assert.match(frontDoor, /recommend the agent's native planning behavior/);
   assert.match(frontDoor, /Never infer either ID from the\s+branch name/);
   assert.match(frontDoor, /Current cycle/);
-  assert.match(frontDoor, /flat `context\/initiatives\/<slug>\/`/);
+  assert.match(frontDoor, /Use only the canonical cycle path/);
   assert.match(frontDoor, /legacy and leave it unchanged/);
+  assert.match(frontDoor, /focused intent interview/);
+  assert.match(frontDoor, /minimum sufficient record/);
+  assert.match(frontDoor, /omit narration, generic advice, transcripts, and duplication/);
+  assert.match(planning, /intent and record protocol/);
+  assert.match(planning, /conclusions rather than the interview transcript/);
+  assert.match(challenge, /steelman the exact recommendation or decision/);
+  assert.match(dive, /Do not turn the whole change surface into a\s+questionnaire/);
+  assert.match(intentProtocol, /Use a Socratic posture/);
   assert.match(backfill, /Observed:/);
   assert.match(backfill, /Human-confirmed:/);
   assert.match(backfill, /Do not fabricate completed/);
@@ -331,8 +344,9 @@ test('update refreshes managed agent assets without replacing project work', asy
     await readFile(path.join(target, 'context/_templates/initiative/README.md'), 'utf8'),
     '# Project-owned legacy initiative template\n'
   );
+  assert.equal(await exists(path.join(target, 'context/initiatives')), false);
   assert.equal(
-    await readFile(path.join(target, 'context/initiatives/legacy-work/README.md'), 'utf8'),
+    await readFile(path.join(target, 'context/cycles/default/initiatives/legacy-work/README.md'), 'utf8'),
     '# Legacy Work\n\nStatus: In progress\n'
   );
 
@@ -370,6 +384,124 @@ test('update refreshes managed agent assets without replacing project work', asy
   assert.equal(
     await readFile(path.join(target, '.agents/skills/plan-with-context/SKILL.md'), 'utf8'),
     '# Dry-run local edit\n'
+  );
+});
+
+test('update normalizes an authentic pre-cycle installation into default', async () => {
+  const target = await mkdtemp(path.join(tmpdir(), 'durable-context-pre-cycle-'));
+  await mkdir(path.join(target, 'context/initiatives/legacy-work'), { recursive: true });
+  await mkdir(path.join(target, '.durable-context'), { recursive: true });
+  await writeFile(
+    path.join(target, 'context/project-profile.md'),
+    '# Project Profile\n\nProject: Legacy App\n\n## Repository Shape\n\nUnknown\n'
+  );
+  await writeFile(
+    path.join(target, 'context/initiatives/legacy-work/README.md'),
+    '# Legacy Work\n\nStatus: In progress\n'
+  );
+  await writeFile(
+    path.join(target, 'migration-links.md'),
+    '[Legacy work](context/initiatives/legacy-work/README.md)\n'
+  );
+  await writeFile(
+    path.join(target, '.durable-context/install.json'),
+    `${JSON.stringify({
+      schemaVersion: 1,
+      packageName: 'durable-context',
+      installedVersion: '1.2.1',
+      projectName: 'Legacy App',
+      installedSkills: ['devils-advocate']
+    }, null, 2)}\n`
+  );
+
+  const { stdout } = await execFileAsync(process.execPath, [cliPath, 'update', '--target', target]);
+
+  assert.match(stdout, /add cycle policy to context\/project-profile\.md/);
+  assert.match(stdout, /move context\/initiatives\/legacy-work to context\/cycles\/default\/initiatives\/legacy-work/);
+  assert.equal(await exists(path.join(target, 'context/initiatives')), false);
+  assert.equal(
+    await readFile(path.join(target, 'context/cycles/default/initiatives/legacy-work/README.md'), 'utf8'),
+    '# Legacy Work\n\nStatus: In progress\n'
+  );
+  assert.match(
+    await readFile(path.join(target, 'context/project-profile.md'), 'utf8'),
+    /<!-- durable-context:cycle:start -->[\s\S]*- Current cycle: default/
+  );
+  assert.equal(
+    await readFile(path.join(target, 'migration-links.md'), 'utf8'),
+    '[Legacy work](context/cycles/default/initiatives/legacy-work/README.md)\n'
+  );
+});
+
+test('cycle init creates and selects one validated current cycle', async () => {
+  const target = await mkdtemp(path.join(tmpdir(), 'durable-context-cycle-'));
+  await execFileAsync(process.execPath, [
+    cliPath,
+    'init',
+    '--target',
+    target,
+    '--project-name',
+    'Cycle App'
+  ]);
+
+  const { stdout } = await execFileAsync(process.execPath, [
+    cliPath,
+    'cycle',
+    'init',
+    'release-2',
+    '--target',
+    target
+  ]);
+
+  assert.match(stdout, /set current cycle to release-2/);
+  assert.equal(await exists(path.join(target, 'context/cycles/release-2/initiatives')), true);
+  const profile = await readFile(path.join(target, 'context/project-profile.md'), 'utf8');
+  assert.equal(profile.match(/^- Current cycle:/gm)?.length, 1);
+  assert.match(profile, /- Current cycle: release-2/);
+
+  await assert.rejects(
+    execFileAsync(process.execPath, [
+      cliPath,
+      'cycle',
+      'init',
+      '../unsafe',
+      '--target',
+      target
+    ]),
+    /Cycle ID must be one safe path segment/
+  );
+
+  await writeFile(
+    path.join(target, 'context/project-profile.md'),
+    profile.replace('- Current cycle: release-2', '- Current cycle: release-2\n- Current cycle: duplicate')
+  );
+  await assert.rejects(
+    execFileAsync(process.execPath, [cliPath, 'update', '--target', target]),
+    /must contain exactly one non-empty Current cycle field/
+  );
+});
+
+test('update rejects flat/default collisions before changing managed files', async () => {
+  const target = await mkdtemp(path.join(tmpdir(), 'durable-context-collision-'));
+  await execFileAsync(process.execPath, [
+    cliPath,
+    'init',
+    '--target',
+    target,
+    '--project-name',
+    'Collision App'
+  ]);
+  await mkdir(path.join(target, 'context/initiatives/same-name'), { recursive: true });
+  await mkdir(path.join(target, 'context/cycles/default/initiatives/same-name'), { recursive: true });
+  await writeFile(path.join(target, '.agents/skills/plan-with-context/SKILL.md'), '# Preserve me\n');
+
+  await assert.rejects(
+    execFileAsync(process.execPath, [cliPath, 'update', '--target', target]),
+    /Cannot migrate flat initiatives because default already contains: same-name/
+  );
+  assert.equal(
+    await readFile(path.join(target, '.agents/skills/plan-with-context/SKILL.md'), 'utf8'),
+    '# Preserve me\n'
   );
 });
 

@@ -61,7 +61,9 @@ function renderAgentSection(projectName) {
 ## Durable Context
 
 Working context under [\`context/\`](context/); durable decisions under [\`decisions/\`](decisions/).
-Initiatives under \`context/cycles/<cycle-id>/initiatives/\` are disposable; promote accepted decisions to [\`decisions/\`](decisions/). Read the current cycle and local policy from [\`context/project-profile.md\`](context/project-profile.md). Pre-cycle \`context/initiatives/\` folders are implicit members of \`default\` and are not moved automatically.
+Initiatives under \`context/cycles/<cycle-id>/initiatives/\` are disposable; promote accepted decisions to [\`decisions/\`](decisions/). Read the current cycle and local policy from [\`context/project-profile.md\`](context/project-profile.md). The update command moves pre-cycle \`context/initiatives/\` folders into \`default\`.
+
+For unclear intent, inspect repository evidence first and then interview the human with focused, decision-bearing questions. Keep artifacts to the minimum sufficient record: conclusions, decision-relevant rationale and constraints, evidence, unresolved material questions, and the next action. Omit transcripts, routine narration, generic advice, and duplicated facts.
 
 Recommended invocation-only front door:
 
@@ -92,13 +94,18 @@ const config = {
   ],
   skills,
   retiredSkills: ['devils-advocate'],
+  cycle: {
+    profilePath: 'context/project-profile.md',
+    cyclesPath: 'context/cycles',
+    legacyInitiativesPath: 'context/initiatives'
+  },
   agents: {
     start: agentsStart,
     end: agentsEnd,
     render: renderAgentSection
   },
   nextSteps: [
-    'Starter cycle: default. Edit the marked section in context/project-profile.md when the project adopts another cycle.',
+    'Starter cycle: default. Run durable-context cycle init <cycle-id> when the project adopts another cycle.',
     'Optional: invoke .agents/skills/project-profile-baseline/SKILL.md to populate the remaining project profile.',
     'Then: invoke .agents/skills/durable-context/SKILL.md with a named initiative.'
   ]

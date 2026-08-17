@@ -43,6 +43,7 @@ Package: `durable-context` · installs `context/` and `decisions/`.
 - [Durable Context: The Rationale](durable-context/rationale.md)
 - [Durable Context: The Model](durable-context/model.md)
 - [Durable Context: Limitations, Anti-Patterns, and When Not To Use It](durable-context/limitations.md)
+- [Durable Context 2.0: Cycles And Durable Boundaries](durable-context/release-notes-2.0.md)
 - [Durable Context 1.2.0: Release Notes And Decision Record](durable-context/release-notes.md)
 
 Practitioner brief (HTML): [Durable Context Brief](durable-context/brief.html)
@@ -55,6 +56,7 @@ without collaborative lifecycle governance. Package: `durable-context-solo`.
 
 - [Durable Context Solo: The Model And Rationale](durable-context-solo/model.md)
 - [Durable Context Solo: Limitations And Feedback Questions](durable-context-solo/limitations.md)
+- [Durable Context Solo 1.0: Focused Context For One Owner](durable-context-solo/release-notes-1.0.md)
 - [Durable Context Solo 0.1.1: Initial Release Notes](durable-context-solo/release-notes.md)
 
 ## Reference Docs

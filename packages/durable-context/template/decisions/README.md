@@ -44,9 +44,8 @@ entries with status `Accepted`.
 ## Promotion From Initiatives
 
 The `dive-into-plan` skill promotes accepted decisions out of an initiative's
-scratch `context/cycles/<cycle-id>/initiatives/<slug>/decisions/` folder (or
-the pre-cycle flat equivalent) into this log when the decision is accepted and
-implemented, or when a human explicitly
+scratch `context/cycles/<cycle-id>/initiatives/<slug>/decisions/` folder into
+this log when the decision is accepted and implemented, or when a human explicitly
 says it is ready for root history. On promotion, assign the next number,
 preserve or complete metadata, update indexes, and record stable origin. An
 initiative link is optional provenance, never a dependency. Review transcripts

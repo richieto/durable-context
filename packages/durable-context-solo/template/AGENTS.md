@@ -10,9 +10,14 @@ for self-contained accepted architectural decisions. Read
 [`context/project-profile.md`](context/project-profile.md) instead of
 rediscovering stable repository capabilities for each initiative.
 Initiatives live under `context/cycles/<cycle-id>/initiatives/`. Read the
-current cycle and local cycle policy from the project profile. Pre-cycle
-`context/initiatives/` folders are implicit members of `default` and are not
-moved automatically.
+current cycle and local cycle policy from the project profile. The package
+updater moves pre-cycle `context/initiatives/` folders into `default`.
+
+For unclear intent, inspect repository evidence first and then interview the
+human with focused, decision-bearing questions. Keep artifacts to the minimum
+sufficient record: conclusions, decision-relevant rationale and constraints,
+evidence, unresolved material questions, and the next action. Omit transcripts,
+routine narration, generic advice, and duplicated facts.
 
 Recommended invocation-only front door:
 
