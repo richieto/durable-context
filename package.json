@@ -10,10 +10,12 @@
   ],
   "scripts": {
     "test": "npm test --workspaces --if-present",
-    "publish:dry-run": "npm publish --dry-run --workspace durable-context && npm publish --dry-run --workspace reference-docs",
-    "publish:packages": "npm publish --workspace durable-context && npm publish --workspace reference-docs",
+    "publish:dry-run:durable": "npm publish --dry-run --workspace durable-context",
+    "publish:durable": "npm publish --workspace durable-context",
     "publish:dry-run:solo": "npm publish --dry-run --workspace durable-context-solo",
-    "publish:solo": "npm publish --workspace durable-context-solo"
+    "publish:solo": "npm publish --workspace durable-context-solo",
+    "publish:dry-run:reference": "npm publish --dry-run --workspace reference-docs",
+    "publish:reference": "npm publish --workspace reference-docs"
   },
   "engines": {
     "node": ">=18"

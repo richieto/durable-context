@@ -8,7 +8,6 @@ npm workspaces monorepo publishing **durable-context**,
 - `packages/durable-context/` — planning skills plus `context/` and `decisions/` scaffold
 - `packages/durable-context-solo/` — single-owner planning skills using the same scaffold paths
 - `packages/reference-docs/` — reference skills plus `reference/` scaffold
-- `writing/` — maintainer-only narrative; never installed by any package
 
 Change installed behavior in each package's `template/`, not root scaffolds. This repo intentionally does not keep top-level `context/`, `decisions/`, or `reference/` folders.
 

@@ -92,11 +92,8 @@ All invocation-only — ask by name; they do not auto-run.
 packages/durable-context/   npm: durable-context
 packages/durable-context-solo/ npm: durable-context-solo
 packages/reference-docs/    npm: reference-docs
-writing/                    maintainer narrative (not installed)
 ```
 
 ```bash
 npm test --workspaces
 ```
-
-Maintainer writing (not part of the installable product): [`writing/`](writing/).
