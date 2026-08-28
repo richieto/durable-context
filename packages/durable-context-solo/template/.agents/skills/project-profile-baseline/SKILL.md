@@ -1,11 +1,11 @@
 ---
 name: project-profile-baseline
-description: Populate the Solo project profile and concern inventory from source-backed repository facts so later initiatives evaluate known capabilities without rediscovering them. Use ONLY when the human explicitly invokes project-profile-baseline or durable-context-solo routes an unprofiled repository to baseline.
+description: Populate the Solo project profile and concern inventory from source-backed repository facts so later initiatives evaluate known capabilities without rediscovering them. Use ONLY when the human explicitly invokes project-profile-baseline or dc routes an unprofiled repository to baseline.
 ---
 
 # Project Profile Baseline
 
-Establish stable repository facts once. Prefer `durable-context-solo` unless the
+Establish stable repository facts once. Prefer `dc` unless the
 human intentionally enters profiling directly.
 
 ## Workflow

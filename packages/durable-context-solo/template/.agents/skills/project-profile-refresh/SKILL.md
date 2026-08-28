@@ -1,11 +1,11 @@
 ---
 name: project-profile-refresh
-description: Refresh stable Solo project-profile facts and the concern inventory when repository capabilities or their evidence change. Use ONLY when the human explicitly invokes project-profile-refresh or durable-context-solo detects a recorded refresh trigger; do not rescan the repository for every initiative.
+description: Refresh stable Solo project-profile facts and the concern inventory when repository capabilities or their evidence change. Use ONLY when the human explicitly invokes project-profile-refresh or dc detects a recorded refresh trigger; do not rescan the repository for every initiative.
 ---
 
 # Project Profile Refresh
 
-Update stable facts selectively. Prefer `durable-context-solo` unless the human
+Update stable facts selectively. Prefer `dc` unless the human
 intentionally enters profile maintenance directly.
 
 ## Workflow

@@ -1,12 +1,12 @@
 ---
 name: plan-with-context
-description: Draft or refine a named Solo initiative plan using the stable project profile, explicitly evaluating every known concern before implementation. Use ONLY when the human explicitly invokes plan-with-context or durable-context-solo routes an initiative into planning; do not trigger for ordinary plans or small fixes.
+description: Draft or refine a named Solo initiative plan using the stable project profile, explicitly evaluating every known concern before implementation. Use ONLY when the human explicitly invokes plan-with-context or dc routes an initiative into planning; do not trigger for ordinary plans or small fixes.
 ---
 
 # Plan With Context
 
 Use native agent planning, then preserve it in repository-owned documents.
-Prefer `durable-context-solo` unless the human intentionally enters planning.
+Prefer `dc` unless the human intentionally enters planning.
 
 ## Workflow
 
@@ -20,7 +20,7 @@ Prefer `durable-context-solo` unless the human intentionally enters planning.
    relevant accepted decisions, initiative README, and plan.
 2. If the Concern Inventory is materially Unknown, establish or refresh the
    profile instead of rediscovering capabilities only for this initiative.
-3. Read [the intent and record protocol](../durable-context-solo/references/intent-and-records.md).
+3. Read [the intent and record protocol](../dc/references/intent-and-records.md).
    When intent is unsettled, interview the human before recommending a
    direction. Settle goal, success criteria, scope, constraints, recommendation,
    options, trade-offs, open questions, and implementation outline. Reflect the

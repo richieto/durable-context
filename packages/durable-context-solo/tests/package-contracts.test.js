@@ -8,11 +8,11 @@ const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '
 const exactFilePairs = [
   [
     'template/context/_templates/initiative/README.md',
-    'template/.agents/skills/durable-context-solo/assets/initiative/README.md'
+    'template/.agents/skills/dc/assets/initiative/README.md'
   ],
   [
     'template/context/_templates/initiative/plan.md',
-    'template/.agents/skills/durable-context-solo/assets/initiative/plan.md'
+    'template/.agents/skills/dc/assets/initiative/plan.md'
   ]
 ];
 

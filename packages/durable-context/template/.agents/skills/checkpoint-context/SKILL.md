@@ -1,12 +1,12 @@
 ---
 name: checkpoint-context
-description: Validate and checkpoint the lifecycle state of a named durable-context initiative across sessions, users, and agents. Use ONLY when the human explicitly invokes checkpoint-context or durable-context routes a named lifecycle-managed initiative to a meaningful boundary.
+description: Validate and checkpoint the lifecycle state of a named Durable Context initiative across sessions, users, and agents. Use ONLY when the human explicitly invokes checkpoint-context or dc routes a named lifecycle-managed initiative to a meaningful boundary.
 ---
 
 # Checkpoint Context
 
 Validate and record the current state of a named lifecycle-managed initiative.
-Prefer `durable-context` unless the human intentionally enters this stage.
+Prefer `dc` unless the human intentionally enters this stage.
 
 ## Workflow
 

@@ -20,7 +20,7 @@ The directory path is the cycle allocation; do not duplicate it as initiative
 lifecycle metadata. Closed cycles may be deleted once their decisions and
 reference outputs are self-contained.
 
-Invoke `durable-context` with an initiative name. It is the only workflow name
+Invoke `dc` with an initiative name. It is the only workflow name
 most users need to remember.
 
 ```text

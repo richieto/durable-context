@@ -5,7 +5,7 @@ Invocation-only — ask by name.
 <!-- durable-context-solo:skills:start -->
 ## Durable Context Solo Skills
 
-- `durable-context-solo` - recommended front door for focused repository-owned planning across sessions.
+- `dc` - recommended front door for focused repository-owned planning across sessions.
 
 Advanced direct entry points:
 

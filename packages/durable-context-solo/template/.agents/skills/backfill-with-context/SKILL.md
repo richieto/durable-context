@@ -1,12 +1,12 @@
 ---
 name: backfill-with-context
-description: Reconstruct repository-owned Solo planning after ordinary work grows into a meaningful initiative, separating code evidence from retrospective intent and restoring concern-by-concern focus. Use ONLY when the human explicitly invokes backfill-with-context or durable-context-solo routes a named initiative into backfill.
+description: Reconstruct repository-owned Solo planning after ordinary work grows into a meaningful initiative, separating code evidence from retrospective intent and restoring concern-by-concern focus. Use ONLY when the human explicitly invokes backfill-with-context or dc routes a named initiative into backfill.
 ---
 
 # Backfill With Context
 
 Reconstruct a named initiative from existing work, then continue through
-`durable-context-solo`. Prefer the front door unless the human intentionally
+`dc`. Prefer the front door unless the human intentionally
 enters backfill directly.
 
 ## Workflow

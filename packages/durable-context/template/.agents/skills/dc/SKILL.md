@@ -1,6 +1,6 @@
 ---
-name: durable-context
-description: Orchestrate a named durable-context initiative from planning through PR preparation, resuming recorded state across users, agents, and sessions. Use ONLY when the human explicitly invokes durable-context or asks what comes next in a durable initiative; do not trigger for ordinary plans, bug fixes, or small changes.
+name: dc
+description: Orchestrate a named durable-context initiative from planning through PR preparation, resuming recorded state across users, agents, and sessions. Use ONLY when the human explicitly invokes dc or asks what comes next in a durable initiative; do not trigger for ordinary plans, bug fixes, or small changes.
 ---
 
 # Durable Context

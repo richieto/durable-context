@@ -1,6 +1,6 @@
 interface:
   display_name: "Durable Context"
   short_description: "Guide a durable initiative to its next boundary"
-  default_prompt: "Use $durable-context to continue a named initiative to its next meaningful boundary."
+  default_prompt: "Use $dc to continue a named initiative to its next meaningful boundary."
 policy:
   allow_implicit_invocation: false

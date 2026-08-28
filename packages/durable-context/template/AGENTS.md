@@ -16,7 +16,7 @@ routine narration, generic advice, and duplicated facts.
 
 Recommended invocation-only front door:
 
-- [`durable-context`](.agents/skills/durable-context/SKILL.md) — continue a named initiative to its next meaningful boundary.
+- [`dc`](.agents/skills/dc/SKILL.md) — continue a named initiative to its next meaningful boundary.
 
 Advanced direct entry points:
 

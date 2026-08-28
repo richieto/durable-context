@@ -5,7 +5,7 @@ Invocation-only — ask by name.
 <!-- durable-context:skills:start -->
 ## Durable Context Skills
 
-- `durable-context` - recommended front door; continue a named initiative to its next meaningful boundary.
+- `dc` - recommended front door; continue a named initiative to its next meaningful boundary.
 
 Advanced direct entry points:
 

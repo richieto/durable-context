@@ -31,15 +31,15 @@ npx reference-docs init --project-name "My App" --reference-root Reference
 Planning:
 
 ```text
-Use durable-context for initiative <name>.
-Use durable-context for initiative <cycle>/<name>.
+/dc <name>
+/dc <cycle>/<name>
 ```
 
 Solo planning:
 
 ```text
-Use durable-context-solo for initiative <name>.
-Use durable-context-solo for initiative <cycle>/<name>.
+/dc <name>
+/dc <cycle>/<name>
 ```
 
 Both editions provision `context/cycles/default/initiatives/` and make
@@ -74,11 +74,11 @@ project-owned authoring overlays and reference content.
 
 ## Skills
 
-**durable-context:** `durable-context` (recommended front door); advanced
+**durable-context:** `dc` (recommended front door); advanced
 `plan-with-context`, `challenge`, `dive-into-plan`,
 `backfill-with-context`, and `checkpoint-context`
 
-**durable-context-solo:** `durable-context-solo` (recommended front door);
+**durable-context-solo:** `dc` (recommended front door);
 advanced `plan-with-context`, `challenge`, `dive-into-plan`, and
 `backfill-with-context`
 

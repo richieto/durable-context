@@ -14,13 +14,13 @@ const packageJson = JSON.parse(await readFile(path.join(packageRoot, 'package.js
 
 test('installed skills encode the front-door, backfill, review, and routing scenarios', async () => {
   const skillsRoot = path.join(packageRoot, 'template/.agents/skills');
-  const frontDoor = await readFile(path.join(skillsRoot, 'durable-context/SKILL.md'), 'utf8');
+  const frontDoor = await readFile(path.join(skillsRoot, 'dc/SKILL.md'), 'utf8');
   const planning = await readFile(path.join(skillsRoot, 'plan-with-context/SKILL.md'), 'utf8');
   const backfill = await readFile(path.join(skillsRoot, 'backfill-with-context/SKILL.md'), 'utf8');
   const challenge = await readFile(path.join(skillsRoot, 'challenge/SKILL.md'), 'utf8');
   const dive = await readFile(path.join(skillsRoot, 'dive-into-plan/SKILL.md'), 'utf8');
   const intentProtocol = await readFile(
-    path.join(skillsRoot, 'durable-context/references/intent-and-records.md'),
+    path.join(skillsRoot, 'dc/references/intent-and-records.md'),
     'utf8'
   );
 
@@ -71,7 +71,7 @@ test('init installs the default cycle scaffold and decision log', async () => {
   assert.equal(await exists(path.join(target, 'decisions/0000-template.md')), true);
   assert.equal(await exists(path.join(target, 'decisions/indexes/by-area.md')), true);
   assert.equal(
-    await exists(path.join(target, '.agents/skills/durable-context/SKILL.md')),
+    await exists(path.join(target, '.agents/skills/dc/SKILL.md')),
     true
   );
   assert.equal(
@@ -109,7 +109,7 @@ test('init installs the default cycle scaffold and decision log', async () => {
   const agents = await readFile(path.join(target, 'AGENTS.md'), 'utf8');
   assert.match(agents, /# Agent Guidance - Planning App/);
   assert.match(agents, /<!-- durable-context:start -->/);
-  assert.match(agents, /\.agents\/skills\/durable-context\/SKILL\.md/);
+  assert.match(agents, /\.agents\/skills\/dc\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/project-profile-baseline\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/project-profile-refresh\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/plan-with-context\/SKILL\.md/);
@@ -127,7 +127,7 @@ test('init installs the default cycle scaffold and decision log', async () => {
   assert.equal(
     initiativeTemplate,
     await readFile(
-      path.join(target, '.agents/skills/durable-context/assets/initiative/README.md'),
+      path.join(target, '.agents/skills/dc/assets/initiative/README.md'),
       'utf8'
     )
   );
@@ -168,7 +168,7 @@ test('init installs the default cycle scaffold and decision log', async () => {
   assert.equal(metadata.installedVersion, packageJson.version);
   assert.equal(metadata.projectName, 'Planning App');
   assert.deepEqual(metadata.installedSkills, [
-    'durable-context',
+    'dc',
     'project-profile-baseline',
     'project-profile-refresh',
     'plan-with-context',
@@ -182,7 +182,7 @@ test('init installs the default cycle scaffold and decision log', async () => {
   assert.match(status.stdout, new RegExp(`Installed version: ${escapeRegExp(packageJson.version)}`));
   assert.match(
     status.stdout,
-    /Installed skills: durable-context, project-profile-baseline, project-profile-refresh, plan-with-context, challenge, dive-into-plan, backfill-with-context, checkpoint-context/
+    /Installed skills: dc, project-profile-baseline, project-profile-refresh, plan-with-context, challenge, dive-into-plan, backfill-with-context, checkpoint-context/
   );
 });
 
@@ -236,9 +236,14 @@ test('update refreshes managed agent assets without replacing project work', asy
   );
   await rm(path.join(target, '.agents/skills/challenge'), { recursive: true, force: true });
   await mkdir(path.join(target, '.agents/skills/devils-advocate'), { recursive: true });
+  await mkdir(path.join(target, '.agents/skills/durable-context'), { recursive: true });
   await writeFile(
     path.join(target, '.agents/skills/devils-advocate/SKILL.md'),
     '# Retired managed skill\n'
+  );
+  await writeFile(
+    path.join(target, '.agents/skills/durable-context/SKILL.md'),
+    '# Former front-door skill\n'
   );
   await writeFile(
     path.join(target, '.agents/skills/README.md'),
@@ -296,7 +301,7 @@ test('update refreshes managed agent assets without replacing project work', asy
         firstInstalledAt: '2026-01-01T00:00:00.000Z',
         lastUpdatedAt: '2026-01-02T00:00:00.000Z',
         projectName: 'Update App',
-        installedSkills: ['plan-with-context', 'devils-advocate']
+        installedSkills: ['durable-context', 'plan-with-context', 'devils-advocate']
       },
       null,
       2
@@ -312,6 +317,7 @@ test('update refreshes managed agent assets without replacing project work', asy
 
   assert.match(stdout, /update AGENTS\.md Durable Context section/);
   assert.match(stdout, /remove retired skill \.agents\/skills\/devils-advocate/);
+  assert.match(stdout, /remove retired skill \.agents\/skills\/durable-context/);
   assert.match(stdout, /replace \.agents\/skills\/plan-with-context/);
 
   const updatedSkill = await readFile(
@@ -323,12 +329,14 @@ test('update refreshes managed agent assets without replacing project work', asy
   assert.doesNotMatch(updatedSkill, /Locally edited/);
   assert.equal(await exists(path.join(target, '.agents/skills/challenge/SKILL.md')), true);
   assert.equal(await exists(path.join(target, '.agents/skills/devils-advocate')), false);
+  assert.equal(await exists(path.join(target, '.agents/skills/durable-context')), false);
+  assert.equal(await exists(path.join(target, '.agents/skills/dc/SKILL.md')), true);
 
   const skillsReadme = await readFile(path.join(target, '.agents/skills/README.md'), 'utf8');
   assert.match(skillsReadme, /User notes stay here/);
   assert.match(skillsReadme, /<!-- durable-context:skills:start -->/);
   assert.match(skillsReadme, /project-profile-baseline/);
-  assert.match(skillsReadme, /durable-context/);
+  assert.match(skillsReadme, /`dc`/);
   assert.match(skillsReadme, /backfill-with-context/);
   assert.doesNotMatch(skillsReadme, /stale durable skill list/);
   assert.match(skillsReadme, /reference docs section stays here/);
@@ -358,7 +366,7 @@ test('update refreshes managed agent assets without replacing project work', asy
   assert.equal(metadata.firstInstalledVersion, '1.0.0');
   assert.equal(metadata.firstInstalledAt, '2026-01-01T00:00:00.000Z');
   assert.deepEqual(metadata.installedSkills, [
-    'durable-context',
+    'dc',
     'project-profile-baseline',
     'project-profile-refresh',
     'plan-with-context',

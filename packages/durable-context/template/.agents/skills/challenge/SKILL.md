@@ -1,11 +1,11 @@
 ---
 name: challenge
-description: Perform an invocation-only adversarial review of a meaningful durable plan, recording material challenges and their dependent phases without treating the critique as authority. Use ONLY when the human explicitly asks to challenge or red-team the plan, or durable-context routes a named initiative through Plan Review.
+description: Perform an invocation-only adversarial review of a meaningful durable plan, recording material challenges and their dependent phases without treating the critique as authority. Use ONLY when the human explicitly asks to challenge or red-team the plan, or dc routes a named initiative through Plan Review.
 ---
 
 # Challenge
 
-Challenge a meaningful commitment before it hardens. Prefer `durable-context`
+Challenge a meaningful commitment before it hardens. Prefer `dc`
 unless the human intentionally enters Plan Review directly.
 
 ## Review
@@ -17,7 +17,7 @@ unless the human intentionally enters Plan Review directly.
 2. Read the named initiative README, plan, relevant concern documents, nearest
    `AGENTS.md`, project profile, decisions, and the lifecycle protocol at
    `../checkpoint-context/references/lifecycle.md` when lifecycle-managed.
-3. Read [the intent and record protocol](../durable-context/references/intent-and-records.md).
+3. Read [the intent and record protocol](../dc/references/intent-and-records.md).
    Identify and steelman the exact recommendation or decision being challenged,
    including its rationale and constraints. Ask focused clarification questions
    first when the target is ambiguous; return to Planning when human intent is

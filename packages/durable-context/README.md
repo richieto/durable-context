@@ -7,11 +7,11 @@ resuming them across sessions, and preserving architectural conclusions.
 npx durable-context init --project-name "My App"
 ```
 
-This adds `context/`, `decisions/`, and the recommended `durable-context`
+This adds `context/`, `decisions/`, and the recommended `dc`
 front-door skill. Invoke it with an explicit initiative name:
 
 ```text
-Use durable-context for initiative customer-import.
+/dc customer-import
 ```
 
 If no name is supplied, the skill lists candidates and asks. It never treats a
@@ -63,6 +63,7 @@ material unknowns, and the next action—without transcripts or routine narratio
 
 All skills are invocation-only:
 
+- `dc` — recommended front door
 - `project-profile-baseline` and `project-profile-refresh`
 - `plan-with-context`
 - `challenge`
@@ -80,7 +81,8 @@ must remain understandable after disposable cycles are deleted.
 npx durable-context@latest update
 ```
 
-Update refreshes package-managed skills and marked guidance, moves flat
+Update refreshes package-managed skills and marked guidance, renames the
+package-managed front door from `durable-context` to `dc`, moves flat
 initiatives into the canonical `default` cycle, and preserves their contents
 and legacy status. It retires the former package-managed `devils-advocate`
 skill in favor of `challenge`.

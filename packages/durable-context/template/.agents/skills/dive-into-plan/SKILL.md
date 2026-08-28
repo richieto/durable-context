@@ -1,11 +1,11 @@
 ---
 name: dive-into-plan
-description: Interrogate a settled durable plan, negotiate concern-by-concern artifact routing, create only applicable local documents, and record or promote architectural decisions. Use ONLY when the human explicitly invokes dive-into-plan, distribute the plan, or durable-context routes a named initiative through Detailed Design.
+description: Interrogate a settled durable plan, negotiate concern-by-concern artifact routing, create only applicable local documents, and record or promote architectural decisions. Use ONLY when the human explicitly invokes dive-into-plan, distribute the plan, or dc routes a named initiative through Detailed Design.
 ---
 
 # Dive Into Plan
 
-Interrogate and distribute a named settled plan. Prefer `durable-context` unless
+Interrogate and distribute a named settled plan. Prefer `dc` unless
 the human intentionally enters Detailed Design directly.
 
 ## Interrogate
@@ -17,7 +17,7 @@ the human intentionally enters Detailed Design directly.
 2. Read the initiative README and plan, nearest `AGENTS.md`, project profile,
    relevant accepted/local decisions, and the lifecycle protocol at
    `../checkpoint-context/references/lifecycle.md` when lifecycle-managed.
-3. Read [the intent and record protocol](../durable-context/references/intent-and-records.md).
+3. Read [the intent and record protocol](../dc/references/intent-and-records.md).
    Return to Planning if goal or intent is still unsettled. Otherwise ask
    pointed, decision-bearing questions only for material or ambiguous behavior,
    interface, architecture, tests/e2e, data/security, IaC, CI/CD,

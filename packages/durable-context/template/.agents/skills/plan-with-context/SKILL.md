@@ -1,11 +1,11 @@
 ---
 name: plan-with-context
-description: Draft or refine a durable initiative plan grounded in repository evidence and the full change surface. Use ONLY when the human explicitly invokes plan-with-context or durable-context routes a named initiative through Planning; do not trigger for ordinary planning or small tasks.
+description: Draft or refine a durable initiative plan grounded in repository evidence and the full change surface. Use ONLY when the human explicitly invokes plan-with-context or dc routes a named initiative through Planning; do not trigger for ordinary planning or small tasks.
 ---
 
 # Plan With Context
 
-Draft `plan.md` for a named initiative. Prefer `durable-context` unless the
+Draft `plan.md` for a named initiative. Prefer `dc` unless the
 human intentionally enters Planning directly.
 
 ## Start
@@ -24,14 +24,14 @@ human intentionally enters Planning directly.
 4. For a new initiative, create only `README.md` and `plan.md` under
    `context/cycles/<cycle-id>/initiatives/<slug>/`. Prefer a
    project-owned template whose README has lifecycle markers; otherwise use the
-   managed `durable-context` skill assets. Do not copy the whole initiative
+   managed `dc` skill assets. Do not copy the whole initiative
    template directory or overwrite project-owned templates.
 5. If the README lacks lifecycle markers, continue the legacy workflow without
    inserting or migrating lifecycle state.
 
 ## Plan
 
-1. Read [the intent and record protocol](../durable-context/references/intent-and-records.md).
+1. Read [the intent and record protocol](../dc/references/intent-and-records.md).
    Use the agent's native planning capability and ground claims in repository
    evidence. Do not guess.
 2. When intent is unsettled, interview the human before recommending a
@@ -51,4 +51,4 @@ human intentionally enters Planning directly.
 
 For lifecycle-managed work, checkpoint at the Planning boundary and return
 control. The human may use the advisory `challenge` review or proceed to
-Detailed Design through `durable-context`.
+Detailed Design through `dc`.

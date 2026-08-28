@@ -1,11 +1,11 @@
 ---
 name: challenge
-description: Perform an optional adversarial review of a meaningful Solo recommendation before focused distribution or implementation. Use ONLY when the human explicitly asks to challenge or red-team the plan, or durable-context-solo offers and the human accepts the review.
+description: Perform an optional adversarial review of a meaningful Solo recommendation before focused distribution or implementation. Use ONLY when the human explicitly asks to challenge or red-team the plan, or dc offers and the human accepts the review.
 ---
 
 # Challenge
 
-Pressure-test a meaningful commitment. Prefer `durable-context-solo` unless the
+Pressure-test a meaningful commitment. Prefer `dc` unless the
 human intentionally invokes this pass.
 
 ## Workflow
@@ -16,7 +16,7 @@ human intentionally invokes this pass.
    human to run the latest package `update`.
 2. Read the named initiative plan, relevant focus documents, project profile,
    accepted decisions, and repository evidence.
-3. Read [the intent and record protocol](../durable-context-solo/references/intent-and-records.md).
+3. Read [the intent and record protocol](../dc/references/intent-and-records.md).
    Identify and steelman the exact recommendation, rationale, and constraints.
    Ask focused clarification questions first when the target is ambiguous;
    return to planning when human intent is not settled enough to challenge fairly.

@@ -1,12 +1,12 @@
 ---
 name: dive-into-plan
-description: Interrogate each Material Solo concern in a separate focused pass, distribute settled truth into project-owned documents, and synthesize cross-concern consistency before implementation. Use ONLY when the human explicitly invokes dive-into-plan, distribute the plan, or durable-context-solo routes a settled plan into focused analysis.
+description: Interrogate each Material Solo concern in a separate focused pass, distribute settled truth into project-owned documents, and synthesize cross-concern consistency before implementation. Use ONLY when the human explicitly invokes dive-into-plan, distribute the plan, or dc routes a settled plan into focused analysis.
 ---
 
 # Dive Into Plan
 
 Protect reasoning focus by working one concern at a time. Prefer
-`durable-context-solo` unless the human intentionally enters this pass.
+`dc` unless the human intentionally enters this pass.
 
 ## Workflow
 
@@ -19,7 +19,7 @@ Protect reasoning focus by working one concern at a time. Prefer
 3. Confirm that every profiled concern has Material, No impact, External, or
    Introduced disposition. Return TBD and unexplained Unknown entries to
    planning.
-4. Read [the intent and record protocol](../durable-context-solo/references/intent-and-records.md).
+4. Read [the intent and record protocol](../dc/references/intent-and-records.md).
    Return to planning if goal or intent remains unsettled. For each Material or
    Introduced concern, create its focused document and interrogate only its
    decision-bearing ambiguity: behavior, interface, architecture/data, testing,

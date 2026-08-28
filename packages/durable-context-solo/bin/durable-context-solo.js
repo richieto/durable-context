@@ -15,9 +15,9 @@ const agentsEnd = '<!-- durable-context-solo:end -->';
 
 const skills = [
   {
-    name: 'durable-context-solo',
+    name: 'dc',
     readmeEntry:
-      '- `durable-context-solo` - recommended front door for focused repository-owned planning across sessions.'
+      '- `dc` - recommended front door for focused repository-owned planning across sessions.'
   },
   {
     name: 'project-profile-baseline',
@@ -62,7 +62,7 @@ For unclear intent, inspect repository evidence first and then interview the hum
 
 Recommended invocation-only front door:
 
-- [\`.agents/skills/durable-context-solo/SKILL.md\`](.agents/skills/durable-context-solo/SKILL.md) — resume a named initiative and continue to its next meaningful boundary.
+- [\`.agents/skills/dc/SKILL.md\`](.agents/skills/dc/SKILL.md) — resume a named initiative and continue to its next meaningful boundary.
 
 Advanced direct entry points:
 
@@ -87,7 +87,7 @@ const config = {
     { packageName: 'durable-context', metadataPath: '.durable-context/install.json' }
   ],
   skills,
-  retiredSkills: ['devils-advocate'],
+  retiredSkills: ['devils-advocate', 'durable-context-solo'],
   cycle: {
     profilePath: 'context/project-profile.md',
     cyclesPath: 'context/cycles',
@@ -101,7 +101,7 @@ const config = {
   nextSteps: [
     'Starter cycle: default. Run durable-context-solo cycle init <cycle-id> when the project adopts another cycle.',
     'First: invoke .agents/skills/project-profile-baseline/SKILL.md to inventory stable repository capabilities.',
-    'Then: invoke .agents/skills/durable-context-solo/SKILL.md with a named meaningful initiative.'
+    'Then: invoke .agents/skills/dc/SKILL.md with a named meaningful initiative.'
   ]
 };
 

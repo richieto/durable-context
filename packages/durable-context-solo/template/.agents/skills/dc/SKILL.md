@@ -1,6 +1,6 @@
 ---
-name: durable-context-solo
-description: Continue repository-owned planning for one accountable human across agents and sessions, using a stable project profile, focused concern documents, lightweight resume state, backfill, and durable decisions. Use ONLY when the human explicitly invokes durable-context-solo or asks what comes next in a named Solo initiative; do not trigger for ordinary plans, bug fixes, or small changes.
+name: dc
+description: Continue repository-owned planning for one accountable human across agents and sessions, using a stable project profile, focused concern documents, lightweight resume state, backfill, and durable decisions. Use ONLY when the human explicitly invokes dc or asks what comes next in a named Solo initiative; do not trigger for ordinary plans, bug fixes, or small changes.
 ---
 
 # Durable Context Solo

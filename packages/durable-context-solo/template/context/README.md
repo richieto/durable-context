@@ -19,7 +19,7 @@ The directory path is the cycle allocation; do not duplicate it in the resume
 marker. Closed cycles may be deleted once their decisions and reference outputs
 are self-contained.
 
-Invoke `durable-context-solo` with an initiative name. Small fixes should keep
+Invoke `dc` with an initiative name. Small fixes should keep
 using the agent's ordinary planning behavior.
 
 For meaningful work:

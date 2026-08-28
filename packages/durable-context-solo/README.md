@@ -10,7 +10,7 @@ npx durable-context-solo init --project-name "My App"
 Invoke the recommended front door with an explicit initiative name:
 
 ```text
-Use durable-context-solo for initiative billing-retry.
+/dc billing-retry
 ```
 
 Small fixes keep using the agent's normal planning behavior. Meaningful
@@ -66,7 +66,7 @@ material unknowns, and the next action—without transcripts or routine narratio
 
 ## Invocation-Only Skills
 
-- `durable-context-solo` — recommended front door
+- `dc` — recommended front door
 - `project-profile-baseline`
 - `project-profile-refresh`
 - `plan-with-context`
@@ -78,9 +78,10 @@ material unknowns, and the next action—without transcripts or routine narratio
 
 Project profiles, initiatives, concern templates, and decisions are
 project-owned after initialization. Package update refreshes managed skills and
-marked guidance, moves flat initiatives into the canonical `default` cycle,
-and preserves their contents and legacy status. It retires the former
-package-managed `devils-advocate` skill in favor of `challenge`.
+marked guidance, renames the package-managed front door from
+`durable-context-solo` to `dc`, moves flat initiatives into the canonical
+`default` cycle, and preserves their contents and legacy status. It retires the
+former package-managed `devils-advocate` skill in favor of `challenge`.
 
 Accepted root decisions must remain understandable after disposable cycles are
 deleted.
