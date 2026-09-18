@@ -15,17 +15,19 @@ Protect reasoning focus by working one concern at a time. Prefer
    canonical cycle path; if `context/initiatives/` exists, stop and ask the
    human to run the latest package `update`.
 2. Read the named initiative README and plan, project profile, relevant accepted
-   decisions, and project-owned concern templates.
+   decisions, and project-owned concern templates. If `security.md` is selected
+   but its project template is absent, use the managed `dc` security asset.
 3. Confirm that every profiled concern has Material, No impact, External, or
    Introduced disposition. Return TBD and unexplained Unknown entries to
    planning.
 4. Read [the intent and record protocol](../dc/references/intent-and-records.md).
    Return to planning if goal or intent remains unsettled. For each Material or
    Introduced concern, create its focused document and interrogate only its
-   decision-bearing ambiguity: behavior, interface, architecture/data, testing,
-   delivery, infrastructure/configuration, operations, backlog, or release-doc
-   impact. Ground conclusions in repository evidence; do not turn the concern
-   inventory into a questionnaire.
+   decision-bearing ambiguity: behavior, interface, architecture/data, security,
+   testing, delivery, infrastructure/configuration, operations, backlog, or
+   release-doc impact. Give the protocol's compact inline context before every
+   question or coherent question group. Ground conclusions in repository
+   evidence; do not turn the concern inventory into a questionnaire.
 5. For No impact, preserve the concise reason in the README. For External,
    record the stable destination and the local implication without inventing
    external completion.

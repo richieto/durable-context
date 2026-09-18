@@ -25,6 +25,7 @@ impacts: `Material`, `No impact`, `External`, `Introduced`, or `TBD`.
 | Product behavior | Unknown | TBD | TBD | `spec.md` |
 | Interface | Unknown | TBD | TBD | `interface.md` |
 | Architecture and data | Unknown | TBD | TBD | `architecture.md` |
+| Security | Unknown | TBD | TBD | `security.md` |
 | Testing | Unknown | TBD | TBD | `testing.md` |
 | Delivery | Unknown | TBD | TBD | `delivery.md` |
 | Infrastructure and configuration | Unknown | TBD | TBD | `infrastructure.md` |

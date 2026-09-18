@@ -53,7 +53,8 @@ release diff to documentation pages.
 
 Use this section when creating first-pass documentation for an existing
 project. List stable workflows, important entry points, source references,
-known gaps, and questions that should not yet appear in product-facing docs.
+and known evidence gaps that should not appear as accepted behavior in
+product-facing docs. Do not invent common questions, FAQs, or answers.
 
 ## Terminology
 

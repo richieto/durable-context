@@ -47,14 +47,18 @@ recorded, only its dependent work is blocked until a human concludes Retain,
 Revise, Replace, or Accept Risk.
 
 Detailed Design confirms each concern as Local, External, Hybrid, or Not
-applicable before creating documents. `backlog.md` is a bounded trace of work
-inside the initiative. `follow-up.md` records work handed elsewhere and is
-created only when needed. PR readiness requires each follow-up to be completed,
-transferred, or explicitly transfer-waived by a human; the destination system
-owns transferred work.
+applicable before creating documents. Material security, privacy, abuse, or
+compliance work receives its own optional `security.md`; no security file is
+created when a concise Not applicable reason is sufficient. `backlog.md` is a
+bounded trace of work inside the initiative. `follow-up.md` records work handed
+elsewhere and is created only when needed. PR readiness requires each follow-up
+to be completed, transferred, or explicitly transfer-waived by a human; the
+destination system owns transferred work.
 
 When repository evidence cannot settle human intent, the skills pause at the
-current boundary and ask focused, decision-bearing questions. They preserve the
+current boundary and ask focused, decision-bearing questions. Each question
+repeats the minimum relevant evidence and current interpretation inline so the
+human does not need to read scaffold files first. The skills preserve the
 result, not the conversation: artifacts keep the minimum information needed to
 resume or understand the work—conclusions, rationale and constraints, evidence,
 material unknowns, and the next action—without transcripts or routine narration.

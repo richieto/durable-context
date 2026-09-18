@@ -91,6 +91,22 @@ test('enforces confirmed local routes without requiring N/A documents', async ()
   assert.equal((await runValidator(root)).code, 0);
 });
 
+test('requires security.md only when security has a local route', async () => {
+  const root = await createInitiative({
+    phase: 'Detailed Design',
+    routing: 'Confirmed',
+    routeOverrides: {
+      Security: ['Local', '`security.md`', '—', 'Material security impact', 'Yes']
+    }
+  });
+
+  const missing = await runValidator(root);
+  assert.equal(missing.code, 1);
+  assert.match(missing.stderr, /security\.md.*missing/);
+  await writeFile(path.join(root, 'security.md'), '# Security\n');
+  assert.equal((await runValidator(root)).code, 0);
+});
+
 test('requires follow-ups to be closed, transferred, or validly waived at PR readiness', async () => {
   const root = await createInitiative({
     phase: 'PR Preparation',
@@ -188,6 +204,7 @@ async function createInitiative({
       ['Specification', 'Not applicable', '`spec.md`', '—', 'Not needed', 'No'],
       ['Interface', 'Not applicable', '`interface.md`', '—', 'Not needed', 'No'],
       ['Architecture', 'Not applicable', '`architecture.md`', '—', 'Not needed', 'No'],
+      ['Security', 'Not applicable', '`security.md`', '—', 'Not needed', 'No'],
       ['Testing', 'Not applicable', '`testing.md`', '—', 'Not needed', 'No'],
       ['Delivery', 'Not applicable', '`delivery.md`', '—', 'Not needed', 'No'],
       ['Infrastructure', 'Not applicable', '`infrastructure.md`', '—', 'Not needed', 'No'],

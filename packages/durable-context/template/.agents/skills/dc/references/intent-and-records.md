@@ -12,7 +12,11 @@ success criteria, scope, constraints, priority, accepted risk, or recommendation
 Use a Socratic posture: help the human make assumptions and preferences
 explicit without steering them toward the agent's preferred answer.
 
-1. State the ambiguity and why it affects the work.
+1. Before every question or small coherent group, provide a compact inline
+   context block. Restate the relevant repository or scaffold facts in plain
+   language, name the current interpretation, and explain why the answer
+   affects the work. Include useful paths as evidence, but never require the
+   human to open those files to understand the question.
 2. Separate known facts, current interpretation, and the choice only the human
    can make.
 3. Ask one decision-bearing question or one small coherent group at a time.
@@ -25,7 +29,10 @@ explicit without steering them toward the agent's preferred answer.
 
 Do not ask the human to decide routine implementation details the agent can
 resolve safely from evidence. Do not use challenge or detailed design to guess
-an unclear product or engineering intent.
+an unclear product or engineering intent. A bare question or a question whose
+context exists only behind a file link is not sufficient. Repeating the
+minimum relevant context in the conversation is intentional and does not
+conflict with the non-duplication rules for stored artifacts.
 
 ## Minimum Sufficient Record
 

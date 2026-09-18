@@ -41,7 +41,8 @@ their evidence change.
 Every Present or External concern is evaluated for meaningful work. Material
 concerns receive focused documents and separate reasoning passes before
 implementation. No-impact concerns retain a concise reason instead of an empty
-file.
+file. Security is evaluated independently and receives `security.md` only when
+its security, privacy, abuse, or compliance impact is Material or Introduced.
 
 ## Lightweight Continuity
 
@@ -59,10 +60,12 @@ routing, transfer states, or PR-readiness validator.
 initiative, separating Observed, Human-confirmed, Inferred, and Unknown facts.
 
 When repository evidence cannot settle human intent, the skills ask focused,
-decision-bearing questions before choosing a direction. They preserve the
-result, not the conversation: artifacts keep the minimum information needed to
-resume or understand the work—conclusions, rationale and constraints, evidence,
-material unknowns, and the next action—without transcripts or routine narration.
+decision-bearing questions before choosing a direction. Each question repeats
+the minimum relevant evidence and current interpretation inline so the human
+does not need to read scaffold files first. The skills preserve the result, not
+the conversation: artifacts keep the minimum information needed to resume or
+understand the work—conclusions, rationale and constraints, evidence, material
+unknowns, and the next action—without transcripts or routine narration.
 
 ## Invocation-Only Skills
 

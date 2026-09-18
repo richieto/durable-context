@@ -13,6 +13,10 @@ const exactFilePairs = [
   [
     'template/context/_templates/initiative/plan.md',
     'template/.agents/skills/dc/assets/initiative/plan.md'
+  ],
+  [
+    'template/context/_templates/initiative/security.md',
+    'template/.agents/skills/dc/assets/initiative/security.md'
   ]
 ];
 

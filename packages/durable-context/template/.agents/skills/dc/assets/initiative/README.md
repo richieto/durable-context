@@ -38,6 +38,7 @@ Confirm this table during detailed design. Create local documents only for
 | Specification | TBD | `spec.md` | — | TBD | TBD |
 | Interface | TBD | `interface.md` | — | TBD | TBD |
 | Architecture | TBD | `architecture.md` | — | TBD | TBD |
+| Security | TBD | `security.md` | — | TBD | TBD |
 | Testing | TBD | `testing.md` | — | TBD | TBD |
 | Delivery | TBD | `delivery.md` | — | TBD | TBD |
 | Infrastructure | TBD | `infrastructure.md` | — | TBD | TBD |

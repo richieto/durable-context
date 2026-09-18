@@ -40,6 +40,7 @@ introduces it.
 | Product behavior | Unknown | | Always evaluate | `spec.md` |
 | Interface | Unknown | | Always evaluate | `interface.md` |
 | Architecture and data | Unknown | | Always evaluate | `architecture.md` |
+| Security | Unknown | | Always evaluate | `security.md` |
 | Testing | Unknown | | Always evaluate | `testing.md` |
 | Delivery | Unknown | | Always evaluate | `delivery.md` |
 | Infrastructure and configuration | Unknown | | Always evaluate | `infrastructure.md` |

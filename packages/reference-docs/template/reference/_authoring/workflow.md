@@ -149,6 +149,8 @@ changes the documentation scope or claim. Do not save the map under
 
 ## What Not To Document
 
+- Invented FAQs, common questions, reader concerns, or answers that are not
+  supported by source evidence or explicitly supplied by the human.
 - Private helpers or implementation details that can change without reader or
   operator impact.
 - Generated API reference or inline documentation that should be linked.
@@ -159,7 +161,7 @@ changes the documentation scope or claim. Do not save the map under
 ## Completion Criteria
 
 A reference task is complete when its scope and reference point are recorded,
-claims are source-backed, existing project work is preserved, open questions
-and conflicting evidence are not presented as accepted behavior, release
-history is current when applicable, and the final summary reports pages
-changed and validation run.
+claims are source-backed, existing project work is preserved, unresolved
+evidence gaps and conflicts are not presented as accepted behavior, release
+history is current when applicable, and the final summary reports pages changed
+and validation run.

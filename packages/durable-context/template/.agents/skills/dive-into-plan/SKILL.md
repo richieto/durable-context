@@ -20,10 +20,11 @@ the human intentionally enters Detailed Design directly.
 3. Read [the intent and record protocol](../dc/references/intent-and-records.md).
    Return to Planning if goal or intent is still unsettled. Otherwise ask
    pointed, decision-bearing questions only for material or ambiguous behavior,
-   interface, architecture, tests/e2e, data/security, IaC, CI/CD,
+   interface, architecture, tests/e2e, data, security, IaC, CI/CD,
    configuration, operations, rollback, project-profile, decision, and
-   reference/release impact. Do not turn the whole change surface into a
-   questionnaire.
+   reference/release impact. Give the protocol's compact inline context before
+   every question or coherent question group. Do not turn the whole change
+   surface into a questionnaire.
 4. Record conclusions and unresolved questions in their owning artifacts, not
    the interview transcript. Do not manufacture answers for unavailable
    external systems or people.
@@ -35,7 +36,9 @@ the human intentionally enters Detailed Design directly.
 2. Use `Local`, `External`, `Hybrid`, or `Not applicable`. Record a reason,
    local path, external destination/evidence, and merge-blocking status.
 3. Create a concern document only for Local or Hybrid routes, using the
-   project-owned templates when present. Do not create empty N/A files.
+   project-owned templates when present and the managed skill asset otherwise.
+   Route material security, privacy, abuse, or compliance work to
+   `security.md`. Do not create empty N/A files.
 4. For external work the agent cannot perform, create a structured follow-up;
    never claim completion without evidence.
 5. Mark artifact routing `Confirmed` only when every concern has a settled

@@ -28,8 +28,9 @@ dispositions, links, and unresolved contradictions. Move settled detailed truth
 to the focused document that owns it.
 
 After individual passes, perform a synthesis pass across behavior, interface,
-architecture, testing, delivery, infrastructure, operations, and release-doc
-impact. Resolve contradictions and sequencing dependencies before coding.
+architecture, security, testing, delivery, infrastructure, operations, and
+release-doc impact. Resolve contradictions and sequencing dependencies before
+coding.
 
 Do not use document length as the only signal. A short plan can still hide
 several independent topics, while a long narrative may describe only one.

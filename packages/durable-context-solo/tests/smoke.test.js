@@ -92,6 +92,7 @@ test('init installs the default cycle scaffold and decision log', async () => {
   assert.equal(profile.match(/^- Current cycle:/gm)?.length, 1);
   assert.match(profile, /## Concern Inventory/);
   assert.match(profile, /Every Present or External concern/);
+  assert.match(profile, /\| Security \| Unknown .* `security\.md` \|/);
   assert.doesNotMatch(profile, /PROJECT_NAME/);
 
   const backlog = await readFile(
@@ -107,6 +108,7 @@ test('init installs the default cycle scaffold and decision log', async () => {
   );
   assert.match(initiativeTemplate, /<!-- durable-context-solo:resume:start -->/);
   assert.match(initiativeTemplate, /## Concern Evaluation/);
+  assert.match(initiativeTemplate, /\| Security \| Unknown \| TBD .* `security\.md` \|/);
   assert.equal(
     initiativeTemplate,
     await readFile(
@@ -124,6 +126,27 @@ test('init installs the default cycle scaffold and decision log', async () => {
     /\| Observable behavior \| Source, test, or configuration evidence \| Candidate reference page \| Disposition \|/
   );
   assert.match(releaseNotesTemplate, /`Candidate`, `Unresolved`, and `Excluded`/);
+
+  const securityTemplate = await readFile(
+    path.join(target, 'context/_templates/initiative/security.md'),
+    'utf8'
+  );
+  assert.match(securityTemplate, /Use this file only when .* material security/);
+  assert.match(securityTemplate, /## Threats And Abuse Cases/);
+  assert.equal(
+    securityTemplate,
+    await readFile(
+      path.join(target, '.agents/skills/dc/assets/initiative/security.md'),
+      'utf8'
+    )
+  );
+
+  const architectureTemplate = await readFile(
+    path.join(target, 'context/_templates/initiative/architecture.md'),
+    'utf8'
+  );
+  assert.match(architectureTemplate, /## Security-Relevant Boundaries/);
+  assert.match(architectureTemplate, /Keep threat analysis.*in `security\.md`/s);
 
   const metadata = JSON.parse(
     await readFile(path.join(target, '.durable-context-solo/install.json'), 'utf8')
@@ -418,7 +441,10 @@ test('skills preserve profiling, focused distribution, lightweight state, and di
   assert.match(challenge, /steelman the exact recommendation/);
   assert.match(dive, /one concern at a time/);
   assert.match(dive, /do not turn the concern\s+inventory into a questionnaire/);
+  assert.match(dive, /compact inline context before every\s+question/);
   assert.match(intentProtocol, /Use a Socratic posture/);
+  assert.match(intentProtocol, /never require the\s+human to open those files/);
+  assert.match(intentProtocol, /A bare question[\s\S]*is not sufficient/);
   assert.match(dive, /synthesis pass/);
   assert.match(dive, /directly as the next self-contained root ADR/);
   assert.match(backfill, /Observed, Human-confirmed, Inferred, and Unknown/);

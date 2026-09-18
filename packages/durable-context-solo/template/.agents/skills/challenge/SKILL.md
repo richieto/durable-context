@@ -22,7 +22,8 @@ human intentionally invokes this pass.
    return to planning when human intent is not settled enough to challenge fairly.
 4. Use decision-bearing questions to expose the strongest objection, hidden
    assumption, non-obvious failure mode, and cheaper, simpler, or more
-   reversible alternative before stating the critique.
+   reversible alternative before stating the critique. Give the protocol's
+   compact inline context before every question or coherent question group.
 5. If there is no material challenge, explain why briefly.
 6. If material, discuss the impact with the human. The critique is advice, not
    authority.

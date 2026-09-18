@@ -35,8 +35,11 @@ test('installed skills encode the front-door, backfill, review, and routing scen
   assert.match(planning, /intent and record protocol/);
   assert.match(planning, /conclusions rather than the interview transcript/);
   assert.match(challenge, /steelman the exact recommendation or decision/);
-  assert.match(dive, /Do not turn the whole change surface into a\s+questionnaire/);
+  assert.match(dive, /Do not turn the whole change\s+surface into a questionnaire/);
+  assert.match(dive, /compact inline context before\s+every question/);
   assert.match(intentProtocol, /Use a Socratic posture/);
+  assert.match(intentProtocol, /never require the\s+human to open those files/);
+  assert.match(intentProtocol, /A bare question[\s\S]*is not sufficient/);
   assert.match(backfill, /Observed:/);
   assert.match(backfill, /Human-confirmed:/);
   assert.match(backfill, /Do not fabricate completed/);
@@ -123,6 +126,7 @@ test('init installs the default cycle scaffold and decision log', async () => {
     'utf8'
   );
   assert.match(initiativeTemplate, /<!-- durable-context:lifecycle:start -->/);
+  assert.match(initiativeTemplate, /\| Security \| TBD \| `security\.md` \|/);
   assert.match(initiativeTemplate, /\| Operations \| TBD \|/);
   assert.equal(
     initiativeTemplate,
@@ -141,6 +145,27 @@ test('init installs the default cycle scaffold and decision log', async () => {
     /\| Observable behavior \| Source, test, or configuration evidence \| Candidate reference page \| Disposition \|/
   );
   assert.match(releaseNotesTemplate, /`Candidate`, `Unresolved`, and `Excluded`/);
+
+  const securityTemplate = await readFile(
+    path.join(target, 'context/_templates/initiative/security.md'),
+    'utf8'
+  );
+  assert.match(securityTemplate, /Use this file only when .* material security/);
+  assert.match(securityTemplate, /## Threats And Abuse Cases/);
+  assert.equal(
+    securityTemplate,
+    await readFile(
+      path.join(target, '.agents/skills/dc/assets/initiative/security.md'),
+      'utf8'
+    )
+  );
+
+  const architectureTemplate = await readFile(
+    path.join(target, 'context/_templates/initiative/architecture.md'),
+    'utf8'
+  );
+  assert.match(architectureTemplate, /## Security-Relevant Boundaries/);
+  assert.match(architectureTemplate, /Keep threat analysis.*in `security\.md`/s);
 
   const profile = await readFile(path.join(target, 'context/project-profile.md'), 'utf8');
   assert.match(profile, /Project: Planning App/);

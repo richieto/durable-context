@@ -19,6 +19,22 @@ const exactFilePairs = [
   [
     'template/context/_templates/initiative/release-doc-notes.md',
     '../durable-context-solo/template/context/_templates/initiative/release-doc-notes.md'
+  ],
+  [
+    'template/context/_templates/initiative/security.md',
+    '../durable-context-solo/template/context/_templates/initiative/security.md'
+  ],
+  [
+    'template/context/_templates/initiative/architecture.md',
+    '../durable-context-solo/template/context/_templates/initiative/architecture.md'
+  ],
+  [
+    'template/context/_templates/initiative/security.md',
+    'template/.agents/skills/dc/assets/initiative/security.md'
+  ],
+  [
+    'template/.agents/skills/dc/assets/initiative/security.md',
+    '../durable-context-solo/template/.agents/skills/dc/assets/initiative/security.md'
   ]
 ];
 

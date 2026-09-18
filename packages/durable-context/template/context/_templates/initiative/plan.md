@@ -33,8 +33,10 @@ TBD
 
 ## Change Surface
 
-Cover applicable code, tests, e2e, IaC, CI/CD, configuration, operations,
-security/data, project-profile impact, decision impact, and reference impact.
+Cover applicable code, tests, e2e, interfaces, data, security, IaC, CI/CD,
+configuration, operations, project-profile impact, decision impact, and
+reference impact. Route material security work to `security.md`; do not create
+that file when a concise Not applicable reason is sufficient.
 
 ## Notes To Distribute
 

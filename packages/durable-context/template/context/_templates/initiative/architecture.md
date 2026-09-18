@@ -34,10 +34,11 @@ contracts affected by the initiative.
 Describe ownership boundaries, shared layers, external dependencies, and
 what this initiative must not take over.
 
-## Security And Compliance
+## Security-Relevant Boundaries
 
-Capture authentication, authorization, data residency, audit, privacy,
-secret handling, and abuse cases.
+Identify trust boundaries, privileged components, identity flows, and
+sensitive data paths. Keep threat analysis, control choices, residual risk,
+and security verification in `security.md` when that concern is material.
 
 ## Test Strategy
 

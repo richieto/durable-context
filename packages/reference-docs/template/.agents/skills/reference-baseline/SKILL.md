@@ -17,6 +17,9 @@ Documentation only. Do not change executable behavior.
   disputed, planned, or future behavior out of product-facing reference pages.
 - Use source-backed facts and extend existing documentation instead of
   replacing it wholesale.
+- Do not invent FAQs, common questions, reader concerns, or answers. Include a
+  question-and-answer section only when explicit source evidence or the human
+  request supplies the questions and accepted answers.
 - When present, `context/project-profile.md` may help locate commands, source
   roots, infrastructure, observability, and generated artifacts. Reference
   documentation does not depend on durable-context.
@@ -42,5 +45,6 @@ Documentation only. Do not change executable behavior.
 
 - Scope and reference point are recorded.
 - Pages are source-backed, product-readable, and cover the requested behavior.
-- Open questions are clearly separated from accepted behavior.
-- The final summary lists pages changed, unresolved questions, and checks run.
+- Unresolved evidence gaps are reported separately from accepted behavior.
+- The final summary lists pages changed, unresolved evidence gaps, and checks
+  run.

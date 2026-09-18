@@ -39,13 +39,15 @@ human intentionally enters Planning directly.
    constraints, options, trade-offs, and open questions. Reflect the emerging
    interpretation for correction and ask only decision-bearing questions.
 3. Cover or disposition the applicable change surface: application code,
-   tests/e2e, interfaces, data/security, IaC, CI/CD, configuration, operations,
+   tests/e2e, interfaces, data, security, IaC, CI/CD, configuration, operations,
    rollback, project-profile impact, ADR impact, and reference/release impact.
 4. Consider an ADR only for architecturally significant choices crossing
    boundaries, having credible alternatives, or being costly to reverse.
 5. Keep the minimum sufficient settled planning truth in `plan.md`; preserve
    conclusions rather than the interview transcript. Do not create concern
    documents until artifact routing is confirmed during `dive-into-plan`.
+   Security is an independent optional route: create `security.md` only when
+   the concern is Local or Hybrid, never as a mandatory empty document.
 
 ## Handoff
 

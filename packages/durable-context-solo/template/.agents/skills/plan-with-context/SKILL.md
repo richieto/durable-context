@@ -28,7 +28,8 @@ Prefer `dc` unless the human intentionally enters planning.
 4. Copy profile presence into the initiative Concern Evaluation. Evaluate every
    Present or External concern; check whether the initiative Introduces any
    Absent concern. Use Material, No impact, External, Introduced, or TBD with
-   evidence or reason.
+   evidence or reason. Treat security as its own concern and propose
+   `security.md` only when its impact is Material or Introduced.
 5. Propose focused documents for Material and Introduced concerns. Discuss the
    proposed decomposition with the human before creating files. Do not use plan
    length as the only signal.

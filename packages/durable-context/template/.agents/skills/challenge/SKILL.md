@@ -24,7 +24,8 @@ unless the human intentionally enters Plan Review directly.
    not settled enough to challenge fairly.
 4. Use decision-bearing questions to expose its strongest objection, hidden
    assumption, non-obvious failure mode, and cheaper, simpler, or more
-   reversible alternative before stating the critique.
+   reversible alternative before stating the critique. Give the protocol's
+   compact inline context before every question or coherent question group.
 5. If there is no material challenge, explain why the current direction is the
    best available option. For lifecycle-managed work, set Plan review to
    `No material challenge` and checkpoint.
