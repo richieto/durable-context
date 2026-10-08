@@ -19,6 +19,9 @@ intentionally enters this stage directly.
 2. Read the nearest `AGENTS.md`, project profile, relevant accepted decisions,
    and the lifecycle protocol at
    `../checkpoint-context/references/lifecycle.md`.
+   Read [the intent and record protocol](../dc/references/intent-and-records.md)
+   completely and follow it when confirming recovered intent or trade-offs,
+   including on direct invocation.
 3. Establish the comparison base from explicit user direction or repository
    upstream/default-branch evidence. Inspect the merge-base, committed and
    uncommitted diff, tests, configuration, infrastructure, and relevant history.

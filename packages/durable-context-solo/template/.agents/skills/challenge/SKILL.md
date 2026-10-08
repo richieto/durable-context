@@ -16,7 +16,9 @@ human intentionally invokes this pass.
    human to run the latest package `update`.
 2. Read the named initiative plan, relevant focus documents, project profile,
    accepted decisions, and repository evidence.
-3. Read [the intent and record protocol](../dc/references/intent-and-records.md).
+3. Read [the intent and record protocol](../dc/references/intent-and-records.md)
+   completely and follow it for every intent question, including on direct
+   invocation.
    Identify and steelman the exact recommendation, rationale, and constraints.
    Ask focused clarification questions first when the target is ambiguous;
    return to planning when human intent is not settled enough to challenge fairly.

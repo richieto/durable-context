@@ -17,7 +17,9 @@ unless the human intentionally enters Plan Review directly.
 2. Read the named initiative README, plan, relevant concern documents, nearest
    `AGENTS.md`, project profile, decisions, and the lifecycle protocol at
    `../checkpoint-context/references/lifecycle.md` when lifecycle-managed.
-3. Read [the intent and record protocol](../dc/references/intent-and-records.md).
+3. Read [the intent and record protocol](../dc/references/intent-and-records.md)
+   completely and follow it for every intent question, including on direct
+   invocation.
    Identify and steelman the exact recommendation or decision being challenged,
    including its rationale and constraints. Ask focused clarification questions
    first when the target is ambiguous; return to Planning when human intent is

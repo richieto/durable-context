@@ -17,7 +17,9 @@ the human intentionally enters Detailed Design directly.
 2. Read the initiative README and plan, nearest `AGENTS.md`, project profile,
    relevant accepted/local decisions, and the lifecycle protocol at
    `../checkpoint-context/references/lifecycle.md` when lifecycle-managed.
-3. Read [the intent and record protocol](../dc/references/intent-and-records.md).
+3. Read [the intent and record protocol](../dc/references/intent-and-records.md)
+   completely and follow it for every intent question, including on direct
+   invocation.
    Return to Planning if goal or intent is still unsettled. Otherwise ask
    pointed, decision-bearing questions only for material or ambiguous behavior,
    interface, architecture, tests/e2e, data, security, IaC, CI/CD,

@@ -20,7 +20,9 @@ Protect reasoning focus by working one concern at a time. Prefer
 3. Confirm that every profiled concern has Material, No impact, External, or
    Introduced disposition. Return TBD and unexplained Unknown entries to
    planning.
-4. Read [the intent and record protocol](../dc/references/intent-and-records.md).
+4. Read [the intent and record protocol](../dc/references/intent-and-records.md)
+   completely and follow it for every intent question, including on direct
+   invocation.
    Return to planning if goal or intent remains unsettled. For each Material or
    Introduced concern, create its focused document and interrogate only its
    decision-bearing ambiguity: behavior, interface, architecture/data, security,

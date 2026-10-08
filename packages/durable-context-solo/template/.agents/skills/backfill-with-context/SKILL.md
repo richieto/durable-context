@@ -18,6 +18,9 @@ enters backfill directly.
    latest package `update`.
 2. Read `context/project-profile.md`, relevant accepted decisions, and
    [the evidence rules](references/evidence.md).
+   Read [the intent and record protocol](../dc/references/intent-and-records.md)
+   completely and follow it when confirming recovered intent or trade-offs,
+   including on direct invocation.
 3. Establish the comparison base from explicit human direction or repository
    upstream/default-branch evidence. Inspect the merge-base, committed and
    uncommitted diff, tests, configuration, infrastructure, and relevant history.

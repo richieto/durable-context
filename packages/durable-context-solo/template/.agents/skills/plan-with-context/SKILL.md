@@ -20,7 +20,9 @@ Prefer `dc` unless the human intentionally enters planning.
    relevant accepted decisions, initiative README, and plan.
 2. If the Concern Inventory is materially Unknown, establish or refresh the
    profile instead of rediscovering capabilities only for this initiative.
-3. Read [the intent and record protocol](../dc/references/intent-and-records.md).
+3. Read [the intent and record protocol](../dc/references/intent-and-records.md)
+   completely and follow it for every intent question, including on direct
+   invocation.
    When intent is unsettled, interview the human before recommending a
    direction. Settle goal, success criteria, scope, constraints, recommendation,
    options, trade-offs, open questions, and implementation outline. Reflect the

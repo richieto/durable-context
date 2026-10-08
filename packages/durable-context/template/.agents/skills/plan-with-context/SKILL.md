@@ -31,7 +31,9 @@ human intentionally enters Planning directly.
 
 ## Plan
 
-1. Read [the intent and record protocol](../dc/references/intent-and-records.md).
+1. Read [the intent and record protocol](../dc/references/intent-and-records.md)
+   completely and follow it for every intent question, including on direct
+   invocation.
    Use the agent's native planning capability and ground claims in repository
    evidence. Do not guess.
 2. When intent is unsettled, interview the human before recommending a

@@ -10,7 +10,7 @@ repository can answer.
 Use an intent interview when an answer could materially change the goal,
 success criteria, scope, constraints, priority, accepted risk, or recommendation.
 Use a Socratic posture: help the human make assumptions and preferences
-explicit without steering them toward the agent's preferred answer.
+explicit. Ground recommendations in evidence and leave the choice to the human.
 
 1. Before every question or small coherent group, provide a compact inline
    context block. Restate the relevant repository or scaffold facts in plain
@@ -20,8 +20,12 @@ explicit without steering them toward the agent's preferred answer.
 2. Separate known facts, current interpretation, and the choice only the human
    can make.
 3. Ask one decision-bearing question or one small coherent group at a time.
-4. Offer concrete options or examples when they help the human express intent,
-   without implying that the list is exhaustive or that one option is assumed.
+4. Explain each realistic option in concrete operational terms, including its
+   relevant consequences and trade-offs. When evidence supports a
+   recommendation, state it clearly and explain why. Identify the safe default
+   when one exists. Do not imply that the options are exhaustive or that the
+   human has already chosen one. Do not ask the human to approve an abstract
+   label or an unexplained yes/no proposition.
 5. Reflect the emerging interpretation back in plain language and invite
    correction.
 6. Stop interviewing when the direction is clear enough for the next boundary;
